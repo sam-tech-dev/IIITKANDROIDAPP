@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssverma.iiitkota">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,8 +24,13 @@
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Faculty_DetailedView"
-            android:label=""></activity>
+        <activity
+            android:name=".Faculty_DetailedView"
+            android:label="" />
+        <activity android:name=".Programs" />
+        <activity android:name=".NewsFeed" />
+        <activity android:name=".Seminar_Workshop" />
+        <activity android:name=".Map"></activity>
     </application>
 
 </manifest>

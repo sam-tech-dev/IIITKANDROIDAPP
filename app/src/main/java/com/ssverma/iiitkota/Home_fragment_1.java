@@ -42,7 +42,7 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity() , "Clicked : Item 1" , Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity() , Faculty_DetailedView.class));
+                //startActivity(new Intent(getActivity() , Faculty_DetailedView.class));
             }
         });
 
@@ -52,6 +52,14 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         TextView text2 = (TextView) itemHolder2.findViewById(R.id.home_tv_row_item);
         text2.setText("Programs");
 
+        LinearLayout row_iv_itemHolder2 = (LinearLayout) itemHolder2.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Programs.class));
+            }
+        });
 
         LinearLayout itemHolder3 = (LinearLayout) rootView.findViewById(R.id.home_row_item_three);
         ImageView icon3 = (ImageView) itemHolder3.findViewById(R.id.home_iv_row_item);
@@ -59,11 +67,31 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         TextView text3 = (TextView) itemHolder3.findViewById(R.id.home_tv_row_item);
         text3.setText("News Feed");
 
+
+        LinearLayout row_iv_itemHolder3 = (LinearLayout) itemHolder3.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , NewsFeed.class));
+            }
+        });
+
         LinearLayout itemHolder4 = (LinearLayout) rootView.findViewById(R.id.home_row_item_four);
         ImageView icon4 = (ImageView) itemHolder4.findViewById(R.id.home_iv_row_item);
         icon4.setImageResource(R.drawable.home_maps);
         TextView text4 = (TextView) itemHolder4.findViewById(R.id.home_tv_row_item);
         text4.setText("Map");
+
+        LinearLayout row_iv_itemHolder4 = (LinearLayout) itemHolder4.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Map.class));
+            }
+        });
+
 
         LinearLayout itemHolder5 = (LinearLayout) rootView.findViewById(R.id.home_row_item_five);
         ImageView icon5 = (ImageView) itemHolder5.findViewById(R.id.home_iv_row_item);
@@ -104,6 +132,16 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         icon9.setImageResource(R.drawable.home_seminar_workshop);
         TextView text9 = (TextView) itemHolder9.findViewById(R.id.home_tv_row_item);
         text9.setText("Seminars/Workshops");
+
+
+        LinearLayout row_iv_itemHolder9 = (LinearLayout) itemHolder9.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Seminar_Workshop.class));
+            }
+        });
 
 
         return rootView;
