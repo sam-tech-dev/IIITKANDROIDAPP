@@ -8,4 +8,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_faculty">Faculty</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="mytext">Members of university administration (e.g., department chairs, deans, vice presidents, presidents, and librarians) are often also faculty members, in many cases beginning (and remaining) as professors. In some universities, the distinction between \'academic faculty\' and \'administrative faculty\' is made explicit by the former being contracted for nine months per year, meaning that they can devote their time to research (and possibly be absent from the campus) during the summer months, while the latter are contracted for twelve months per year. These two types of faculty status are sometimes known as \'nine-month faculty\' and \'twelve-month faculty\'. Faculty who are paid a nine-month salary are typically allowed to seek external funds from grant agencies to partially or fully support their research activities during the summer months.</string>
 </resources>

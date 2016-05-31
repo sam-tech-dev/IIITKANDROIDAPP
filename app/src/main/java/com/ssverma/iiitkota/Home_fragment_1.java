@@ -1,6 +1,7 @@
 package com.ssverma.iiitkota;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,16 +36,26 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         TextView text1 = (TextView) itemHolder1.findViewById(R.id.home_tv_row_item);
         text1.setText("Registration");
 
+        LinearLayout row_iv_itemHolder1 = (LinearLayout) itemHolder1.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity() , "Clicked : Item 1" , Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity() , Faculty_DetailedView.class));
+            }
+        });
+
         LinearLayout itemHolder2 = (LinearLayout) rootView.findViewById(R.id.home_row_item_two);
         ImageView icon2 = (ImageView) itemHolder2.findViewById(R.id.home_iv_row_item);
-        icon2.setImageResource(R.drawable.home_programs);
+        icon2.setImageResource(R.drawable.home_alumni);
         TextView text2 = (TextView) itemHolder2.findViewById(R.id.home_tv_row_item);
         text2.setText("Programs");
 
 
         LinearLayout itemHolder3 = (LinearLayout) rootView.findViewById(R.id.home_row_item_three);
         ImageView icon3 = (ImageView) itemHolder3.findViewById(R.id.home_iv_row_item);
-        icon3.setImageResource(R.drawable.home_newsfeed);
+        icon3.setImageResource(R.drawable.home_news_feed);
         TextView text3 = (TextView) itemHolder3.findViewById(R.id.home_tv_row_item);
         text3.setText("News Feed");
 
@@ -56,7 +67,7 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
 
         LinearLayout itemHolder5 = (LinearLayout) rootView.findViewById(R.id.home_row_item_five);
         ImageView icon5 = (ImageView) itemHolder5.findViewById(R.id.home_iv_row_item);
-        icon5.setImageResource(R.drawable.home_about_us);
+        icon5.setImageResource(R.drawable.home_contact);
         TextView text5 = (TextView) itemHolder5.findViewById(R.id.home_tv_row_item);
         text5.setText("About IIITK");
 
@@ -68,19 +79,29 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
 
         LinearLayout itemHolder7 = (LinearLayout) rootView.findViewById(R.id.home_row_item_seven);
         ImageView icon7 = (ImageView) itemHolder7.findViewById(R.id.home_iv_row_item);
-        icon7.setImageResource(R.drawable.home_registration);
+        icon7.setImageResource(R.drawable.home_faculty);
         TextView text7 = (TextView) itemHolder7.findViewById(R.id.home_tv_row_item);
         text7.setText("Faculty");
 
+        LinearLayout row_iv_itemHolder7 = (LinearLayout) itemHolder7.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity() , "Clicked" , Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity() , Faculty.class));
+            }
+        });
+
         LinearLayout itemHolder8 = (LinearLayout) rootView.findViewById(R.id.home_row_item_eight);
         ImageView icon8 = (ImageView) itemHolder8.findViewById(R.id.home_iv_row_item);
-        icon8.setImageResource(R.drawable.home_registration);
+        icon8.setImageResource(R.drawable.home_gallery);
         TextView text8 = (TextView) itemHolder8.findViewById(R.id.home_tv_row_item);
         text8.setText("Gallery");
 
         LinearLayout itemHolder9 = (LinearLayout) rootView.findViewById(R.id.home_row_item_nine);
         ImageView icon9 = (ImageView) itemHolder9.findViewById(R.id.home_iv_row_item);
-        icon9.setImageResource(R.drawable.home_programs);
+        icon9.setImageResource(R.drawable.home_seminar_workshop);
         TextView text9 = (TextView) itemHolder9.findViewById(R.id.home_tv_row_item);
         text9.setText("Seminars/Workshops");
 
