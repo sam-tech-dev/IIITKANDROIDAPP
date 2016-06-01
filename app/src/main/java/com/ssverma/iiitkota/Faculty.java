@@ -3,7 +3,10 @@
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -135,8 +139,6 @@ import java.util.ArrayList;
 
         private ArrayList<FacultyWrapper> list;
 
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
-
         public PlaceholderFragment() {
         }
 
@@ -155,7 +157,7 @@ import java.util.ArrayList;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_faculty, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_faculty, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -178,7 +180,9 @@ import java.util.ArrayList;
                         e.printStackTrace();
                     }
 
+
                     fetchListFromServer(url , urlParameters);
+
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
@@ -253,9 +257,20 @@ import java.util.ArrayList;
             intent.putExtra("faculty_name" , list.get(position).getFaculty_name());
             intent.putExtra("faculty_email" , list.get(position).getFaculty_email());
             intent.putExtra("faculty_image_link" , list.get(position).getFaculty_imageLink());
-            intent.putExtra("tab_position" , Faculty.tab_position);
+<<<<<<< HEAD
+=======
+            intent.putExtra("faculty_qualification" , list.get(position).getFaculty_qualification());
+            intent.putExtra("faculty_research_area" , list.get(position).getFaculty_research_area());
+            intent.putExtra("faculty_hometown" , list.get(position).getFaculty_hometown());
+            intent.putExtra("faculty_summary" , list.get(position).getFaculty_summary());
+            intent.putExtra("faculty_designation" , list.get(position).getFaculty_designation());
 
-            startActivity(intent);
+>>>>>>> e54de424c1d46c1a68be9026720bff98826af2ec
+            intent.putExtra("tab_position" , Faculty.tab_position);
+            //ActivityOptionsCompat options = ActivityOptionsCompat.
+                    //makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.faculty_image), "profile");
+
+            startActivity(intent /*, options.toBundle()*/);
         }
 
         public class ServerAsync extends AsyncTask<String , Void , String>{
@@ -287,7 +302,6 @@ import java.util.ArrayList;
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
-
             }
 
             private ArrayList<FacultyWrapper> parseJSON(String response) {
@@ -300,9 +314,24 @@ import java.util.ArrayList;
 
                         FacultyWrapper faculty = new FacultyWrapper();
                         faculty.setFaculty_name(jsonObject.getString("Name"));
+<<<<<<< HEAD
                         faculty.setFaculty_email(jsonObject.getString("Email"));
                         faculty.setFaculty_department(jsonObject.getString("Department"));
                         faculty.setFaculty_imageLink(jsonObject.getString("Image"));
+=======
+                        faculty.setFaculty_id(jsonObject.getString("FacultyId"));
+                        faculty.setFaculty_email(jsonObject.getString("Email"));
+                        faculty.setDOB(jsonObject.getString("DateOfBirth"));
+                        faculty.setFaculty_department(jsonObject.getString("Department"));
+                        faculty.setFaculty_contact(jsonObject.getString("Contact"));
+                        faculty.setFaculty_imageLink(jsonObject.getString("Image"));
+                        faculty.setFaculty_qualification(jsonObject.getString("Qualification"));
+                        faculty.setFaculty_hometown(jsonObject.getString("Hometown"));
+                        faculty.setFaculty_designation(jsonObject.getString("Designation"));
+                        faculty.setFaculty_achievements(jsonObject.getString("Achievements"));
+                        faculty.setFaculty_summary(jsonObject.getString("Summary"));
+                        faculty.setFaculty_research_area(jsonObject.getString("ResearchAreas"));
+>>>>>>> e54de424c1d46c1a68be9026720bff98826af2ec
 
                         list.add(faculty);
                     }
