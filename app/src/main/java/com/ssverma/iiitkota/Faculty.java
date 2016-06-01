@@ -206,7 +206,7 @@ import java.util.ArrayList;
                     }
 
                     fetchListFromServer(url , urlParameters);
-
+                    Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
@@ -257,12 +257,15 @@ import java.util.ArrayList;
             intent.putExtra("faculty_name" , list.get(position).getFaculty_name());
             intent.putExtra("faculty_email" , list.get(position).getFaculty_email());
             intent.putExtra("faculty_image_link" , list.get(position).getFaculty_imageLink());
+<<<<<<< HEAD
+=======
             intent.putExtra("faculty_qualification" , list.get(position).getFaculty_qualification());
             intent.putExtra("faculty_research_area" , list.get(position).getFaculty_research_area());
             intent.putExtra("faculty_hometown" , list.get(position).getFaculty_hometown());
             intent.putExtra("faculty_summary" , list.get(position).getFaculty_summary());
             intent.putExtra("faculty_designation" , list.get(position).getFaculty_designation());
 
+>>>>>>> e54de424c1d46c1a68be9026720bff98826af2ec
             intent.putExtra("tab_position" , Faculty.tab_position);
             //ActivityOptionsCompat options = ActivityOptionsCompat.
                     //makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.faculty_image), "profile");
@@ -290,7 +293,7 @@ import java.util.ArrayList;
                 super.onPostExecute(response);
                 //progressDialog.dismiss();
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
                 list = parseJSON(response);
                 adapter = new Faculty_Adapter(getActivity() , list);
@@ -311,6 +314,11 @@ import java.util.ArrayList;
 
                         FacultyWrapper faculty = new FacultyWrapper();
                         faculty.setFaculty_name(jsonObject.getString("Name"));
+<<<<<<< HEAD
+                        faculty.setFaculty_email(jsonObject.getString("Email"));
+                        faculty.setFaculty_department(jsonObject.getString("Department"));
+                        faculty.setFaculty_imageLink(jsonObject.getString("Image"));
+=======
                         faculty.setFaculty_id(jsonObject.getString("FacultyId"));
                         faculty.setFaculty_email(jsonObject.getString("Email"));
                         faculty.setDOB(jsonObject.getString("DateOfBirth"));
@@ -323,6 +331,7 @@ import java.util.ArrayList;
                         faculty.setFaculty_achievements(jsonObject.getString("Achievements"));
                         faculty.setFaculty_summary(jsonObject.getString("Summary"));
                         faculty.setFaculty_research_area(jsonObject.getString("ResearchAreas"));
+>>>>>>> e54de424c1d46c1a68be9026720bff98826af2ec
 
                         list.add(faculty);
                     }

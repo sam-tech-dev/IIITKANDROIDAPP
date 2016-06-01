@@ -32,6 +32,7 @@
         <activity android:name=".NewsFeed" />
         <activity android:name=".Seminar_Workshop" />
         <activity android:name=".Map"></activity>
+        <activity android:name=".Program_DetailedView"></activity>
     </application>
 
 </manifest>
