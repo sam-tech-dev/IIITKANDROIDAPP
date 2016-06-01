@@ -32,6 +32,11 @@ public class Faculty_DetailedView extends AppCompatActivity implements AppBarLay
     private TextView faculty_name;
     private TextView faculty_email;
     private TextView faculty_name_toolbar;
+    private TextView faculty_qualification;
+    private TextView faculty_designation;
+    private TextView faculty_research_area;
+    private TextView faculty_hometown;
+    private TextView faculty_summary;
     private ImageView image_bg;
 
     private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
@@ -47,15 +52,27 @@ public class Faculty_DetailedView extends AppCompatActivity implements AppBarLay
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
         faculty_name = (TextView) findViewById(R.id.faculty_name_faculty_detailed);
-        faculty_email = (TextView) findViewById(R.id.faculty_designation_fd);
-        faculty_image = (CircleImageView) findViewById(R.id.faculty_detailed_faculty_image);
+        faculty_designation = (TextView) findViewById(R.id.faculty_designation_fd);
+        faculty_image = (CircleImageView) findViewById(R.id.faculty_image);
         faculty_name_toolbar = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
         image_bg = (ImageView) findViewById(R.id.imageView_background_faculty_detailed);
+        faculty_qualification = (TextView) findViewById(R.id.fd_qualifications);
+        faculty_email = (TextView) findViewById(R.id.fd_email);
+        faculty_research_area = (TextView) findViewById(R.id.fd_research_area);
+        faculty_hometown = (TextView) findViewById(R.id.fd_home_town);
+        faculty_summary = (TextView) findViewById(R.id.fd_other);
 
         faculty_name.setText(getIntent().getExtras().getString("faculty_name"));
         faculty_email.setText(getIntent().getExtras().getString("faculty_email"));
-        Picasso.with(getApplicationContext()).load(getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+        faculty_designation.setText(getIntent().getExtras().getString("faculty_designation"));
+        faculty_qualification.setText(getIntent().getExtras().getString("faculty_qualification"));
+        faculty_research_area.setText(getIntent().getExtras().getString("faculty_research_area"));
+        faculty_hometown.setText(getIntent().getExtras().getString("faculty_hometown"));
+        faculty_summary.setText(getIntent().getExtras().getString("faculty_summary"));
 
+        Picasso.with(getApplicationContext()).load(ServerContract.getFacultyImagesPath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+
+        //Toast.makeText(getApplicationContext() , getIntent().getExtras().getString("faculty_image_link") + "" , Toast.LENGTH_SHORT).show();
         faculty_name_toolbar.setText(getIntent().getExtras().getString("faculty_name"));
         image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
     }
