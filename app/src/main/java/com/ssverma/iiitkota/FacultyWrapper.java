@@ -45,4 +45,94 @@ public class FacultyWrapper {
 
     private String faculty_imageLink;
 
+    public String getFaculty_id() {
+        return faculty_id;
+    }
+
+    public void setFaculty_id(String faculty_id) {
+        this.faculty_id = faculty_id;
+    }
+
+    private String faculty_id;
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    private String DOB;
+
+    public String getFaculty_contact() {
+        return faculty_contact;
+    }
+
+    public void setFaculty_contact(String faculty_contact) {
+        this.faculty_contact = faculty_contact;
+    }
+
+    private String faculty_contact;
+
+    public String getFaculty_qualification() {
+        return faculty_qualification;
+    }
+
+    public void setFaculty_qualification(String faculty_qualification) {
+        this.faculty_qualification = faculty_qualification;
+    }
+
+    private String faculty_qualification;
+
+    public String getFaculty_hometown() {
+        return faculty_hometown;
+    }
+
+    public void setFaculty_hometown(String faculty_hometown) {
+        this.faculty_hometown = faculty_hometown;
+    }
+
+    private String faculty_hometown;
+
+    public String getFaculty_designation() {
+        return faculty_designation;
+    }
+
+    public void setFaculty_designation(String faculty_designation) {
+        this.faculty_designation = faculty_designation;
+    }
+
+    private String faculty_designation;
+
+    public String getFaculty_achievements() {
+        return faculty_achievements;
+    }
+
+    public void setFaculty_achievements(String faculty_achievements) {
+        this.faculty_achievements = faculty_achievements;
+    }
+
+    private String faculty_achievements;
+
+    public String getFaculty_summary() {
+        return faculty_summary;
+    }
+
+    public void setFaculty_summary(String faculty_summary) {
+        this.faculty_summary = faculty_summary;
+    }
+
+    private String faculty_summary;
+
+    public String getFaculty_research_area() {
+        return faculty_research_area;
+    }
+
+    public void setFaculty_research_area(String faculty_research_area) {
+        this.faculty_research_area = faculty_research_area;
+    }
+
+    private String faculty_research_area;
+
 }
