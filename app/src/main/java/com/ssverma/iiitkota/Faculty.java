@@ -202,7 +202,7 @@ import java.util.ArrayList;
                     }
 
                     fetchListFromServer(url , urlParameters);
-
+                    Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
@@ -253,7 +253,6 @@ import java.util.ArrayList;
             intent.putExtra("faculty_name" , list.get(position).getFaculty_name());
             intent.putExtra("faculty_email" , list.get(position).getFaculty_email());
             intent.putExtra("faculty_image_link" , list.get(position).getFaculty_imageLink());
-
             intent.putExtra("tab_position" , Faculty.tab_position);
 
             startActivity(intent);
@@ -279,7 +278,7 @@ import java.util.ArrayList;
                 super.onPostExecute(response);
                 //progressDialog.dismiss();
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
                 list = parseJSON(response);
                 adapter = new Faculty_Adapter(getActivity() , list);
@@ -300,10 +299,10 @@ import java.util.ArrayList;
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         FacultyWrapper faculty = new FacultyWrapper();
-                        faculty.setFaculty_name(jsonObject.getString("faculty_name"));
-                        faculty.setFaculty_email(jsonObject.getString("faculty_email"));
-                        faculty.setFaculty_department(jsonObject.getString("faculty_department"));
-                        faculty.setFaculty_imageLink(jsonObject.getString("faculty_image_link"));
+                        faculty.setFaculty_name(jsonObject.getString("Name"));
+                        faculty.setFaculty_email(jsonObject.getString("Email"));
+                        faculty.setFaculty_department(jsonObject.getString("Department"));
+                        faculty.setFaculty_imageLink(jsonObject.getString("Image"));
 
                         list.add(faculty);
                     }
