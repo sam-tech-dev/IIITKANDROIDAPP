@@ -164,25 +164,14 @@ public class Programs extends AppCompatActivity {
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            url = ServerContract.getProgramsPhpUrl();
 
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
 
                 case 0:
                     //CS - First Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getProgramUgGetList();
-
-                    try {
-                        urlParameters = "program_name=" + URLEncoder.encode("???", "UTF-8") +
-                                "&program_type=" + URLEncoder.encode("???", "UTF-8") +
-                                "&program_image=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_desc=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_seats=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_duration=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_eli=" + URLEncoder.encode("???", "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    urlParameters = "program=UG";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -193,7 +182,7 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
-                    Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
                      //  Log.d("EEEEEEEEEEEEEEEEE" , );
                     break;
 
@@ -202,19 +191,7 @@ public class Programs extends AppCompatActivity {
                 case 1:
                     //EE - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getProgramPgGetList();
-
-                    try {
-                        urlParameters =  "program_name=" + URLEncoder.encode("???", "UTF-8") +
-                                "&program_type=" + URLEncoder.encode("???", "UTF-8") +
-                                "&program_image=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_desc=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_seats=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_duration=" + URLEncoder.encode("???", "UTF-8")+
-                                "&program_eli=" + URLEncoder.encode("???", "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    urlParameters = "program=PG";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -276,7 +253,7 @@ public class Programs extends AppCompatActivity {
                 super.onPostExecute(response);
 
 
-                Toast.makeText(getActivity() , response + "" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
                 adapter = new Program_Adapter( getActivity() , list);
                 recyclerView.setAdapter(adapter);

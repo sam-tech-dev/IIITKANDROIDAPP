@@ -7,23 +7,6 @@ public class ServerContract {
 
     private static String SERVER_URL = "http://172.16.1.231/iiitk/android";
 
-    public static String getFACULTY_CS_PHP_URL() {
-        return FACULTY_CS_PHP_URL;
-    }
-
-    private static String FACULTY_CS_PHP_URL = SERVER_URL + "/cs_faculty.php";
-
-    public static String getFacultyEePhpUrl() {
-        return FACULTY_EE_PHP_URL;
-    }
-
-    private static String FACULTY_EE_PHP_URL = SERVER_URL + "/ece_faculty.php";
-    public static String getFacultyEcePhpUrl() {
-        return FACULTY_ECE_PHP_URL;
-    }
-
-    private static String FACULTY_ECE_PHP_URL = SERVER_URL + "/ece_faculty.php";
-
     public static String getSERVER_URL() {
         return SERVER_URL;
     }
@@ -52,7 +35,11 @@ public class ServerContract {
 
     private static String FACULTY_PHP_URL = SERVER_URL + "/faculty.php";
 
+    public static String getProgramsPhpUrl() {
+        return PROGRAMS_PHP_URL;
+    }
 
+    private static String PROGRAMS_PHP_URL = SERVER_URL + "/programs.php";
 
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
