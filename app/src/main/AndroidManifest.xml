@@ -31,7 +31,16 @@
         <activity android:name=".Programs" />
         <activity android:name=".NewsFeed" />
         <activity android:name=".Seminar_Workshop" />
+        <activity
+            android:name=".Gallery"
+            android:label="@string/title_activity_gallery"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".Gallery_Images"
+            android:label="@string/title_activity_gallery__images"
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".Map"></activity>
+        <activity android:name=".Program_DetailedView"></activity>
     </application>
 
 </manifest>
