@@ -208,7 +208,7 @@ import java.util.ArrayList;
                     //ECE - Third Tab
                     progressBar.setVisibility(View.VISIBLE);
 
-                    urlParameters = "dept=CS";
+                    urlParameters = "dept=ECE";
 
                     new ServerAsync().execute(url , urlParameters);
 
