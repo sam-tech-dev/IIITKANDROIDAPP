@@ -167,28 +167,23 @@ import java.util.ArrayList;
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
+            url = ServerContract.getFacultyPhpUrl();
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
                     //CS - First Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getFACULTY_CS_PHP_URL();
 
-                    try {
-                        urlParameters = "faculty_name=" + URLEncoder.encode("???", "UTF-8") +
-                                "&faculty_email=" + URLEncoder.encode("???", "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    urlParameters = "dept=CS";
 
-
-                    fetchListFromServer(url , urlParameters);
+                    new ServerAsync().execute(url , urlParameters);
 
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            new ServerAsync().execute(url , urlParameters);
                         }
                     });
 
@@ -196,44 +191,32 @@ import java.util.ArrayList;
                 case 1:
                     //EE - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getFacultyEePhpUrl();
 
-                    try {
-                        urlParameters = "faculty_name=" + URLEncoder.encode("???", "UTF-8") +
-                                "&faculty_email=" + URLEncoder.encode("???", "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    urlParameters = "dept=ECE";
 
-                    fetchListFromServer(url , urlParameters);
+                    new ServerAsync().execute(url , urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            new ServerAsync().execute(url , urlParameters);
                         }
                     });
                     break;
                 case 2:
                     //ECE - Third Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getFacultyEcePhpUrl();
 
-                    try {
-                        urlParameters = "faculty_name=" + URLEncoder.encode("???", "UTF-8") +
-                                "&faculty_email=" + URLEncoder.encode("???", "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    urlParameters = "dept=CS";
 
-                    fetchListFromServer(url , urlParameters);
+                    new ServerAsync().execute(url , urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            new ServerAsync().execute(url , urlParameters);
                         }
                     });
                     break;
@@ -244,11 +227,6 @@ import java.util.ArrayList;
             return rootView;
         }
 
-        private void fetchListFromServer(String url , String urlParameters) {
-
-            new ServerAsync().execute(url , urlParameters);
-
-        }
 
         @Override
         public void onRCVClick(View view, int position) {

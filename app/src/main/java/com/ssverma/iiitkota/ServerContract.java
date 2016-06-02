@@ -33,6 +33,27 @@ public class ServerContract {
     }
 
     private static String FACULTY_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
+
+    public static String getGalleryImagesPath() {
+        return GALLERY_IMAGES_PATH;
+    }
+
+    private static String GALLERY_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/gallery/";
+
+    public static String getGalleryPhpUrl() {
+        return GALLERY_PHP_URL;
+    }
+
+    private static String GALLERY_PHP_URL = SERVER_URL + "/gallery.php";
+
+    public static String getFacultyPhpUrl() {
+        return FACULTY_PHP_URL;
+    }
+
+    private static String FACULTY_PHP_URL = SERVER_URL + "/faculty.php";
+
+
+
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
 
