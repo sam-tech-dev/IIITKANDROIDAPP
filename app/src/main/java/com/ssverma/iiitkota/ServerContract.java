@@ -41,6 +41,10 @@ public class ServerContract {
 
     private static String PROGRAMS_PHP_URL = SERVER_URL + "/programs.php";
 
+    public static String getContactsPhpUrl() { return CONTACTS_PHP_URL; }
+
+    private static String CONTACTS_PHP_URL = SERVER_URL + "/contacts.php";
+
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
 

@@ -34,13 +34,15 @@
         <activity
             android:name=".Gallery"
             android:label="@string/title_activity_gallery"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Gallery_Images"
             android:label="@string/title_activity_gallery__images"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Map"></activity>
-        <activity android:name=".Program_DetailedView"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Map" />
+        <activity android:name=".Program_DetailedView" />
+        <activity android:name=".Contact" />
+        <activity android:name=".Departments"></activity>
     </application>
 
 </manifest>

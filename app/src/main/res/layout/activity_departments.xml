@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#f4f4f4" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/faculty_cs_"
+        android:layout_weight="1.0"
+        android:text="@string/contact"
+        android:paddingTop="@dimen/contact_paddingtop"
+        android:paddingLeft="@dimen/contact_paddingleft"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"/>
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_height="400dp"
+        android:layout_width="match_parent"/>
+
+</LinearLayout>
