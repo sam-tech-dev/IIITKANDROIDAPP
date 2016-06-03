@@ -15,4 +15,5 @@
     <!-- news items. -->
     <dimen name="news_image_detailed_height">400dp</dimen>
     <dimen name="news_title_textsize">20dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
 </resources>
