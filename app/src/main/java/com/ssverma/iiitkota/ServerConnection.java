@@ -12,10 +12,11 @@ import java.net.URL;
 public class ServerConnection {
 
     public static String obtainServerResponse(String _url , String urlParameters){
-        String s = _url;
+        String s = _url+"?"+urlParameters;
         BufferedReader bufferedReader = null;
         try {
             URL url = new URL(s);
+            System.out.println(s);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
 //            connection.setRequestProperty("Content-Type",

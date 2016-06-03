@@ -24,13 +24,20 @@
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".NewsFeed"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty_DetailedView"
             android:label="" />
         <activity android:name=".Programs" />
-        <activity android:name=".NewsFeed" />
+
         <activity android:name=".Seminar_Workshop" />
-        <activity android:name=".Map"></activity>
+        <activity android:name=".Map" />
+        <activity android:name=".NewsFeed_DetialedView"
+            android:label=""></activity>
     </application>
 
 </manifest>
