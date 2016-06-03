@@ -127,6 +127,15 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         TextView text8 = (TextView) itemHolder8.findViewById(R.id.home_tv_row_item);
         text8.setText("Gallery");
 
+        LinearLayout row_iv_itemHolder8 = (LinearLayout) itemHolder8.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Gallery.class));
+            }
+        });
+
         LinearLayout itemHolder9 = (LinearLayout) rootView.findViewById(R.id.home_row_item_nine);
         ImageView icon9 = (ImageView) itemHolder9.findViewById(R.id.home_iv_row_item);
         icon9.setImageResource(R.drawable.home_seminar_workshop);
