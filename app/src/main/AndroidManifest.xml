@@ -41,6 +41,10 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Map" />
         <activity android:name=".Program_DetailedView" />
+        <activity android:name=".Gallery_Detailed_View"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Map" />
+        <activity android:name=".Program_DetailedView" />
         <activity android:name=".Contact" />
         <activity android:name=".Departments"></activity>
     </application>

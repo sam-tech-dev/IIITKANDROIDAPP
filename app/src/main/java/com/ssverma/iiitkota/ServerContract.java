@@ -41,6 +41,18 @@ public class ServerContract {
 
     private static String PROGRAMS_PHP_URL = SERVER_URL + "/programs.php";
 
+    private static String GALLERY_ALBUM_THUMBNAIL_PATH = "http://172.16.1.231/iiitk/assets/images/gallery/";
+
+    public static String getGalleryAlbumThumbnailPath() {
+        return GALLERY_ALBUM_THUMBNAIL_PATH;
+    }
+
+    public static String getGalleryAlbumPhpUrl() {
+        return GALLERY_ALBUM_PHP_URL;
+    }
+
+    private static String GALLERY_ALBUM_PHP_URL = SERVER_URL + "/gallery_album.php";
+
     public static String getContactsPhpUrl() { return CONTACTS_PHP_URL; }
 
     private static String CONTACTS_PHP_URL = SERVER_URL + "/contacts.php";
