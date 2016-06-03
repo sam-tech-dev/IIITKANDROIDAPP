@@ -38,6 +38,17 @@
         <activity android:name=".Map" />
         <activity android:name=".NewsFeed_DetialedView"
             android:label=""></activity>
+        <activity
+            android:name=".Gallery"
+            android:label="@string/title_activity_gallery"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Gallery_Images"
+            android:label="@string/title_activity_gallery__images"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Map" />
+        <activity android:name=".Program_DetailedView" />
+        <activity android:name=".Gallery_Detailed_View"></activity>
     </application>
 
 </manifest>

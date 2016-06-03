@@ -253,7 +253,7 @@ public class Programs extends AppCompatActivity {
                 super.onPostExecute(response);
 
 
-                Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
                 adapter = new Program_Adapter( getActivity() , list);
                 recyclerView.setAdapter(adapter);
@@ -281,7 +281,7 @@ public class Programs extends AppCompatActivity {
                        // program.setProgram_fee(jsonObject.getInt("program_fee"));
                         program.setProgram_image(jsonObject.getString("Program_image"));
                         list.add(program);
-                        Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     //tv.setText("JSON E:" + e);

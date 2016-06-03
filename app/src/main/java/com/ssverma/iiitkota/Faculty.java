@@ -1,4 +1,4 @@
- package com.ssverma.iiitkota;
+package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -38,17 +38,17 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
- public class Faculty extends AppCompatActivity{
+public class Faculty extends AppCompatActivity{
 
 
-     private SectionsPagerAdapter mSectionsPagerAdapter;
-     private ViewPager mViewPager;
-     private TabLayout tabLayout;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private TabLayout tabLayout;
 
-     private KenBurnsView kenBurnsView;
+    private KenBurnsView kenBurnsView;
 
-     private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
-     static int tab_position;
+    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
