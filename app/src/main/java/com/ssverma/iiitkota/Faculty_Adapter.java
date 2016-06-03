@@ -48,7 +48,7 @@ public class Faculty_Adapter extends RecyclerView.Adapter<Faculty_Adapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.faculty_name.setText(listFaculty.get(position).getFaculty_name());
         holder.faculty_email.setText(listFaculty.get(position).getFaculty_email());
-        Picasso.with(context).load(listFaculty.get(position).getFaculty_imageLink()).into(holder.faculty_image);
+        Picasso.with(context).load(ServerContract.getFacultyImagesPath() + listFaculty.get(position).getFaculty_imageLink()).into(holder.faculty_image);
     }
 
     @Override
