@@ -1,6 +1,7 @@
 package com.ssverma.iiitkota;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,10 +49,11 @@ public class Gallery_Album_Adapter extends RecyclerView.Adapter<Gallery_Album_Ad
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+
         holder.album_name.setText(albumList.get(position).getAlbum_title());
         holder.no_of_images.setText(album_map.get(albumList.get(position).getAlbum_number()).size() + "  image(s)");
-        Picasso.with(context).load(ServerContract.getGalleryAlbumThumbnailPath() + albumList.get(position).getAlbum_number() + "/" + albumList.get(position).getAlbum_thumbnail()).resize(1000 , 500).placeholder(R.drawable.gallery_album_placeholder).into(holder.album_thumbnail);
+        Picasso.with(context).load(ServerContract.getGalleryAlbumThumbnailPath() + albumList.get(position).getAlbum_number() + "/" + albumList.get(position).getAlbum_thumbnail()).resize(1000,1000).placeholder(R.drawable.gallery_album_placeholder).into(holder.album_thumbnail);
         //Toast.makeText(context , ServerContract.getGalleryAlbumThumbnailPath() + albumList.get(position).getAlbum_number() + "/" + albumList.get(position).getAlbum_thumbnail() , Toast.LENGTH_LONG).show();
     }
 

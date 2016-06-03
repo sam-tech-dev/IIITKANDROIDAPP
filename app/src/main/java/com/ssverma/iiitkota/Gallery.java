@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,10 +26,14 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
     private RecyclerView recyclerView;
     private Gallery_Album_Adapter adapter;
+    private StaggeredGridLayoutManager layoutManager;
+
     private static HashMap<Integer , ArrayList<Gallery_Images_Wrapper>> album_map;
     private final int GALLERY_ALBUM_RETRIEVAL = 1;      // Use same AsyncTask for multiple network operations
     private final int GALLERY_IMAGES_RETRIEVAL = 2;
     private ArrayList<Gallery_Album_Wrapper> album_list;
+
+    private boolean isGrid = true;
 
     public static HashMap<Integer, ArrayList<Gallery_Images_Wrapper>> getAlbum_map() {
         return album_map;
@@ -43,17 +48,27 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        recyclerView = (RecyclerView) findViewById(R.id.gallery_recycler_view);
+        layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                if (isGrid){
+                    layoutManager.setSpanCount(1);
+                    isGrid = false;
+                    fab.setImageResource(R.drawable.linear_icon);
+                }else {
+                    layoutManager.setSpanCount(2);
+                    isGrid = true;
+                    fab.setImageResource(R.drawable.grid_icon);
+                }
             }
         });
-
-        recyclerView = (RecyclerView) findViewById(R.id.gallery_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(Gallery.this , 2));
 
         performServerOperation();
 
@@ -95,6 +110,8 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         Intent intent = new Intent(Gallery.this , Gallery_Images.class);
         intent.putExtra("album_number"  , album_list.get(position).getAlbum_number());
+        intent.putExtra("album_name"  , album_list.get(position).getAlbum_title());
+        intent.putExtra("album_summary"  , album_list.get(position).getAlbum_summary());
 
         startActivity(intent);
     }
