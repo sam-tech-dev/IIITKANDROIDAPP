@@ -131,7 +131,8 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         ImageView icon9 = (ImageView) itemHolder9.findViewById(R.id.home_iv_row_item);
         icon9.setImageResource(R.drawable.home_seminar_workshop);
         TextView text9 = (TextView) itemHolder9.findViewById(R.id.home_tv_row_item);
-        text9.setText("Seminars/Workshops");
+        //Added by-Dixit Chauhan      :03/06/2016
+        text9.setText("Events");
 
 
         LinearLayout row_iv_itemHolder9 = (LinearLayout) itemHolder9.findViewById(R.id.home_iv_row_item_holder);
@@ -139,7 +140,7 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         row_iv_itemHolder9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , Seminar_Workshop.class));
+                startActivity(new Intent(getActivity() , Events.class)); //Added by-Dixit Chauhan      :03/06/2016
             }
         });
 

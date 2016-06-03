@@ -15,8 +15,11 @@ import java.net.URL;
  */
 public class ServerConnection {
 
-    public static String obtainServerResponse(String _url , String urlParameters){
-        String s = _url;
+    public static String obtainServerResponse(String _url , String... urlParameters){
+        String s = _url+"?";
+        for(String param:urlParameters) {
+            s=s+param+"&";
+        }
         BufferedReader bufferedReader = null;
         try {
             URL url = new URL(s);
@@ -33,11 +36,11 @@ public class ServerConnection {
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream ());
-            wr.writeBytes (urlParameters);
-            wr.flush ();
-            wr.close ();
+//            DataOutputStream wr = new DataOutputStream(
+//                    connection.getOutputStream ());
+//           // wr.writeBytes (urlParameters);
+//            wr.flush ();
+//            wr.close ();
 
 
             bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

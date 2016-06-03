@@ -31,6 +31,12 @@
         <activity android:name=".Programs" />
         <activity android:name=".NewsFeed" />
         <activity android:name=".Seminar_Workshop" />
+
+        <!--Added by-Dixit Chauhan      :03/06/2016-->
+        <activity android:name=".Events"
+            android:label=""/>
+        <activity android:name=".EventsDetailedView"
+            android:label=""/>
         <activity android:name=".Map"></activity>
     </application>
 
