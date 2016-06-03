@@ -7,7 +7,8 @@
     tools:showIn="@layout/activity_gallery"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ssverma.iiitkota.Gallery">
+    tools:context="com.ssverma.iiitkota.Gallery"
+    android:background="@android:color/background_dark">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

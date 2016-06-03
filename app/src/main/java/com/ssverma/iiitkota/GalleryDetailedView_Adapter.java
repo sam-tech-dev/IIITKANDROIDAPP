@@ -33,7 +33,7 @@ public class GalleryDetailedView_Adapter extends PagerAdapter{
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (LinearLayout)object;
+        return view == object;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class GalleryDetailedView_Adapter extends PagerAdapter{
         View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.gallery_detailed_view_row_item , container , false);
 
         gdv_imageView = (ImageView) rootView.findViewById(R.id.gdv_full_screen_image);
-        Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + Gallery.getAlbum_map().get(album_number).get(position).getImageLink()).resize(1000,1000).placeholder(R.drawable.loading_image).into(gdv_imageView, new Callback() {
+        Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + Gallery.getAlbum_map().get(album_number).get(position).getImageLink()).resize(1366,1000).placeholder(R.drawable.loading_image).into(gdv_imageView, new Callback() {
             @Override
             public void onSuccess() {
 
@@ -55,13 +55,13 @@ public class GalleryDetailedView_Adapter extends PagerAdapter{
             }
         });
 
-        ((ViewPager)container).addView(rootView);
+        container.addView(rootView);
 
         return rootView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager)container).removeView((LinearLayout)object);
+        container.removeView((LinearLayout)object);
     }
 }
