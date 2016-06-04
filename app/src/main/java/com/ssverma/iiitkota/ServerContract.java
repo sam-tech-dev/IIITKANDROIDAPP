@@ -6,7 +6,6 @@ package com.ssverma.iiitkota;
 public class ServerContract {
 
     private static String SERVER_URL = "http://172.16.1.231/iiitk/android";
-
     public static String getSERVER_URL() {
         return SERVER_URL;
     }
@@ -17,6 +16,11 @@ public class ServerContract {
 
     private static String FACULTY_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
 
+    public static String getProgramImagesPath() {
+        return PROGRAM_IMAGES_PATH;
+    }
+
+    private static String PROGRAM_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
     public static String getGalleryImagesPath() {
         return GALLERY_IMAGES_PATH;
     }
@@ -35,12 +39,11 @@ public class ServerContract {
 
     private static String FACULTY_PHP_URL = SERVER_URL + "/faculty.php";
 
-    public static String getProgramsPhpUrl() {
-        return PROGRAMS_PHP_URL;
+    public static String getGetProgramList() {
+        return getProgramList;
     }
-
-    private static String PROGRAMS_PHP_URL = SERVER_URL + "/programs.php";
-
+//Program Module php retrieval from Server -Rajat Jain
+    private static  String getProgramList=SERVER_URL + "/programs.php";
     private static String GALLERY_ALBUM_THUMBNAIL_PATH = "http://172.16.1.231/iiitk/assets/images/gallery/";
 
     public static String getGalleryAlbumThumbnailPath() {

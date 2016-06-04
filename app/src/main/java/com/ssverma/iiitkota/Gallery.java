@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,6 +128,7 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         @Override
         protected String doInBackground(String... params) {
+            Log.d("param",params[0]);
             return ServerConnection.obtainServerResponse(params[0] );
         }
 
