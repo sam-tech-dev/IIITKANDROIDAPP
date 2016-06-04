@@ -53,15 +53,8 @@
                         android:layout_gravity="center_horizontal"
                         android:text="Program Name"
                         android:textSize="30dp"
+                        android:textColor="@android:color/white"
                         android:id="@+id/program_name_program_detailed"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:text="Designation"
-                        android:id="@+id/program_designation_fd"/>
 
                 </LinearLayout>
 
@@ -78,24 +71,203 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <android.support.v7.widget.CardView
+        <!--cards holder-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            app:cardElevation="8dp"
-            app:contentPadding="16dp">
+            android:id="@+id/program_detailed_cards_holder"
+            android:orientation="vertical">
 
-            <!--Elements-->
-            <TextView
-                android:layout_width="wrap_content"
+
+            <!--details card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/mytext"/>
+                android:layout_margin="6dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fd_detail_holder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details"
+                        android:layout_gravity="top|left"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="cursive"
+
+                       />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fd_details"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
 
-        </android.support.v7.widget.CardView>
+            <!--program Seats-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fd_program_seat_holder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Seats"
+                        android:layout_gravity="top|left"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="cursive"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fd_program_seat"
+                        android:textSize="16dp"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="3dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!--fEE card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fd_fee_holder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fee"
+                        android:layout_gravity="top|left"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="cursive"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fd_fee"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="3dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!--Eligibility card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fd_eligibility_holder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Eligibility"
+                        android:layout_gravity="top|left"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="cursive"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fd_eligibility"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="3dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Duration card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="4dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fd_duration_holder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Duration"
+                        android:layout_gravity="top|left"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="cursive"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fd_duration"
+                        android:fontFamily="sans-serif"
+                        android:layout_marginTop="3dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
