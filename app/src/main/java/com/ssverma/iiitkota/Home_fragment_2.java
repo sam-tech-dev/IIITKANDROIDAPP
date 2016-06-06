@@ -1,6 +1,7 @@
 package com.ssverma.iiitkota;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,12 +41,33 @@ public class Home_fragment_2 extends Fragment {
         TextView text2 = (TextView) itemHolder2.findViewById(R.id.home_tv_row_item);
         text2.setText("Placement");
 
+        LinearLayout row_iv_itemHolder2 = (LinearLayout) itemHolder2.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Placement.class));
+            }
+        });
+
+
 
         LinearLayout itemHolder3 = (LinearLayout) rootView.findViewById(R.id.home_row_item_three);
         ImageView icon3 = (ImageView) itemHolder3.findViewById(R.id.home_iv_row_item);
         icon3.setImageResource(R.drawable.home_scholership);
         TextView text3 = (TextView) itemHolder3.findViewById(R.id.home_tv_row_item);
         text3.setText("Scholarships");
+
+        LinearLayout row_iv_itemHolder3 = (LinearLayout) itemHolder3.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , Scholarship.class));
+            }
+        });
+
+
 
         LinearLayout itemHolder4 = (LinearLayout) rootView.findViewById(R.id.home_row_item_four);
         ImageView icon4 = (ImageView) itemHolder4.findViewById(R.id.home_iv_row_item);
@@ -63,7 +85,16 @@ public class Home_fragment_2 extends Fragment {
         ImageView icon6 = (ImageView) itemHolder6.findViewById(R.id.home_iv_row_item);
         icon6.setImageResource(R.drawable.home_registration);
         TextView text6 = (TextView) itemHolder6.findViewById(R.id.home_tv_row_item);
-        text6.setText("...");
+        text6.setText("Campus-Life");
+
+        LinearLayout row_iv_itemHolder6 = (LinearLayout) itemHolder6.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity() , CampusLife.class));
+            }
+        });
 
         LinearLayout itemHolder7 = (LinearLayout) rootView.findViewById(R.id.home_row_item_seven);
         ImageView icon7 = (ImageView) itemHolder7.findViewById(R.id.home_iv_row_item);

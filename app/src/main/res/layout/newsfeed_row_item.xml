@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
+    android:padding="2dp"
     android:layout_margin="2dp">
 
     <RelativeLayout
@@ -11,27 +12,38 @@
         android:layout_height="match_parent"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:id="@+id/faculty_row_item_holder"
-        android:padding="10dp">
+        android:id="@+id/news_row_item_holder">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <RelativeLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/faculty_image"
+            android:id="@+id/news_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/home_maps"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"
+            android:background="@drawable/clander"
+
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            />
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date"
+                android:hint="date"
+
+               android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/faculty_image"
+            android:layout_toRightOf="@+id/news_image"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -40,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/faculty_name"
+                android:id="@+id/newsfeed"
                 android:text="Name"
                 android:padding="5dp"
                 android:textSize="20dp"
@@ -48,8 +60,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/faculty_email"
-                android:text="Email"
+                android:id="@+id/newsfeed_date"
+                android:text="subtitle"
+                android:singleLine="true"
+
                 android:padding="5dp"/>
 
         </LinearLayout>
