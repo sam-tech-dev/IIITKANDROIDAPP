@@ -102,6 +102,6 @@ public class ServerContract {
         return EVENTS_IMAGE_PATH;
     }
 
-    private static String EVENTS_IMAGE_PATH = "http://172.16.1.231/android/assets/images/events/";
+    private static String EVENTS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/events/";
 
 }
