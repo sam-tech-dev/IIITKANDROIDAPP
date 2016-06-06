@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.ssverma.iiitkota.mapIIITK">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/fragment"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal|top" />
+
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/horizontalScrollView">
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/prabhavan"
+                    android:background="@drawable/prabha1"
+                    android:clickable="true"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/prabha"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/dispens"
+                    android:background="@drawable/dispen"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/dispensary"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/aurob"
+                    android:background="@drawable/auro"
+                    android:foregroundGravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/aurobindo"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/basketb"
+                    android:background="@drawable/basket"
+                    android:foregroundGravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/Basketball"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/gargi"
+                    android:background="@drawable/gargi"
+                    android:foregroundGravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/gargi"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:paddingRight="10dp"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".7"
+                    android:id="@+id/maingate"
+                    android:background="@drawable/maingat"
+                    android:foregroundGravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".3"
+                    android:text="@string/maingate"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.ssverma.iiitkota;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +50,7 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.image_name.setText(album_map.get(album_number).get(position).getImageLink());
+        //holder.image_name.setText(album_map.get(album_number).get(position).getImageLink());
         Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + album_map.get(album_number).get(position).getImageLink()).resize(1000 , 1000).placeholder(R.drawable.gallery_album_placeholder).into(holder.image);
 
     }
@@ -67,7 +69,7 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
         public ViewHolder(View itemView) {
             super(itemView);
 
-            image_name = (TextView) itemView.findViewById(R.id.gallery_image_name);
+            //image_name = (TextView) itemView.findViewById(R.id.gallery_image_name);
             image = (ImageView) itemView.findViewById(R.id.gallery_image_thumbnail);
 
             gallery_images_itemHolder = (FrameLayout) itemView.findViewById(R.id.gallery_images_holder);
@@ -81,5 +83,7 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
                 listener.onRCVClick(v , getAdapterPosition());
             }
         }
+
     }
+
 }

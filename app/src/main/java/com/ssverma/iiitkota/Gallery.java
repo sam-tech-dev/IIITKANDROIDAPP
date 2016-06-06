@@ -8,7 +8,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +27,14 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
     private RecyclerView recyclerView;
     private Gallery_Album_Adapter adapter;
+    private StaggeredGridLayoutManager layoutManager;
+
     private static HashMap<Integer , ArrayList<Gallery_Images_Wrapper>> album_map;
     private final int GALLERY_ALBUM_RETRIEVAL = 1;      // Use same AsyncTask for multiple network operations
     private final int GALLERY_IMAGES_RETRIEVAL = 2;
     private ArrayList<Gallery_Album_Wrapper> album_list;
+
+    private boolean isGrid = true;
 
     public static HashMap<Integer, ArrayList<Gallery_Images_Wrapper>> getAlbum_map() {
         return album_map;
@@ -43,17 +49,27 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        recyclerView = (RecyclerView) findViewById(R.id.gallery_recycler_view);
+        layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                if (isGrid){
+                    layoutManager.setSpanCount(1);
+                    isGrid = false;
+                    fab.setImageResource(R.drawable.linear_icon);
+                }else {
+                    layoutManager.setSpanCount(2);
+                    isGrid = true;
+                    fab.setImageResource(R.drawable.grid_icon);
+                }
             }
         });
-
-        recyclerView = (RecyclerView) findViewById(R.id.gallery_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(Gallery.this , 2));
 
         performServerOperation();
 
@@ -91,10 +107,12 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
     @Override
     public void onRCVClick(View view, int position) {
 
-        //Toast.makeText(Gallery.this , position + " : Map Size" , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Gallery.this , position + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(Gallery.this , Gallery_Images.class);
         intent.putExtra("album_number"  , album_list.get(position).getAlbum_number());
+        intent.putExtra("album_name"  , album_list.get(position).getAlbum_title());
+        intent.putExtra("album_summary"  , album_list.get(position).getAlbum_summary());
 
         startActivity(intent);
     }
@@ -110,6 +128,7 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         @Override
         protected String doInBackground(String... params) {
+            Log.d("param",params[0]);
             return ServerConnection.obtainServerResponse(params[0] );
         }
 
@@ -124,14 +143,14 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
                 ArrayList<Integer> unique_Albums = getUniqueAlbums(list); // Unique Album Number
                 //Toast.makeText(Gallery.this , unique_Albums.size() + "" , Toast.LENGTH_SHORT).show();
                 album_map = createAlbumMap(unique_Albums, list);
-                //Toast.makeText(Gallery.this , album_map.size() + " : Map Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , album_map.size() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
 
                 //recyclerView.setAdapter(new Gallery_Album_Adapter(Gallery.this, unique_Albums, album_map));
 
             } else if (ASYNC_TASK_CODE == GALLERY_ALBUM_RETRIEVAL){
                 album_list = parseJSONGallery_Albums(response);
 
-                //Toast.makeText(Gallery.this , album_list.get(1).getAlbum_number() + " : Map Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , album_list.get(1).getAlbum_number() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
 
                 Gallery_Album_Adapter adapter = new Gallery_Album_Adapter(Gallery.this , album_list , album_map);
                 recyclerView.setAdapter(adapter);
@@ -153,7 +172,7 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
                     }
                 }
 
-                //Toast.makeText(Gallery.this , list.size() + " : Map Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , list.size() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
                 album_map.put(unique_album_number_list.get(i) , list);
             }
 
