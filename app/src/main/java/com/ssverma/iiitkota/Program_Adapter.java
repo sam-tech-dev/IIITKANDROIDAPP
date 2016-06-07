@@ -47,7 +47,7 @@ public class Program_Adapter extends RecyclerView.Adapter<Program_Adapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.program_name.setText(listProgram.get(position).getProgram_name());
         holder.program_desc.setText(listProgram.get(position).getProgram_desc());
-        Picasso.with(context).load(ServerContract.getProgramImagesPath() + listProgram.get(position).getProgram_image()).into(holder.program_image);
+        Picasso.with(context).load(ServerContract.getProgramImagePath() + listProgram.get(position).getProgram_image()).into(holder.program_image);
        // Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
 
     }

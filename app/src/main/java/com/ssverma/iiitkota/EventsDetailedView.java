@@ -4,7 +4,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
@@ -12,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class NewsFeed_DetialedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+//Author-Dixit Chauhan      :03/06/2016
+
+public class EventsDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
@@ -31,72 +31,55 @@ public class NewsFeed_DetialedView extends AppCompatActivity implements AppBarLa
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
 
-    private CircleImageView news_image;
-    private TextView news_title;
+    private CircleImageView faculty_image;
+    private TextView news_tittle;
+    private TextView news_subtitle;
     private TextView news_date;
     private TextView news_toolbar;
-    private KenBurnsView image_bg;
+    private ImageView image_bg;
 
     private WebView news_desc;
-    private WebView news_subtitle;
-    private int[] ken_burns_bg = {R.drawable.newsfeed_prev, R.drawable.newsfeed_latest , R.drawable.newsfeed_upcoming};
+    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_feed__detialed_view);
+        setContentView(R.layout.activity_events__detailed_view);
 
         bindActivity();
         mAppBarLayout.addOnOffsetChangedListener(this);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
         news_desc = (WebView) findViewById(R.id.desc);
-        news_subtitle = (WebView) findViewById(R.id.subtitle);
-        news_title = (TextView) findViewById(R.id.news_tittle);
-
+        news_subtitle = (TextView) findViewById(R.id.subtitle);
+        news_tittle = (TextView) findViewById(R.id.news_tittle);
         news_date = (TextView) findViewById(R.id.news_date);
-        news_image = (CircleImageView) findViewById(R.id.news_detailed_news_image);
-        news_toolbar = (TextView) findViewById(R.id.news_toolbar_fd);
-        image_bg = (KenBurnsView) findViewById(R.id.imageView_background_news_detailed);
+        faculty_image = (CircleImageView) findViewById(R.id.faculty_detailed_faculty_image);
+        news_toolbar = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
+        image_bg = (ImageView) findViewById(R.id.imageView_background_faculty_detailed);
 
-        String marquee_title=getIntent().getExtras().getString("title");
-        news_title.setText(marquee_title);
-        news_title.setSelected(true);
+        news_tittle.setText(getIntent().getExtras().getString("tittle"));
+        news_subtitle.setText(getIntent().getExtras().getString("subtitle"));
         news_date.setText(getIntent().getExtras().getString("date"));
-        // Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagesUrl()+getIntent().getExtras().getString("news_image_link")).into(news_image);
+        // Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagesUrl()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
         // news_desc.loadData(getIntent().getExtras().getString("description"));
         //
-         Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("news_image_link")).placeholder(R.drawable.newsfeed_pre).into(news_image);
-        String summary=getIntent().getExtras().getString("description");
-        //String subtitle=getIntent().getExtras().getString("subtitle");
-
-String subtitle="<html><head>"
-        + "<style type=\"text/css\">body{color: #fff; background-color:#000;}"
-        + "</style></head>"
-        + "<body>"+"<marquee scrollamount=\"3\">"
-        + getIntent().getExtras().getString("subtitle")
-        + "</marquee>"+"</body></html>";
-
-        news_desc.loadData(summary, "text/html", "utf-8");
-        news_subtitle.loadData(subtitle, "text/html", "utf-8");
-
-
-
-
-
-
-        news_toolbar.setText(getIntent().getExtras().getString("title"));
+         Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+        String summary=getIntent().getExtras().getString("detail");
+        String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:12px;}</style></head><body>"+"<p>"+summary+"</p>"+"</body></html>" ;
+        news_desc.loadData(desc, "text/html", "utf-8");
+        news_toolbar.setText(getIntent().getExtras().getString("tittle"));
         //image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
-        Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("news_image_link")).placeholder(R.drawable.newsfeed_pre).into(image_bg);
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
 
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_news_detailed);
+        mToolbar        = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.news_toolbar_fd);
-        mTitleContainer = (LinearLayout) findViewById(R.id.news_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_news_detailed);
+        mTitle          = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
+        mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
+        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
     }
 
     @Override

@@ -4,22 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,9 +32,12 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Programs extends AppCompatActivity {
+public class Events extends AppCompatActivity{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -42,13 +46,13 @@ public class Programs extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming };
     static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_programs);
+        setContentView(R.layout.activity_events);
 
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,12 +94,8 @@ public class Programs extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -124,7 +124,7 @@ public class Programs extends AppCompatActivity {
 
         private RecyclerView recyclerView;
         private RecyclerView.LayoutManager layoutManager;
-        private Program_Adapter adapter;
+        private EventsAdapter adapter;
 
         private String url;
         private String urlParameters = null;
@@ -132,8 +132,9 @@ public class Programs extends AppCompatActivity {
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-        private ArrayList<ProgramWrapper> list;
+        private ArrayList<EventsWrapper> list;
 
+        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
 
         public PlaceholderFragment() {
         }
@@ -153,23 +154,24 @@ public class Programs extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_program, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_events, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.program_recycler_view);
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.events_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
-            progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
-            url = ServerContract.getProgramsPhpUrl();
+            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.latest_events_swipe_refresh_layout);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.latest_events_progress_bar);
+
+            url = ServerContract.getEventsPhpUrl();
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
-
-
                 case 0:
-                    //CS - First Tab
+                    //Latest Events- First Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    urlParameters = "program=UG";
+
+                    urlParameters = "filter=latest";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -180,17 +182,13 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
-                   // Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
-                     //  Log.d("EEEEEEEEEEEEEEEEE" , );
+
                     break;
-
-
-
                 case 1:
-                    //EE - Second Tab
+                    //Past Events - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
 
-                    urlParameters = "program=UG";
+                    urlParameters = "filter=prev";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -202,7 +200,22 @@ public class Programs extends AppCompatActivity {
                         }
                     });
                     break;
+                case 2:
+                    //Upcoming - Third Tab
+                    progressBar.setVisibility(View.VISIBLE);
 
+                    urlParameters = "filter=upcoming";
+
+                    fetchListFromServer(url , urlParameters);
+
+                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            progressBar.setVisibility(View.VISIBLE);
+                            fetchListFromServer(url , urlParameters);
+                        }
+                    });
+                    break;
             }
 
 
@@ -219,20 +232,18 @@ public class Programs extends AppCompatActivity {
         @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , Program_DetailedView.class);
-            intent.putExtra("Program_name" , list.get(position).getProgram_name());
-            intent.putExtra("Program_desc" , list.get(position).getProgram_desc());
-            intent.putExtra("Program_eligibility" , list.get(position).getProgram_eligibility());
-            intent.putExtra("Program_image" , list.get(position).getProgram_image());
-            intent.putExtra("Program_duration",list.get(position).getProgram_dur());
-            intent.putExtra("Program_seats",list.get(position).getProgram_seats());
-            intent.putExtra("Program_fee",list.get(position).getProgram_fee());
-            intent.putExtra("tab_position" , Programs.tab_position);
+            Intent intent = new Intent(getActivity() ,EventsDetailedView.class);
+            intent.putExtra("tittle" , list.get(position).getTitle());
+            intent.putExtra("subtitle" , list.get(position).getSubtitle());
+            intent.putExtra("date" , list.get(position).getDate());
+            intent.putExtra("faculty_image_link" , list.get(position).getImage());
+            intent.putExtra("detail" , list.get(position).getDetail());
+            intent.putExtra("tab_position" , Events.tab_position);
 
             startActivity(intent);
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String> {
+        public class ServerAsync extends AsyncTask<String , Void , String>{
 
             private ProgressDialog progressDialog;
 
@@ -250,43 +261,54 @@ public class Programs extends AppCompatActivity {
             @Override
             protected void onPostExecute(String response) {
                 super.onPostExecute(response);
+                //progressDialog.dismiss();
 
+                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
-                //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
-                adapter = new Program_Adapter( getActivity() , list);
+                adapter = new EventsAdapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
 
+                // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
+
             }
 
-            private ArrayList<ProgramWrapper> parseJSON(String response) {
-                ArrayList<ProgramWrapper> list = new ArrayList<>();
+            private ArrayList<EventsWrapper> parseJSON(String response) {
+                ArrayList<EventsWrapper> list = new ArrayList<>();
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        ProgramWrapper program = new ProgramWrapper();
-                        program.setProgram_name(jsonObject.getString("Program_name"));
-                        program.setProgram_desc(jsonObject.getString("Program_desc"));
-                        program.setProgram_eligibility(jsonObject.getString("Program_eli"));
-                        program.setProgram_seats(jsonObject.getInt("Program_seats"));
-                        program.setProgram_dur(jsonObject.getInt("Program_duration"));
-                        program.setProgram_fee(jsonObject.getInt("Program_fee"));
-                        program.setProgram_image(jsonObject.getString("Program_image"));
-                        list.add(program);
-                        //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
-                    }
 
+                        EventsWrapper events = new EventsWrapper();
+                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
+                        events.setTitle(jsonObject.getString("Title"));
+                        events.setSubtitle(jsonObject.getString("Subtitle"));
+
+                      //  events.setDate(jsonObject.getString("Date"));
+
+                        Date date= null;
+                        try {
+                            date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("Date"));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        events.setDate(new SimpleDateFormat("MMM dd, yyyy").format(date));
+                        events.setDetail(jsonObject.getString("Detail"));
+                        events.setImage(jsonObject.getString("Image"));
+
+                        list.add(events);
+                    }
                 } catch (JSONException e) {
                     //tv.setText("JSON E:" + e);
                 }
-                //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
+
                 //tv.setText(list.get(0).getS_name());
                 return list;
             }
@@ -309,17 +331,19 @@ public class Programs extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
-            return 2;
+            // Show 3 total pages.
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "UG";
+                    return "Latest";
                 case 1:
-                    return "PG";
+                    return "Past";
+                case 2:
+                    return "Upcoming";
             }
             return null;
         }

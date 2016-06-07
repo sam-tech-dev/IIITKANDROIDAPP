@@ -77,7 +77,7 @@ public class Program_DetailedView extends AppCompatActivity implements AppBarLay
         program_eligibility.setText(getIntent().getExtras().getString("Program_eligibility"));
         program_seats.setText("Available Seat : "+getIntent().getExtras().getInt("Program_seats"));
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
+        Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagePath() + getIntent().getExtras().getString("Program_image")).into(program_image);
 
         program_name_toolbar_fd.setText(getIntent().getExtras().getString("Program_name"));
         image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
