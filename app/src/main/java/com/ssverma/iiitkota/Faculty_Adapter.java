@@ -1,6 +1,7 @@
 package com.ssverma.iiitkota;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 
 import java.util.ArrayList;
 
@@ -22,8 +24,9 @@ public class Faculty_Adapter extends RecyclerView.Adapter<Faculty_Adapter.ViewHo
 
     //private String[] dummy;
     private Context context;
-    private ArrayList<FacultyWrapper> listFaculty;
+    private Cursor currentCursor;
 
+    private ArrayList<FacultyWrapper> listFaculty;
     private RCVClickListener listener;
 
     Faculty_Adapter(Context context , ArrayList<FacultyWrapper> listFaculty){
@@ -46,6 +49,7 @@ public class Faculty_Adapter extends RecyclerView.Adapter<Faculty_Adapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         holder.faculty_name.setText(listFaculty.get(position).getFaculty_name());
         holder.faculty_email.setText(listFaculty.get(position).getFaculty_email());
         Picasso.with(context).load(ServerContract.getFacultyImagesPath() + listFaculty.get(position).getFaculty_imageLink()).into(holder.faculty_image);
@@ -55,6 +59,7 @@ public class Faculty_Adapter extends RecyclerView.Adapter<Faculty_Adapter.ViewHo
     public int getItemCount() {
         return listFaculty.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
