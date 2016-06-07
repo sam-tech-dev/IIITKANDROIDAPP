@@ -135,4 +135,5 @@ public class FacultyWrapper {
 
     private String faculty_research_area;
 
+
 }

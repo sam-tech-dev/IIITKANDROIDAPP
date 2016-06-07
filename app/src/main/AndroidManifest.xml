@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,14 +43,19 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Map" />
         <activity android:name=".Program_DetailedView" />
-        <activity android:name=".Gallery_Detailed_View"></activity>
-            android:theme="@style/AppTheme" />
+        <activity android:name=".Gallery_Detailed_View" />
+        android:theme="@style/AppTheme" />
         <activity android:name=".Contact" />
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".Administration" />
+        <activity android:name=".Administration_DetailedView"></activity>
     </application>
 
 </manifest>
