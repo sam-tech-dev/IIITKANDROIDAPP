@@ -35,6 +35,18 @@ public class Home_fragment_2 extends Fragment {
         TextView text1 = (TextView) itemHolder1.findViewById(R.id.home_tv_row_item);
         text1.setText("Contacts");
 
+
+        LinearLayout row_iv_itemHolder1 = (LinearLayout) itemHolder1.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity() , "Clicked" , Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity() , Contact.class));
+            }
+        });
+
+
         LinearLayout itemHolder2 = (LinearLayout) rootView.findViewById(R.id.home_row_item_two);
         ImageView icon2 = (ImageView) itemHolder2.findViewById(R.id.home_iv_row_item);
         icon2.setImageResource(R.drawable.home_placement);

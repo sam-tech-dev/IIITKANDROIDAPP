@@ -56,9 +56,12 @@ public class ServerContract {
 
     private static String GALLERY_ALBUM_PHP_URL = SERVER_URL + "/gallery_album.php";
 
+    public static String getContactsPhpUrl() { return CONTACTS_PHP_URL; }
+
+    private static String CONTACTS_PHP_URL = SERVER_URL + "/contacts.php";
+
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
-    //ServerContract.getGalleryImagesPath() + uniqueAlbumList.get(position) + "/" + album_map.get(uniqueAlbumList.get(position)).get(position).getAlbum_thumbnail_link()
 
 
 
