@@ -50,16 +50,6 @@ public class Faculty extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty);
 
-
-//        Bundle settingsBundle = new Bundle();
-//        settingsBundle.putBoolean(
-//                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-//        settingsBundle.putBoolean(
-//                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-//
-//        ContentResolver.requestSync(createDummyAccount(Faculty.this) , DatabaseContract.AUTHORITY , settingsBundle);
-
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,14 +86,6 @@ public class Faculty extends AppCompatActivity{
             }
         });
 
-    }
-
-    private Account createDummyAccount(Context context) {
-        Account dummyAccount = new Account("IIIT KOTA" , "com.ssverma.iiitk");  // Acc , Acc Type
-        AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        accountManager.addAccountExplicitly(dummyAccount , null , null);
-
-        return dummyAccount;
     }
 
 

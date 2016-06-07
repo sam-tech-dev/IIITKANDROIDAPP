@@ -1,5 +1,9 @@
 package com.ssverma.iiitkota;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -89,6 +95,16 @@ public class Home extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.sync){
+            Bundle settingsBundle = new Bundle();
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+            ContentResolver.requestSync(createDummyAccount(this) , DatabaseContract.AUTHORITY , settingsBundle);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -116,4 +132,13 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private Account createDummyAccount(Context context) {
+        Account dummyAccount = new Account("IIIT KOTA" , "com.ssverma.iiitk");  // Acc , Acc Type
+        AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        accountManager.addAccountExplicitly(dummyAccount , null , null);
+
+        return dummyAccount;
+    }
+
 }
