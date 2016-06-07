@@ -1,33 +1,32 @@
 package com.ssverma.iiitkota;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
@@ -35,28 +34,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class Contact extends AppCompatActivity{
+
+
+public class Contact extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
+    private Button button;
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering , R.drawable.faculty_ee , R.drawable.faculty_ee};
+    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee, R.drawable.faculty_electronics_engineering, R.drawable.faculty_ee, R.drawable.faculty_ee};
     static int tab_position;
+    String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faculty);
+        setContentView(R.layout.activity_contact);
 
-        //
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,7 +84,6 @@ public class Contact extends AppCompatActivity{
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -92,14 +93,12 @@ public class Contact extends AppCompatActivity{
 
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
+        getMenuInflater().inflate(R.menu.menu_contact, menu);
         return true;
     }
 
@@ -118,14 +117,12 @@ public class Contact extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
+         //The fragment argument representing the section number for this fragment.
+
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
@@ -138,15 +135,17 @@ public class Contact extends AppCompatActivity{
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-        private ArrayList<ContactsWrapper> list;
+       private ArrayList<ContactsWrapper> list;
+
+        private Button button;
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+
+        // Returns a new instance of this fragment for the given section number.
+
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -159,8 +158,6 @@ public class Contact extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.contact_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -170,92 +167,90 @@ public class Contact extends AppCompatActivity{
 
             url = ServerContract.getContactsPhpUrl();
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
-                    //CS - First Tab
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "cat=DeptofCS";
 
-                    new ServerAsync().execute(url , urlParameters);
+                    new ServerAsync().execute(url, urlParameters);
 
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
+                            new ServerAsync().execute(url, urlParameters);
                         }
                     });
 
                     break;
                 case 1:
-                    //EE - Second Tab
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "cat=DeptofECE";
 
-                    new ServerAsync().execute(url , urlParameters);
+                    new ServerAsync().execute(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
+                            new ServerAsync().execute(url, urlParameters);
                         }
                     });
                     break;
                 case 2:
-                    //EE - Second Tab
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "cat=DeptofEE";
 
-                    new ServerAsync().execute(url , urlParameters);
+                    new ServerAsync().execute(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
+                            new ServerAsync().execute(url, urlParameters);
                         }
                     });
                     break;
                 case 3:
-                    //EE - Second Tab
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "cat=Office";
 
-                    new ServerAsync().execute(url , urlParameters);
+                    new ServerAsync().execute(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
+                            new ServerAsync().execute(url, urlParameters);
                         }
                     });
                     break;
                 case 4:
-                    //ECE - Third Tab
+
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "cat=General";
 
-                    new ServerAsync().execute(url , urlParameters);
+                    new ServerAsync().execute(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
+                            new ServerAsync().execute(url, urlParameters);
                         }
                     });
                     break;
             }
-
-
 
             return rootView;
         }
@@ -264,48 +259,66 @@ public class Contact extends AppCompatActivity{
         @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , Faculty_DetailedView.class);
-            intent.putExtra("contact_id" , list.get(position).getContact_id());
-            intent.putExtra("contact_name" , list.get(position).getContact_name());
-            intent.putExtra("contact_email" , list.get(position).getContact_email());
-            intent.putExtra("contact_mobile_no" , list.get(position).getContact_mobile_no());
-            intent.putExtra("contact_category" , list.get(position).getContact_category());
-            intent.putExtra("contact_designation" , list.get(position).getContact_designation());
+            ContactsWrapper s = list.get(position);
+            String c = s.getContact_mobile_no();
+            final String number = "tel:" + c;
 
+            AlertDialog.Builder alert= new AlertDialog.Builder(getActivity());
 
-            intent.putExtra("tab_position" , Faculty.tab_position);
-            //ActivityOptionsCompat options = ActivityOptionsCompat.
-            //makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.faculty_image), "profile");
+            alert.setTitle("Call Confirmation");
+            alert.setMessage("Do you want to proceed the call?");
 
-            startActivity(intent /*, options.toBundle()*/);
+            alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse(number));
+
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
+                    dialog.dismiss();
+                }
+            });
+            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+
+        public class ServerAsync extends AsyncTask<String, Void, String> {
 
             private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
+
             }
 
             @Override
             protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+                return ServerConnection.obtainServerResponse(params[0], params[1]);
             }
 
             @Override
             protected void onPostExecute(String response) {
                 super.onPostExecute(response);
-                //progressDialog.dismiss();
 
-              //  Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
                 list = parseJSON(response);
-                adapter = new Contact_Adapter(getActivity() , list);
+                adapter = new Contact_Adapter(getActivity(), list);
                 recyclerView.setAdapter(adapter);
-              //  adapter.setOnRCVClickListener(PlaceholderFragment.this);
+
+                adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
@@ -316,7 +329,7 @@ public class Contact extends AppCompatActivity{
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         ContactsWrapper contact = new ContactsWrapper();
@@ -324,23 +337,24 @@ public class Contact extends AppCompatActivity{
                         contact.setContact_name(jsonObject.getString("contact_name"));
                         contact.setContact_email(jsonObject.getString("contact_email"));
                         contact.setContact_mobile_no(jsonObject.getString("contact_mobile_no"));
+
+
+
                         contact.setContact_category(jsonObject.getString("contact_category"));
                         contact.setContact_designation(jsonObject.getString("contact_designation"));
-
 
 
                         list.add(contact);
                     }
                 } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }
-
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -352,7 +366,7 @@ public class Contact extends AppCompatActivity{
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return Contact.PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override

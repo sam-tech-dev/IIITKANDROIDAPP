@@ -19,7 +19,7 @@
             android:id="@+id/faculty_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/home_maps"
+            android:src="@drawable/home_contact"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"
             android:layout_centerVertical="true"
@@ -44,23 +44,44 @@
                 android:text="Name"
                 android:padding="5dp"
                 android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="sans-serif-smallcaps"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contact_email"
+                android:textColor="@color/black_overlay"
                 android:text="Email"
                 android:padding="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contact_mobile_no"
                 android:text="Mobile"
+                android:textColor="@color/black_overlay"
                 android:padding="5dp"/>
+
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/contact_call"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/buttonCall"
+                android:layout_toRightOf="@id/contact_mobile_no"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+              />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contact_designation"
+                android:textColor="@color/black_overlay"
                 android:text="Designation"
                 android:padding="5dp"/>
 
