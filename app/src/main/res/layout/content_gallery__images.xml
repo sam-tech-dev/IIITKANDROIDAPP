@@ -6,7 +6,48 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ssverma.iiitkota.Gallery_Images"
-    tools:showIn="@layout/activity_gallery__images">
+    tools:showIn="@layout/activity_gallery__images"
+    android:background="@android:color/background_dark">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/album_details_holder"
+        android:orientation="vertical"
+        android:background="#99444444"
+        android:alpha="0.9"
+        android:gravity="top"
+        android:visibility="invisible"
+        android:layout_marginTop="13dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/album_title"
+            android:text="Title"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="19dp"
+            android:textColor="@android:color/white"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"></View>
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/album_summary"
+            android:text="summary"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:padding="3dp"
+            android:alpha="0.9"></WebView>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

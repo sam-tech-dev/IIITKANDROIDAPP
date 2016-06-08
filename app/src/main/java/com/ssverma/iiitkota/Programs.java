@@ -134,7 +134,6 @@ public class Programs extends AppCompatActivity {
 
         private ArrayList<ProgramWrapper> list;
 
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
 
         public PlaceholderFragment() {
         }
@@ -163,10 +162,9 @@ public class Programs extends AppCompatActivity {
 
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
-
             url = ServerContract.getProgramsPhpUrl();
-
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+
 
                 case 0:
                     //CS - First Tab
@@ -182,7 +180,7 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
-                    //Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
                      //  Log.d("EEEEEEEEEEEEEEEEE" , );
                     break;
 
@@ -191,7 +189,8 @@ public class Programs extends AppCompatActivity {
                 case 1:
                     //EE - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    urlParameters = "program=PG";
+
+                    urlParameters = "program=UG";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -222,12 +221,12 @@ public class Programs extends AppCompatActivity {
 
             Intent intent = new Intent(getActivity() , Program_DetailedView.class);
             intent.putExtra("Program_name" , list.get(position).getProgram_name());
-            //intent.putExtra("program_Duration" , list.get(position).getProgram_dur());
             intent.putExtra("Program_desc" , list.get(position).getProgram_desc());
-           // intent.putExtra("program_seats" , list.get(position).getProgram_seats());
-            //intent.putExtra("program_eligibility" , list.get(position).getProgram_eligibility());
-            //intent.putExtra("program_fee" , list.get(position).getProgram_fee());
+            intent.putExtra("Program_eligibility" , list.get(position).getProgram_eligibility());
             intent.putExtra("Program_image" , list.get(position).getProgram_image());
+            intent.putExtra("Program_duration",list.get(position).getProgram_dur());
+            intent.putExtra("Program_seats",list.get(position).getProgram_seats());
+            intent.putExtra("Program_fee",list.get(position).getProgram_fee());
             intent.putExtra("tab_position" , Programs.tab_position);
 
             startActivity(intent);
@@ -275,18 +274,19 @@ public class Programs extends AppCompatActivity {
                         ProgramWrapper program = new ProgramWrapper();
                         program.setProgram_name(jsonObject.getString("Program_name"));
                         program.setProgram_desc(jsonObject.getString("Program_desc"));
-                       // program.setProgram_eligibility(jsonObject.getString("program_eli"));
-                       // program.setProgram_seats(jsonObject.getInt("seats"));
-                       // program.setProgram_dur(jsonObject.getInt("Program_Duration"));
-                       // program.setProgram_fee(jsonObject.getInt("program_fee"));
+                        program.setProgram_eligibility(jsonObject.getString("Program_eli"));
+                        program.setProgram_seats(jsonObject.getInt("Program_seats"));
+                        program.setProgram_dur(jsonObject.getInt("Program_duration"));
+                        program.setProgram_fee(jsonObject.getInt("Program_fee"));
                         program.setProgram_image(jsonObject.getString("Program_image"));
                         list.add(program);
                         //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
                     }
+
                 } catch (JSONException e) {
                     //tv.setText("JSON E:" + e);
                 }
-
+                //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
                 //tv.setText(list.get(0).getS_name());
                 return list;
             }

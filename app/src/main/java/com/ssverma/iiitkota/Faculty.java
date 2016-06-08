@@ -1,12 +1,13 @@
- package com.ssverma.iiitkota;
+package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,37 +26,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
- public class Faculty extends AppCompatActivity{
+public class Faculty extends AppCompatActivity{
 
 
-     private SectionsPagerAdapter mSectionsPagerAdapter;
-     private ViewPager mViewPager;
-     private TabLayout tabLayout;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private TabLayout tabLayout;
 
-     private KenBurnsView kenBurnsView;
+    private KenBurnsView kenBurnsView;
 
-     private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
-     static int tab_position;
+    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -129,7 +123,7 @@ import java.util.ArrayList;
 
         private RecyclerView recyclerView;
         private RecyclerView.LayoutManager layoutManager;
-        private Faculty_Adapter adapter;
+        public static Faculty_Adapter adapter;
 
         private String url;
         private String urlParameters = null;
@@ -167,66 +161,25 @@ import java.util.ArrayList;
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
-            url = ServerContract.getFacultyPhpUrl();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
                     //CS - First Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "dept=CS";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
-
+                    new ServerAsync().execute(new String[]{Consts.Faculty_Constants.CS_DEPARTMENT});
                     break;
                 case 1:
                     //EE - Second Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "dept=ECE";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Faculty_Constants.ECE_DEPARTMENT});
                     break;
                 case 2:
                     //ECE - Third Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "dept=ECE";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Faculty_Constants.ECE_DEPARTMENT});
                     break;
             }
 
 
-
             return rootView;
         }
-
 
         @Override
         public void onRCVClick(View view, int position) {
@@ -248,9 +201,8 @@ import java.util.ArrayList;
             startActivity(intent /*, options.toBundle()*/);
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<FacultyWrapper>>{
 
-            private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
@@ -259,18 +211,19 @@ import java.util.ArrayList;
             }
 
             @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+            protected ArrayList<FacultyWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Faculty(params[0]);
             }
 
             @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
+            protected void onPostExecute(ArrayList<FacultyWrapper> result) {
+                super.onPostExecute(result);
                 //progressDialog.dismiss();
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity() , "" + result.get(0).getFaculty_name() , Toast.LENGTH_SHORT).show();
 
-                list = parseJSON(response);
+                list = result;
+
                 adapter = new Faculty_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
@@ -279,36 +232,37 @@ import java.util.ArrayList;
                 progressBar.setVisibility(View.GONE);
             }
 
-            private ArrayList<FacultyWrapper> parseJSON(String response) {
+            private ArrayList<FacultyWrapper> fetchDatabaseList_Faculty(String[] selectionArgs) {
                 ArrayList<FacultyWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.FACULTY_CONTENT_URI ,
+                        null , DatabaseContract.FacultyTable.FACULTY_DEPARTMENT + " = ?" ,
+                        selectionArgs , null);
 
-                        FacultyWrapper faculty = new FacultyWrapper();
-                        faculty.setFaculty_name(jsonObject.getString("Name"));
-                        faculty.setFaculty_id(jsonObject.getString("FacultyId"));
-                        faculty.setFaculty_email(jsonObject.getString("Email"));
-                        faculty.setDOB(jsonObject.getString("DateOfBirth"));
-                        faculty.setFaculty_department(jsonObject.getString("Department"));
-                        faculty.setFaculty_contact(jsonObject.getString("Contact"));
-                        faculty.setFaculty_imageLink(jsonObject.getString("Image"));
-                        faculty.setFaculty_qualification(jsonObject.getString("Qualification"));
-                        faculty.setFaculty_hometown(jsonObject.getString("Hometown"));
-                        faculty.setFaculty_designation(jsonObject.getString("Designation"));
-                        faculty.setFaculty_achievements(jsonObject.getString("Achievements"));
-                        faculty.setFaculty_summary(jsonObject.getString("Summary"));
-                        faculty.setFaculty_research_area(jsonObject.getString("ResearchAreas"));
+                while (cursor.moveToNext()){
+                    FacultyWrapper faculty = new FacultyWrapper();
 
-                        list.add(faculty);
-                    }
-                } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+                    faculty.setFaculty_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_SERVER_ID)));
+
+                    faculty.setFaculty_name(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_NAME)));
+                    faculty.setFaculty_department(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_DEPARTMENT)));
+                    faculty.setFaculty_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_IMAGE)));
+                    faculty.setFaculty_research_area(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_RESEARCH_AREAS)));
+                    faculty.setFaculty_summary(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_SUMMARY)));
+                    faculty.setFaculty_achievements(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_ACHIEVEMENTS)));
+                    faculty.setDOB(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_DOB)));
+                    faculty.setFaculty_contact(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_CONTACT)));
+                    faculty.setFaculty_designation(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_DESIGNATION)));
+                    faculty.setFaculty_email(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_EMAIL)));
+                    faculty.setFaculty_id(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_ID)));
+                    faculty.setFaculty_hometown(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_HOMETOWN)));
+                    faculty.setFaculty_qualification(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_QUALIFICATION)));
+                    faculty.setFaculty_facebook(cursor.getString(cursor.getColumnIndex(DatabaseContract.FacultyTable.FACULTY_FACEBOOK)));
+
+                    list.add(faculty);
+
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }

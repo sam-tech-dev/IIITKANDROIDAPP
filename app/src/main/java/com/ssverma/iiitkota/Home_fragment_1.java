@@ -1,7 +1,12 @@
 package com.ssverma.iiitkota;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,10 +23,21 @@ import android.widget.Toast;
  */
 public class Home_fragment_1 extends Fragment implements View.OnClickListener{
 
+    LocationManager   locationManager ;
+
 
     public Home_fragment_1() {
-        // Required empty public constructor
+
     }
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        locationManager =(LocationManager)activity.getSystemService(Context.LOCATION_SERVICE);
+    }
+
 
 
     @Override
@@ -88,7 +104,15 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         row_iv_itemHolder4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , Map.class));
+
+                if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    Intent intent = new Intent(getActivity(), mapIIITK.class);
+                    startActivity(intent);
+                }else{
+                    alertPopup();
+                }
+
+
             }
         });
 
@@ -140,7 +164,8 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         ImageView icon9 = (ImageView) itemHolder9.findViewById(R.id.home_iv_row_item);
         icon9.setImageResource(R.drawable.home_seminar_workshop);
         TextView text9 = (TextView) itemHolder9.findViewById(R.id.home_tv_row_item);
-        text9.setText("Seminars/Workshops");
+        //Added by-Dixit Chauhan      :03/06/2016
+        text9.setText("Events");
 
 
         LinearLayout row_iv_itemHolder9 = (LinearLayout) itemHolder9.findViewById(R.id.home_iv_row_item_holder);
@@ -148,7 +173,7 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         row_iv_itemHolder9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , Seminar_Workshop.class));
+                startActivity(new Intent(getActivity() , Events.class)); //Added by-Dixit Chauhan      :03/06/2016
             }
         });
 
@@ -163,4 +188,24 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity() , "Clicked 1" , Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void  alertPopup(){
+        AlertDialog alertDialog = new AlertDialog.Builder(
+                getActivity()).create();
+
+        alertDialog.setTitle("Alert");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("This application wants to change your GPS setting for location.");
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
+
 }

@@ -2,10 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssverma.iiitkota">
 
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+=======
+    <uses-permission android:name="com.example.googlemaps.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+>>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
 
     <application
         android:allowBackup="true"
@@ -13,26 +23,42 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_api_key" />
+
         <activity
             android:name=".Home"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".NewsFeed"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Faculty_DetailedView"
             android:label="" />
-        <activity android:name=".Programs" />
-        <activity android:name=".NewsFeed" />
+        <activity
+            android:name=".Programs"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Seminar_Workshop" />
+        <activity
+            android:name=".NewsFeed_DetialedView"
+            android:label="" />
         <activity
             android:name=".Gallery"
             android:label="@string/title_activity_gallery"
@@ -41,6 +67,7 @@
             android:name=".Gallery_Images"
             android:label="@string/title_activity_gallery__images"
             android:theme="@style/AppTheme" />
+<<<<<<< HEAD
         <activity android:name=".Map" />
         <activity android:name=".Program_DetailedView" />
         <activity android:name=".Gallery_Detailed_View" />
@@ -56,6 +83,58 @@
 
         <activity android:name=".Administration" />
         <activity android:name=".Administration_DetailedView"></activity>
+=======
+        <activity android:name=".mapIIITK" />
+        <activity android:name=".Program_DetailedView"
+            android:label=""/>
+        <activity android:name=".Gallery_Detailed_View" />
+        <activity android:name=".CampusLife" />
+        <activity android:name=".Placement" />
+        <activity android:name=".Scholarship"></activity>
+        <activity android:name=".Events"
+            android:label=""></activity>
+        <activity android:name=".EventsDetailedView"
+            android:label=""></activity>
+
+
+        <provider
+            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
+            android:name=".sync_adapter.IIITK_ContentProvider"
+            android:syncable="true">
+        </provider>
+
+        <service android:name=".sync_adapter.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"></action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
+        </service>
+
+        <service android:name=".sync_adapter.SyncService"
+            android:exported="true"
+            android:process=":sync">
+
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"></action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter"/>
+
+        </service>
+
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Contact" />
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+>>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
     </application>
 
 </manifest>

@@ -135,5 +135,27 @@ public class FacultyWrapper {
 
     private String faculty_research_area;
 
+<<<<<<< HEAD
+=======
+    public String getFaculty_facebook() {
+        return faculty_facebook;
+    }
+
+    public void setFaculty_facebook(String faculty_facebook) {
+        this.faculty_facebook = faculty_facebook;
+    }
+
+    private String faculty_facebook;
+
+    public int getFaculty_server_id() {
+        return faculty_server_id;
+    }
+
+    public void setFaculty_server_id(int faculty_server_id) {
+        this.faculty_server_id = faculty_server_id;
+    }
+
+    private int faculty_server_id;
+>>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
 
 }

@@ -30,5 +30,11 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.squareup.picasso:picasso:2.5.2'
+<<<<<<< HEAD
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+=======
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.google.android.gms:play-services-location:8.4.0'
+>>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
 }

@@ -7,18 +7,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:id="@+id/program_ug_progress_bar"/>
+        android:id="@+id/program_ug_progress_bar"
+        android:layout_marginTop="10dp"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/program_ug_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/program_ug_progress_bar">
+        android:layout_below="@+id/program_ug_progress_bar"
+        android:layout_marginTop="5dp">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/program_recycler_view">
+            android:id="@+id/program_recycler_view"
+           >
 
         </android.support.v7.widget.RecyclerView>
 

@@ -11,8 +11,15 @@
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_final_width">32dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
+
+    <!-- news items. -->
+    <dimen name="news_image_detailed_height">400dp</dimen>
+    <dimen name="news_title_textsize">20dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+<<<<<<< HEAD
     <dimen name="text_margin">16dp</dimen>
+=======
+>>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
     <dimen name="contact_paddingtop">260dp</dimen>
     <dimen name="contact_paddingleft">36dp</dimen>
 </resources>
