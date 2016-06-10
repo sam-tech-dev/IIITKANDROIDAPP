@@ -12,6 +12,13 @@ public class ContactsWrapper {
     private  String contact_id;
 
 
+    public void setContact_server_id(Integer contact_server_id) {
+        this.contact_server_id = contact_server_id;
+    }
+
+    private Integer contact_server_id;
+
+
 
     public String getContact_name() { return contact_name; }
 

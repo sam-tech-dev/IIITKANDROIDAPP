@@ -36,4 +36,15 @@
         to social development andeye for opportunities for growth in the international perspective</string>
     <string name="vision">To create a center for imparting technical education of international standards and conduct research at the cutting edge of
         technology to meet the current and future challenges of technological development.</string>
+    <string name="title_activity_events">Events</string>
+    <string name="title_activity_scholarship">Scholarships</string>
+    <string name="q_director">B.E. (Hons) in Mechanical Engineering from REC (NIT) Srinagar and M.Tech. and Ph.D. from I.I.T., Kanpur.</string>
+    <string name="p_director">
+    Director, IIIT Kota (continuing)
+    Director, NIT Jaipur (continuing)
+    Director,NIT Jalandhar (continuing)
+    Director, NIT Delhi
+    Director, of NIT Hamirpur
+    </string>
+    <string name="q_coordinator">Ph.D. from University of Southampton, UK M.E.(CSE) from IISc Bangalore B.E.(ECE) from JNV University, Jodhpur </string>
 </resources>

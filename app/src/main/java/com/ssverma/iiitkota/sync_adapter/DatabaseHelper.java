@@ -36,6 +36,84 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             +DatabaseContract.FacultyTable.TABLE_NAME;
 
 
+
+
+    //CONTACT
+    private static final String CREATE_CONTACT_TABLE = "CREATE TABLE "
+            + DatabaseContract.ContactTable.TABLE_NAME + " ("
+            + DatabaseContract.ContactTable.CONTACT_SERVER_ID + INTEGER_TYPE + COMMA
+            + DatabaseContract.ContactTable.CONTACT_NAME + TEXT_TYPE + COMMA
+            + DatabaseContract.ContactTable.CONTACT_EMAIL + TEXT_TYPE + COMMA
+            + DatabaseContract.ContactTable.CONTACT_MOBILE + TEXT_TYPE + COMMA
+            + DatabaseContract.ContactTable.CONTACT_CATEGORY+ TEXT_TYPE + COMMA
+            + DatabaseContract.ContactTable.CONTACT_DESIGNATION + TEXT_TYPE + " )";
+
+
+    //
+    private static final String DROP_CONTACT_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.ContactTable.TABLE_NAME;
+
+
+
+
+
+    //ADMINISTRATION
+    private static final String CREATE_ADMINISTRATION_TABLE = "CREATE TABLE "
+            + DatabaseContract.AdministrationTable.TABLE_NAME + " ("
+            + DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID + INTEGER_TYPE + COMMA
+            + DatabaseContract.AdministrationTable.ADMINISTRATION_NAME + TEXT_TYPE + COMMA
+            + DatabaseContract.AdministrationTable.ADMINISTRATION_DESIGNATION + TEXT_TYPE + COMMA
+            + DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + TEXT_TYPE + " )";
+
+
+    //
+    private static final String DROP_ADMINISTRATION_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.AdministrationTable.TABLE_NAME;
+
+
+
+
+    //Event
+    private static final String CREATE_EVENTS_TABLE = "CREATE TABLE "
+            + DatabaseContract.EventsTable.TABLE_NAME + " ("
+            + DatabaseContract.EventsTable.EVENTS_SERVER_ID + INTEGER_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_TITLE + TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_DATE + TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_SUBTITLE + TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_DETAIL+ TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_AUTHOR + TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_IMAGE + TEXT_TYPE + COMMA
+            + DatabaseContract.EventsTable.EVENTS_FLAG + TEXT_TYPE + " )";
+
+
+    //
+    private static final String DROP_EVENTS_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.EventsTable.TABLE_NAME;
+
+
+
+
+    //Scholarship
+    private static final String CREATE_SCHOLARSHIP_TABLE = "CREATE TABLE "
+            + DatabaseContract.ScholarshipTable.TABLE_NAME + " ("
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_SERVER_ID+ INTEGER_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_NAME + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_INCOME+ TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_ACADEMIC + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_CATEGORY+ TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_VALUE + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_PROCEDURE + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_REMARK + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_LINK + TEXT_TYPE + COMMA
+            + DatabaseContract.ScholarshipTable.SCHOLARSHIP_IMAGE+ TEXT_TYPE + " )";
+
+
+    //
+    private static final String DROP_SCHOLARSHIP_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.ScholarshipTable.TABLE_NAME;
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DatabaseContract.DB_NAME, null, DATABASE_VERSION);
     }
@@ -43,11 +121,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_FACULTY_TABLE);
+        db.execSQL(CREATE_CONTACT_TABLE);
+        db.execSQL(CREATE_ADMINISTRATION_TABLE);
+        db.execSQL(CREATE_EVENTS_TABLE);
+        //
+        db.execSQL(CREATE_SCHOLARSHIP_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_FACULTY_TABLE);
+        //onCreate(db);
+        db.execSQL(DROP_EVENTS_TABLE);
+
+        //
+        db.execSQL(DROP_SCHOLARSHIP_TABLE);
+        //
+        db.execSQL(DROP_CONTACT_TABLE);
+        db.execSQL(DROP_ADMINISTRATION_TABLE);
+
         onCreate(db);
     }
 }
