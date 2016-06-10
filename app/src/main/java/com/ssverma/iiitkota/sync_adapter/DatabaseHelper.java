@@ -54,9 +54,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             +DatabaseContract.ContactTable.TABLE_NAME;
 
 
-
-
-
     //ADMINISTRATION
     private static final String CREATE_ADMINISTRATION_TABLE = "CREATE TABLE "
             + DatabaseContract.AdministrationTable.TABLE_NAME + " ("
@@ -69,8 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //
     private static final String DROP_ADMINISTRATION_TABLE = "DROP TABLE IF EXISTS "
             +DatabaseContract.AdministrationTable.TABLE_NAME;
-
-
 
 
     //Event
@@ -89,8 +84,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //
     private static final String DROP_EVENTS_TABLE = "DROP TABLE IF EXISTS "
             +DatabaseContract.EventsTable.TABLE_NAME;
-
-
 
 
     //Scholarship
@@ -114,6 +107,42 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
 
+    //News
+    private static final String CREATE_NEWS_TABLE = "CREATE TABLE "
+            + DatabaseContract.NewsTable.TABLE_NAME + " ("
+            + DatabaseContract.NewsTable.NEWS_SERVER_ID + INTEGER_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_TITLE + TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_DATE + TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_SUBTITLE + TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_DETAIL+ TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_AUTHOR + TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_FLAG + TEXT_TYPE + COMMA
+            + DatabaseContract.NewsTable.NEWS_IMAGE + TEXT_TYPE + " )";
+
+    //
+    private static final String DROP_NEWS_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.NewsTable.TABLE_NAME;
+
+
+
+    //Campus_life
+
+
+    private static final String CREATE_CAMPUS_TABLE = "CREATE TABLE "
+            + DatabaseContract.CampusTable.TABLE_NAME + " ("
+            + DatabaseContract.CampusTable.CAMPUS_SERVER_ID + INTEGER_TYPE + COMMA
+            + DatabaseContract.CampusTable.CAMPUS_TITLE + TEXT_TYPE + COMMA
+            + DatabaseContract.CampusTable.CAMPUS_DETAIL + TEXT_TYPE + COMMA
+            + DatabaseContract.CampusTable.CAMPUS_IMAGE + TEXT_TYPE +
+
+            " )";
+
+    //
+    private static final String DROP_CAMPUS_TABLE = "DROP TABLE IF EXISTS "
+            +DatabaseContract.CampusTable.TABLE_NAME;
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DatabaseContract.DB_NAME, null, DATABASE_VERSION);
     }
@@ -124,9 +153,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_CONTACT_TABLE);
         db.execSQL(CREATE_ADMINISTRATION_TABLE);
         db.execSQL(CREATE_EVENTS_TABLE);
-        //
         db.execSQL(CREATE_SCHOLARSHIP_TABLE);
-
+        db.execSQL(CREATE_NEWS_TABLE);
+        db.execSQL(CREATE_CAMPUS_TABLE);
     }
 
     @Override
@@ -140,6 +169,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         //
         db.execSQL(DROP_CONTACT_TABLE);
         db.execSQL(DROP_ADMINISTRATION_TABLE);
+
+        db.execSQL(DROP_NEWS_TABLE);
+        db.execSQL(DROP_CAMPUS_TABLE);
 
         onCreate(db);
     }

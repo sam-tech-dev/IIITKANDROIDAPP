@@ -248,10 +248,10 @@ public class Home extends AppCompatActivity
                 startActivity(new Intent(this , AboutUs.class));
                 break;
             case 13:
-                //startActivity(new Intent(this , CampusLife.class));
+                startActivity(new Intent(this , Campus_life.class));
                 break;
             case 14:
-                //tartActivity(new Intent(this , SocialConnect.class));
+                startActivity(new Intent(this , SocialConnect.class));
                 break;
         }
     }

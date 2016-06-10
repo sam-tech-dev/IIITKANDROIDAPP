@@ -23,6 +23,9 @@ public class DatabaseContract {
     public static final Uri CONTACT_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.ContactTable.TABLE_NAME);
     //ADMINISTRATION
     public static final Uri ADMINISTRATION_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.AdministrationTable.TABLE_NAME);
+
+
+
     public abstract class FacultyTable {
 
         public static final String FACULTY_CONTENT_TYPE =

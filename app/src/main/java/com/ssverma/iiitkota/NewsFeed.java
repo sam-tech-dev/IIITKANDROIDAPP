@@ -137,8 +137,6 @@ public class NewsFeed extends AppCompatActivity{
 
         private ArrayList<NewsWrapper> list;
 
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
-
         public PlaceholderFragment() {
         }
 
