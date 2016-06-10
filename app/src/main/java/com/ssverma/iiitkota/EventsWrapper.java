@@ -51,4 +51,23 @@ public class EventsWrapper {
     private String detail;
     private String image;
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getEvents_server_id() {
+        return events_server_id;
+    }
+
+    public void setEvents_server_id(int events_server_id) {
+        this.events_server_id = events_server_id;
+    }
+
+    private int events_server_id;
+    private String author;
+
 }

@@ -16,6 +16,9 @@
     <dimen name="news_image_detailed_height">400dp</dimen>
     <dimen name="news_title_textsize">20dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+
+    <dimen name="text_margin">16dp</dimen>
+
     <dimen name="contact_paddingtop">260dp</dimen>
     <dimen name="contact_paddingleft">36dp</dimen>
 </resources>

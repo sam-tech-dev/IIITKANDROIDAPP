@@ -48,6 +48,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter{
         h.post(new Runnable() {
             public void run() {
                 syncServerToLocal_Faculty();
+
+                //CONTACT
+                syncServerToLocal_Contact();
+
+
+                //ADMINISTRATION
+                syncServerToLocal_Administration();
+                syncServerToLocal_Events();
+                //sy
+                syncServerToLocal_Scholarship();
+
+
             }
         });
 
@@ -61,6 +73,36 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter{
         new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl() , "dept=ECE");
     }
 
+    //sycn
+    private void syncServerToLocal_Events() {
+        new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl() , "filter=prev");
+        new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl() , "filter=upcoming");
+        new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl() , "filter=latest");
+
+    }
+    //sycn
+    private void syncServerToLocal_Scholarship() {
+        new ServerAsync_Scholarship().execute(ServerContract.getScholarshipPhpUrl() );
+    }
+
+//CONTACT
+private void syncServerToLocal_Contact() {
+    new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl() , "cat=DeptofCS");
+    new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl() , "cat=DeptofECE");
+    new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl() , "cat=DeptofEE");
+    new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl() , "cat=Office");
+    new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl() , "cat=General");
+
+
+}
+
+//ADMINISTRATION
+private void syncServerToLocal_Administration() {
+    new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=GoverningCouncil");
+    new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=ExecutiveCouncil");
+    new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=Adjunct");
+
+}
 
     // ... create methods here
 
@@ -149,5 +191,336 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter{
 
 
     //... Create Your Async and 'parseJSON Method'
+
+    //CONTACT
+
+    public class ServerAsync_Contact extends AsyncTask<String , Void , String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return ServerConnection.obtainServerResponse(params[0] , params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            ArrayList<ContentValues> list = parseEventsJSON(response);
+            syncDataToContactLocal(list);
+        }
+
+        private void syncDataToContactLocal(ArrayList<ContentValues> list) {
+
+            String selectionClause = DatabaseContract.ContactTable.CONTACT_SERVER_ID+ " = ?" + " AND "
+                    + DatabaseContract.ContactTable.CONTACT_CATEGORY + " = ?";//
+            String[] selectionArgs = null;
+
+            int newRowAdded = 0;
+
+            for (ContentValues contentValues : list){
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ContactTable.CONTACT_SERVER_ID)
+                        , contentValues.getAsString(DatabaseContract.ContactTable.CONTACT_CATEGORY)};//
+
+                int rowAffected = contentResolver.update(DatabaseContract.CONTACT_CONTENT_URI, contentValues , selectionClause , selectionArgs);
+
+                if (rowAffected == 0){
+                    Uri uri = contentResolver.insert(DatabaseContract.CONTACT_CONTENT_URI , contentValues);
+                    long rowId = ContentUris.parseId(uri);
+                    if (rowId > 0){
+                        newRowAdded++;
+                    }
+                }
+
+                contentResolver.notifyChange(DatabaseContract.CONTACT_CONTENT_URI , null);
+            }
+        }
+
+
+        private ArrayList<ContentValues> parseEventsJSON(String response) {
+
+            ArrayList<ContentValues> list = new ArrayList<>();
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    ContentValues contentValues = new ContentValues();
+
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_SERVER_ID , jsonObject.getInt("contact_id"));
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_NAME , jsonObject.getString("contact_name"));
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_EMAIL , jsonObject.getString("contact_email"));
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_MOBILE , jsonObject.getString("contact_mobile_no"));
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_CATEGORY , jsonObject.getString("contact_category"));
+                    contentValues.put(DatabaseContract.ContactTable.CONTACT_DESIGNATION , jsonObject.getString("contact_designation"));
+
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_TITLE , jsonObject.getString("Title"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DATE, jsonObject.getString("Date"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SUBTITLE , jsonObject.getString("Subtitle"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DETAIL , jsonObject.getString("Detail"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_AUTHOR, jsonObject.getString("Detail"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_IMAGE , jsonObject.getString("Image"));
+
+                    list.add(contentValues);
+                }
+            } catch (JSONException e) {
+                //tv.setText("JSON E:" + e);
+            }
+
+            return list;
+        }
+    }
+
+
+    //ADMINISTRATION
+
+    public class ServerAsync_Administration extends AsyncTask<String , Void , String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return ServerConnection.obtainServerResponse(params[0] , params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            ArrayList<ContentValues> list = parseEventsJSON(response);
+            syncDataToAdministrationLocal(list);
+        }
+
+        private void syncDataToAdministrationLocal(ArrayList<ContentValues> list) {
+
+            String selectionClause = DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID+ " = ?" + " AND "
+                    + DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?";//
+            String[] selectionArgs = null;
+
+            int newRowAdded = 0;
+
+            for (ContentValues contentValues : list){
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)
+                        , contentValues.getAsString(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY)};//
+
+                int rowAffected = contentResolver.update(DatabaseContract.ADMINISTRATION_CONTENT_URI, contentValues , selectionClause , selectionArgs);
+
+                if (rowAffected == 0){
+                    Uri uri = contentResolver.insert(DatabaseContract.ADMINISTRATION_CONTENT_URI , contentValues);
+                    long rowId = ContentUris.parseId(uri);
+                    if (rowId > 0){
+                        newRowAdded++;
+                    }
+                }
+
+                contentResolver.notifyChange(DatabaseContract.ADMINISTRATION_CONTENT_URI , null);
+            }
+        }
+
+
+        private ArrayList<ContentValues> parseEventsJSON(String response) {
+
+            ArrayList<ContentValues> list = new ArrayList<>();
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    ContentValues contentValues = new ContentValues();
+
+                    contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID , jsonObject.getInt("id"));
+                    contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_NAME , jsonObject.getString("Name"));
+                    contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_DESIGNATION , jsonObject.getString("Designation"));
+                    contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY , jsonObject.getString("Category"));
+
+
+
+
+//
+//
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_SERVER_ID , jsonObject.getInt("contact_id"));
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_NAME , jsonObject.getString("contact_name"));
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_EMAIL , jsonObject.getString("contact_email"));
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_MOBILE , jsonObject.getString("contact_mobile_no"));
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_CATEGORY , jsonObject.getString("contact_category"));
+//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_DESIGNATION , jsonObject.getString("contact_designation"));
+
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_TITLE , jsonObject.getString("Title"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DATE, jsonObject.getString("Date"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SUBTITLE , jsonObject.getString("Subtitle"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DETAIL , jsonObject.getString("Detail"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_AUTHOR, jsonObject.getString("Detail"));
+//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_IMAGE , jsonObject.getString("Image"));
+
+                    list.add(contentValues);
+                }
+            } catch (JSONException e) {
+                //tv.setText("JSON E:" + e);
+            }
+
+            return list;
+        }
+    }
+
+    //... Create Your Async and 'parseJSON Method'
+
+
+    public class ServerAsync_Events extends AsyncTask<String , Void , String> {
+
+
+        String flag = "prev";
+
+        @Override
+        protected String doInBackground(String... params) {
+            flag = params[1].substring(7);  //
+            return ServerConnection.obtainServerResponse(params[0] , params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            //Toast.makeText(getContext(),response+" ",Toast.LENGTH_LONG).show();
+
+            ArrayList<ContentValues> list = parseEventsJSON(response);
+            syncDataToEventsLocal(list);
+
+        }
+
+        private void syncDataToEventsLocal(ArrayList<ContentValues> list) {
+
+            String selectionClause = DatabaseContract.EventsTable.EVENTS_SERVER_ID+ " = ?" + " AND "
+                    + DatabaseContract.EventsTable.EVENTS_DATE + " = ?";//
+            String[] selectionArgs = null;
+
+            int newRowAdded = 0;
+
+            for (ContentValues contentValues : list){
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.EventsTable.EVENTS_SERVER_ID)
+                        , contentValues.getAsString(DatabaseContract.EventsTable.EVENTS_DATE)};//
+
+                int rowAffected = contentResolver.update(DatabaseContract.EVENTS_CONTENT_URI, contentValues , selectionClause , selectionArgs);
+
+                if (rowAffected == 0){
+                    Uri uri = contentResolver.insert(DatabaseContract.EVENTS_CONTENT_URI , contentValues);
+                    long rowId = ContentUris.parseId(uri);
+                    if (rowId > 0){
+                        newRowAdded++;
+                    }
+                }
+
+                contentResolver.notifyChange(DatabaseContract.EVENTS_CONTENT_URI , null);
+            }
+        }
+
+
+        private ArrayList<ContentValues> parseEventsJSON(String response) {
+
+            ArrayList<ContentValues> list = new ArrayList<>();
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    ContentValues contentValues = new ContentValues();
+
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SERVER_ID , jsonObject.getInt("id"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_TITLE , jsonObject.getString("Title"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DATE, jsonObject.getString("Date"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SUBTITLE , jsonObject.getString("Subtitle"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DETAIL , jsonObject.getString("Detail"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_AUTHOR, jsonObject.getString("Author"));
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_IMAGE , jsonObject.getString("Image"));
+
+                    contentValues.put(DatabaseContract.EventsTable.EVENTS_FLAG  , flag);
+
+                    list.add(contentValues);
+                }
+            } catch (JSONException e) {
+                //tv.setText("JSON E:" + e);
+            }
+
+            return list;
+        }
+    }
+
+
+//
+
+    public class ServerAsync_Scholarship extends AsyncTask<String , Void , String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return ServerConnection.obtainServerResponse(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            ArrayList<ContentValues> list = parseScholarshipJSON(response);
+            syncDataToScholarshipLocal(list);
+
+        }
+
+        private void syncDataToScholarshipLocal(ArrayList<ContentValues> list) {
+
+            String selectionClause = DatabaseContract.ScholarshipTable.SCHOLARSHIP_SERVER_ID + " = ?" ;//
+            String[] selectionArgs = null;
+
+            int newRowAdded = 0;
+
+            for (ContentValues contentValues : list){
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ScholarshipTable.SCHOLARSHIP_SERVER_ID)
+                };
+
+                int rowAffected = contentResolver.update(DatabaseContract.SCHOLARSHIP_CONTENT_URI , contentValues , selectionClause , selectionArgs);
+
+                if (rowAffected == 0){
+                    Uri uri = contentResolver.insert(DatabaseContract.SCHOLARSHIP_CONTENT_URI , contentValues);
+                    long rowId = ContentUris.parseId(uri);
+                    if (rowId > 0){
+                        newRowAdded++;
+                    }
+                }
+
+                contentResolver.notifyChange(DatabaseContract.SCHOLARSHIP_CONTENT_URI , null);
+            }
+        }
+
+
+        private ArrayList<ContentValues> parseScholarshipJSON(String response) {
+
+            ArrayList<ContentValues> list = new ArrayList<>();
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    ContentValues contentValues = new ContentValues();
+
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_SERVER_ID , jsonObject.getInt("id"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_NAME , jsonObject.getString("name"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_INCOME, jsonObject.getString("criteria_total_parental_income_rs"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_ACADEMIC , jsonObject.getString("criteria_academic"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_CATEGORY , jsonObject.getString("criteria_category"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_VALUE , jsonObject.getString("value"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_PROCEDURE , jsonObject.getString("procedure_for_application"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_REMARK , jsonObject.getString("remark"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_LINK , jsonObject.getString("link"));
+                    contentValues.put(DatabaseContract.ScholarshipTable.SCHOLARSHIP_IMAGE , jsonObject.getString("image"));
+                    list.add(contentValues);
+                }
+            } catch (JSONException e) {
+                //tv.setText("JSON E:" + e);
+            }
+
+            return list;
+        }
+    }
 
 }

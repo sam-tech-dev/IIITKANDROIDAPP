@@ -25,4 +25,17 @@
     <string name="gargi">"Gargi Hostel"</string>
     <string name="maingate">"MNIT Main Gate"</string>
     <string name="google_api_key">"AIzaSyDbb_gtVij1xgY0pXgPtMrNiM4pdMb77NE"</string>
+    <string name="title_activity_events">Events</string>
+    <string name="title_activity_scholarship">Scholarships</string>
+    <string name="q_director">B.E. (Hons) in Mechanical Engineering from REC (NIT) Srinagar and M.Tech. and Ph.D. from I.I.T., Kanpur.</string>
+    <string name="p_director">
+    Director, IIIT Kota (continuing)
+    Director, NIT Jaipur (continuing)
+    Director,NIT Jalandhar (continuing)
+    Director, NIT Delhi
+    Director, of NIT Hamirpur
+</string>
+
+    <string name="q_coordinator">Ph.D. from University of Southampton, UK M.E.(CSE) from IISc Bangalore B.E.(ECE) from JNV University, Jodhpur </string>
+
 </resources>

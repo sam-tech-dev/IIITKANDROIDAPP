@@ -5,11 +5,16 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="com.example.googlemaps.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
 
 
     <application
@@ -62,17 +67,39 @@
             android:name=".Gallery_Images"
             android:label="@string/title_activity_gallery__images"
             android:theme="@style/AppTheme" />
-        <activity android:name=".mapIIITK" />
-        <activity android:name=".Program_DetailedView"
+
+        <activity android:name=".Program_DetailedView" />
+
+        <!--Added by-Dixit Chauhan      :03/06/2016-->
+        <activity android:name=".Events"
+            android:label="@string/title_activity_events"/>
+        <activity android:name=".EventsDetailedView"
             android:label=""/>
+
         <activity android:name=".Gallery_Detailed_View" />
+        android:theme="@style/AppTheme" />
+        <activity android:name=".Contact" />
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".Administration" />
+        <activity android:name=".Administration_DetailedView"
+            android:label=""></activity>
+
+        <activity android:name=".mapIIITK" />
+
         <activity android:name=".CampusLife" />
         <activity android:name=".Placement" />
-        <activity android:name=".Scholarship"></activity>
-        <activity android:name=".Events"
-            android:label=""></activity>
-        <activity android:name=".EventsDetailedView"
-            android:label=""></activity>
+        <!--Added by-Dixit Chauhan      :08/06/2016-->
+        <activity android:name=".Scholarship"
+            android:label="@string/title_activity_scholarship"/>
+        <activity android:name=".ScholarshipDetailedView"
+            android:label=""/>
 
 
         <provider
@@ -105,13 +132,12 @@
 
         </service>
 
-            android:theme="@style/AppTheme" />
-        <activity android:name=".Contact" />
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

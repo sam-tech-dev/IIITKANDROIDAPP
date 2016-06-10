@@ -20,6 +20,27 @@ public class IIITK_ContentProvider extends ContentProvider{
     private static final int FACULTY_TABLE = 0;  // All rows
     private static final int FACULTY_TABLE_ROW = 1;  //Single row;
 
+    //4
+    //5
+    private static final int EVENTS_TABLE = 4;  // All rows
+    private static final int EVENTS_TABLE_ROW = 5;  //Single row;
+
+    //10
+    //11
+    private static final int SCHOLARSHIP_TABLE = 10;  // All rows
+    private static final int SCHOLARSHIP_TABLE_ROW = 11;  //Single row;
+
+    //8
+    //9
+    private static final int CONTACT_TABLE = 8;  // All rows
+    private static final int CONTACT_TABLE_ROW = 9;  //Single row;
+
+
+    //14
+    //15
+    private static final int ADMINISTRATION_TABLE = 14;  // All rows
+    private static final int ADMINISTRATION_TABLE_ROW = 15;  //Single row;
+
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase db;
 
@@ -29,6 +50,24 @@ public class IIITK_ContentProvider extends ContentProvider{
         uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.FacultyTable.TABLE_NAME , FACULTY_TABLE);
         uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.FacultyTable.TABLE_NAME + "/#" , FACULTY_TABLE_ROW);
         // add more
+
+        //
+        //
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.ContactTable.TABLE_NAME , CONTACT_TABLE);
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.ContactTable.TABLE_NAME + "/#" , CONTACT_TABLE_ROW);
+
+        //
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.AdministrationTable.TABLE_NAME , ADMINISTRATION_TABLE);
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.AdministrationTable.TABLE_NAME + "/#" , ADMINISTRATION_TABLE_ROW);
+        //
+        //
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.EventsTable.TABLE_NAME , EVENTS_TABLE);
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.EventsTable.TABLE_NAME + "/#" , EVENTS_TABLE_ROW);
+
+        //
+        //
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.ScholarshipTable.TABLE_NAME , SCHOLARSHIP_TABLE);
+        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.ScholarshipTable.TABLE_NAME + "/#" , SCHOLARSHIP_TABLE_ROW);
     }
 
 
@@ -54,6 +93,49 @@ public class IIITK_ContentProvider extends ContentProvider{
             case FACULTY_TABLE_ROW :
                 selection = "_ID LIKE " + uri.getLastPathSegment();
                 return db.query(DatabaseContract.FacultyTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+            //case
+            //case
+            case CONTACT_TABLE :
+                cursor = db.query(DatabaseContract.ContactTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+                cursor.setNotificationUri(getContext().getContentResolver() , uri);
+                return cursor;
+
+            case CONTACT_TABLE_ROW :
+                selection = "_ID LIKE " + uri.getLastPathSegment();
+                return db.query(DatabaseContract.ContactTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+
+            //case
+            //case
+            case ADMINISTRATION_TABLE :
+                cursor = db.query(DatabaseContract.AdministrationTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+                cursor.setNotificationUri(getContext().getContentResolver() , uri);
+                return cursor;
+
+            case ADMINISTRATION_TABLE_ROW :
+                selection = "_ID LIKE " + uri.getLastPathSegment();
+                return db.query(DatabaseContract.AdministrationTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+
+            //case
+            //case
+            case EVENTS_TABLE :
+                cursor = db.query(DatabaseContract.EventsTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+                cursor.setNotificationUri(getContext().getContentResolver() , uri);
+                return cursor;
+
+            case EVENTS_TABLE_ROW :
+                selection = "_ID LIKE " + uri.getLastPathSegment();
+                return db.query(DatabaseContract.EventsTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+
+            //case
+            //case
+            case SCHOLARSHIP_TABLE :
+                cursor = db.query(DatabaseContract.ScholarshipTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+                cursor.setNotificationUri(getContext().getContentResolver() , uri);
+                return cursor;
+
+            case SCHOLARSHIP_TABLE_ROW :
+                selection = "_ID LIKE " + uri.getLastPathSegment();
+                return db.query(DatabaseContract.ScholarshipTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
         }
 
         return null;
@@ -68,6 +150,38 @@ public class IIITK_ContentProvider extends ContentProvider{
                 return DatabaseContract.FacultyTable.FACULTY_CONTENT_TYPE;
             case FACULTY_TABLE_ROW:
                 return DatabaseContract.FacultyTable.FACULTY_CONTENT_TYPE_ID;
+
+            //case
+            //case
+
+            case CONTACT_TABLE:
+                return DatabaseContract.ContactTable.CONTACT_CONTENT_TYPE;
+            case CONTACT_TABLE_ROW:
+                return DatabaseContract.ContactTable.CONTACT_CONTENT_TYPE_ID;
+
+            //case
+            //case
+
+            case ADMINISTRATION_TABLE:
+                return DatabaseContract.AdministrationTable.ADMINISTRATION_CONTENT_TYPE;
+            case ADMINISTRATION_TABLE_ROW:
+                return DatabaseContract.AdministrationTable.ADMINISTRATION_CONTENT_TYPE_ID;
+            //case
+            //aces
+
+            case EVENTS_TABLE:
+                return DatabaseContract.EventsTable.EVENTS_CONTENT_TYPE;
+            case EVENTS_TABLE_ROW:
+                return DatabaseContract.EventsTable.EVENTS_CONTENT_TYPE_ID;
+
+
+            //case
+            //aces
+
+            case SCHOLARSHIP_TABLE:
+                return DatabaseContract.ScholarshipTable.SCHOLARSHIP_CONTENT_TYPE;
+            case SCHOLARSHIP_TABLE_ROW:
+                return DatabaseContract.ScholarshipTable.SCHOLARSHIP_CONTENT_TYPE_ID;
         }
 
         return null;
@@ -84,6 +198,37 @@ public class IIITK_ContentProvider extends ContentProvider{
                 Uri _uri = ContentUris.withAppendedId(uri , row_id);
                 //getContext().getContentResolver().notifyChange(_uri , null);
                 return _uri;
+
+            //case
+
+            case CONTACT_TABLE:
+                long row_id_contact = db.insert(DatabaseContract.ContactTable.TABLE_NAME , null , values);
+                Uri _uri_contact = ContentUris.withAppendedId(uri , row_id_contact);
+                //getContext().getContentResolver().notifyChange(_uri , null);
+                return _uri_contact;
+
+            //case
+
+            case ADMINISTRATION_TABLE:
+                long row_id_administration = db.insert(DatabaseContract.AdministrationTable.TABLE_NAME , null , values);
+                Uri _uri_administration = ContentUris.withAppendedId(uri , row_id_administration);
+                //getContext().getContentResolver().notifyChange(_uri , null);
+                return _uri_administration;
+            //case
+
+            case EVENTS_TABLE:
+                long row_id_events = db.insert(DatabaseContract.EventsTable.TABLE_NAME , null , values);
+                Uri _uri_events = ContentUris.withAppendedId(uri , row_id_events);
+                //getContext().getContentResolver().notifyChange(_uri , null);
+                return _uri_events;
+
+            //case
+
+            case SCHOLARSHIP_TABLE:
+                long row_id_scholarship = db.insert(DatabaseContract.ScholarshipTable.TABLE_NAME , null , values);
+                Uri _uri_scholarship = ContentUris.withAppendedId(uri , row_id_scholarship);
+                //getContext().getContentResolver().notifyChange(_uri , null);
+                return _uri_scholarship;
         }
 
         return null;
@@ -103,6 +248,27 @@ public class IIITK_ContentProvider extends ContentProvider{
             case FACULTY_TABLE:
                 int updatedRows = db.update(DatabaseContract.FacultyTable.TABLE_NAME , values , selection , selectionArgs);
                 return updatedRows;
+
+
+            //case
+            case CONTACT_TABLE:
+                int updatedRowsContact = db.update(DatabaseContract.ContactTable.TABLE_NAME , values , selection , selectionArgs);
+                return updatedRowsContact;
+
+            //case
+            case ADMINISTRATION_TABLE:
+                int updatedRowsAdministration = db.update(DatabaseContract.AdministrationTable.TABLE_NAME , values , selection , selectionArgs);
+                return updatedRowsAdministration;
+
+            //case
+            case EVENTS_TABLE:
+                int updatedRowsEvents = db.update(DatabaseContract.EventsTable.TABLE_NAME , values , selection , selectionArgs);
+                return updatedRowsEvents;
+
+            //case
+            case SCHOLARSHIP_TABLE:
+                int updatedRowsScholarship= db.update(DatabaseContract.ScholarshipTable.TABLE_NAME , values , selection , selectionArgs);
+                return updatedRowsScholarship;
         }
 
         return 0;

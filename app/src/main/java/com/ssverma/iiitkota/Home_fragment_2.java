@@ -75,7 +75,7 @@ public class Home_fragment_2 extends Fragment {
         row_iv_itemHolder3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , Scholarship.class));
+                startActivity(new Intent(getActivity() ,Scholarship.class));
             }
         });
 
@@ -108,11 +108,33 @@ public class Home_fragment_2 extends Fragment {
             }
         });
 
+
+
+
+
         LinearLayout itemHolder7 = (LinearLayout) rootView.findViewById(R.id.home_row_item_seven);
         ImageView icon7 = (ImageView) itemHolder7.findViewById(R.id.home_iv_row_item);
-        icon7.setImageResource(R.drawable.home_registration);
+        icon7.setImageResource(R.drawable.home_seminar_workshop);
         TextView text7 = (TextView) itemHolder7.findViewById(R.id.home_tv_row_item);
-        text7.setText("...");
+        text7.setText("Administration");
+
+
+        LinearLayout row_iv_itemHolder7 = (LinearLayout) itemHolder7.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity() , "Clicked" , Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity() , Administration.class));
+            }
+        });
+
+
+
+
+
+
+
 
         LinearLayout itemHolder8 = (LinearLayout) rootView.findViewById(R.id.home_row_item_eight);
         ImageView icon8 = (ImageView) itemHolder8.findViewById(R.id.home_iv_row_item);

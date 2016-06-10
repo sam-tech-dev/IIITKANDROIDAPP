@@ -4,43 +4,31 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.utils.Consts;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Events extends AppCompatActivity{
+public class Administration extends AppCompatActivity{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -49,19 +37,19 @@ public class Events extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming };
+    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
     static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events);
+        setContentView(R.layout.activity_administration);
 
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setTitle("Administration");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -97,8 +85,12 @@ public class Events extends AppCompatActivity{
     }
 
 
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_faculty, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -127,7 +119,7 @@ public class Events extends AppCompatActivity{
 
         private RecyclerView recyclerView;
         private RecyclerView.LayoutManager layoutManager;
-        private EventsAdapter adapter;
+        private Administration_Adapter adapter;
 
         private String url;
         private String urlParameters = null;
@@ -135,9 +127,7 @@ public class Events extends AppCompatActivity{
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-        private ArrayList<EventsWrapper> list;
-
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
+        private ArrayList<AdministrationWrapper> list;
 
         public PlaceholderFragment() {
         }
@@ -157,29 +147,27 @@ public class Events extends AppCompatActivity{
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_events, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_faculty, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.events_recycler_view);
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.faculty_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.latest_events_swipe_refresh_layout);
-            progressBar = (ProgressBar) rootView.findViewById(R.id.latest_events_progress_bar);
+            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
+            url = ServerContract.getAdministrationPhpUrl();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
-                    //Latest Events- First Tab
-                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_LATEST});
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.GOVERNINGCOUNCIL});
                     break;
                 case 1:
-                    //Past Events - Second Tab
-                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_PREV});
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.EXECUTIVECOUNCIL});
                     break;
                 case 2:
-                    //Upcoming - Third Tab
-                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_UPCOMING});
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.ADJUNCT});
                     break;
             }
 
@@ -189,45 +177,51 @@ public class Events extends AppCompatActivity{
         }
 
 
+        @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() ,EventsDetailedView.class);
-            intent.putExtra("tittle" , list.get(position).getTitle());
-            intent.putExtra("subtitle" , list.get(position).getSubtitle());
-            intent.putExtra("date" , list.get(position).getDate());
-            intent.putExtra("faculty_image_link" , list.get(position).getImage());
-            intent.putExtra("detail" , list.get(position).getDetail());
-            intent.putExtra("tab_position" , Events.tab_position);
+             int temp = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            startActivity(intent);
+            if ((temp == 2||temp == 3)&&(position==0)) {
+
+                Intent intent = new Intent(getActivity(), Administration_DetailedView.class);
+                intent.putExtra("admin_id", list.get(position).getAdmin_id());
+                intent.putExtra("admin_name", list.get(position).getAdmin_name());
+                intent.putExtra("admin_designation", list.get(position).getAdmin_designation());
+
+                intent.putExtra("admin_category", list.get(position).getAdmin_category());
+                intent.putExtra("admin_fragment_no", temp);
+
+
+                intent.putExtra("tab_position", Faculty.tab_position);
+
+
+                startActivity(intent /*, options.toBundle()*/);
+            }
         }
 
-        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<EventsWrapper>> {
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<AdministrationWrapper>>{
 
             private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
             }
-
             @Override
-            protected ArrayList<EventsWrapper>  doInBackground(String[]... params) {
-                return fetchDatabaseList_Events(params[0]);
+            protected ArrayList<AdministrationWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Administration(params[0]);
             }
 
 
             @Override
-            protected void onPostExecute(ArrayList<EventsWrapper> result) {
+            protected void onPostExecute(ArrayList<AdministrationWrapper> result) {
                 super.onPostExecute(result);
-                //progressDialog.dismiss();
 
-               // Toast.makeText(getActivity() , "" + result.size() , Toast.LENGTH_SHORT).show();
+
 
                 list = result;
-
-                adapter = new EventsAdapter(getActivity() , list);
+                adapter = new Administration_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
@@ -235,34 +229,35 @@ public class Events extends AppCompatActivity{
                 progressBar.setVisibility(View.GONE);
             }
 
-            private ArrayList<EventsWrapper> fetchDatabaseList_Events(String[] selectionArgs) {
-                ArrayList<EventsWrapper> list = new ArrayList<>();
+            private ArrayList<AdministrationWrapper> fetchDatabaseList_Administration(String[] selectionArgs) {
+                ArrayList<AdministrationWrapper> list = new ArrayList<>();
 
-                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.EVENTS_CONTENT_URI,
-                        null, DatabaseContract.EventsTable.EVENTS_FLAG + " = ?" ,//
-                        selectionArgs, null);
 
-                while (cursor.moveToNext()) {
-                    EventsWrapper events = new EventsWrapper();
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.ADMINISTRATION_CONTENT_URI ,
+                        null , DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?" ,
+                        selectionArgs , null);
 
-                    events.setEvents_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_SERVER_ID)));
+                while (cursor.moveToNext()){
+                    AdministrationWrapper administration = new AdministrationWrapper();
 
-                    events.setTitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_TITLE)));
-                    events.setDate(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_DATE)));
-                    events.setSubtitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_SUBTITLE)));
-                    events.setDetail(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_DETAIL)));
-                    events.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_AUTHOR)));
-                    events.setImage(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_IMAGE)));
+                    administration.setAdministration_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)));
+                    administration.setAdmin_name(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_NAME)));
+                    administration.setAdmin_designation(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_DESIGNATION)));
+                    administration.setAdmin_category(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY)));
 
-                    list.add(events);
+
+
+
+
+                    System.out.print("\n\n\n\n\nCategory = "+DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY+"\n\n\n\n\n");
+                    list.add(administration);
 
                 }
-
                 return list;
             }
         }
-    }
 
+    }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -287,11 +282,11 @@ public class Events extends AppCompatActivity{
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Latest";
+                    return "Governing Council";
                 case 1:
-                    return "Past";
+                    return "Executive Council";
                 case 2:
-                    return "Upcoming";
+                    return "Adjunct";
             }
             return null;
         }

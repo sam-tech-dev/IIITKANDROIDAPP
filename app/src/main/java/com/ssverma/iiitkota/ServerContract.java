@@ -57,6 +57,13 @@ public class ServerContract {
 
     private static String CONTACTS_PHP_URL = SERVER_URL + "/contacts.php";
 
+
+
+    public static String getAdministrationPhpUrl() { return ADMINISTRATION_PHP_URL; }
+
+    private static String ADMINISTRATION_PHP_URL = SERVER_URL + "/administration.php";
+
+
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
 
@@ -102,6 +109,21 @@ public class ServerContract {
     }
 
     private static String EVENTS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/events/";
+
+
+    //Added by-Dixit Chauhan      :06/06/2016
+
+    public static String getScholarshipPhpUrl() {
+        return SCHOLARSHIP_PHP_URL;
+    }
+
+    private static String SCHOLARSHIP_PHP_URL= SERVER_URL + "/scholarship.php";
+
+    public static String getScholarshipImagePath() {
+        return SCHOLARSHIP_IMAGE_PATH;
+    }
+
+    private static String SCHOLARSHIP_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/scholarship/";
 
     public static String getNewsPhpUrl() {
         return NEWS_PHP_URL;
