@@ -66,6 +66,7 @@
             android:name=".Program_DetailedView"
             android:label="" />
         <activity android:name=".Gallery_Detailed_View" />
+<<<<<<< HEAD
         <activity android:name=".Campus_life" 
             android:label="Campus Life"/>
         <activity android:name=".Events"
@@ -123,6 +124,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+        <activity android:name=".CampusLife" />
+        <activity android:name=".Placement" />
+        <activity android:name=".Scholarship" />
+        <activity
+            android:name=".SocialConnect"
+            android:label="Social Connect" />
+        <activity android:name=".SocialConnectAdpter" />
+        <activity android:name=".SocialViews"></activity>
+>>>>>>> remotes/asmb/iiitkandroidapp/master
     </application>
 
 </manifest>

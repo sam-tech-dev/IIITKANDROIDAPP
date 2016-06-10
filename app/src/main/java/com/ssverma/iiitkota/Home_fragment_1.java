@@ -129,6 +129,18 @@ public class Home_fragment_1 extends Fragment implements View.OnClickListener{
         TextView text6 = (TextView) itemHolder6.findViewById(R.id.home_tv_row_item);
         text6.setText("Social Connect");
 
+
+        LinearLayout row_iv_itemHolder6 = (LinearLayout) itemHolder6.findViewById(R.id.home_iv_row_item_holder);
+
+        row_iv_itemHolder6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getActivity() , SocialConnect.class));
+            }
+        });
+
+
         LinearLayout itemHolder7 = (LinearLayout) rootView.findViewById(R.id.home_row_item_seven);
         ImageView icon7 = (ImageView) itemHolder7.findViewById(R.id.home_iv_row_item);
         icon7.setImageResource(R.drawable.home_faculty);
