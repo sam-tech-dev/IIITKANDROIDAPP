@@ -67,7 +67,25 @@ public class NewsWrapper {
 
     private String news_imageLink;
 
+    public int getNews_server_id() {
+        return news_server_id;
+    }
+
+    public void setNews_server_id(int news_server_id) {
+        this.news_server_id = news_server_id;
+    }
+
+    private int news_server_id;
 
 
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    private String author;
 
 }

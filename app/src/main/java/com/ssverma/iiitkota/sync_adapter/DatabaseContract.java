@@ -13,8 +13,8 @@ public class DatabaseContract {
 
     public static final Uri FACULTY_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.FacultyTable.TABLE_NAME);
 
-
-    //Event
+    public static final Uri NEWS_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.NewsTable.TABLE_NAME);
+    public static final Uri CAMPUS_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.CampusTable.TABLE_NAME);
     public static final Uri EVENTS_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.EventsTable.TABLE_NAME);
 
     //Scholarship
@@ -49,7 +49,43 @@ public class DatabaseContract {
         public static final String FACULTY_FACEBOOK = "Facebook";
 
     }
+   public abstract class NewsTable {
 
+        public static final String NEWS_CONTENT_TYPE =
+                CONTENT_TYPE + "vnd.Demo_ContentProvider.news";
+        public static final String NEWS_CONTENT_TYPE_ID =
+                CONTENT_TYPE_ID + "vnd.Demo_ContentProvider.news";
+
+        public static final String TABLE_NAME = "newsfeed_table";
+
+        public static final String NEWS_SERVER_ID = "id";
+        public static final String NEWS_TITLE = "Title";
+        public static final String NEWS_AUTHOR = "Author";
+        public static final String NEWS_DATE = "Date";
+        public static final String NEWS_SUBTITLE = "Subtitle";
+        public static final String NEWS_DETAIL = "Detail";
+
+        public static final String NEWS_IMAGE = "Image";
+
+        public static final String NEWS_FLAG="flag";
+    }
+
+
+
+    public abstract  class CampusTable{
+
+        public static final String CAMPUS_CONTENT_TYPE =
+                CONTENT_TYPE + "vnd.Demo_ContentProvider.campus";
+        public static final String CAMPUS_CONTENT_TYPE_ID =
+                CONTENT_TYPE_ID + "vnd.Demo_ContentProvider.campus";
+
+        public static final String TABLE_NAME="campus_table";
+
+        public static final String CAMPUS_SERVER_ID = "id";
+        public static final String CAMPUS_TITLE = "Title";
+        public static final String CAMPUS_DETAIL = "Description";
+        public static final String CAMPUS_IMAGE = "image_link";
+    }
     //CONTACT
     public abstract class ContactTable {
 

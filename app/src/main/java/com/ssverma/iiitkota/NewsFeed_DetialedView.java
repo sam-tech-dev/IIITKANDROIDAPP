@@ -66,8 +66,8 @@ public class NewsFeed_DetialedView extends AppCompatActivity implements AppBarLa
         // Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagesUrl()+getIntent().getExtras().getString("news_image_link")).into(news_image);
         // news_desc.loadData(getIntent().getExtras().getString("description"));
         //
-         Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("news_image_link")).placeholder(R.drawable.newsfeed_pre).into(news_image);
-        String summary=getIntent().getExtras().getString("description");
+         Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("image_link")).placeholder(R.drawable.newsfeed_pre).into(news_image);
+        String summary=getIntent().getExtras().getString("detail");
         //String subtitle=getIntent().getExtras().getString("subtitle");
 
 String subtitle="<html><head>"
@@ -87,7 +87,7 @@ String subtitle="<html><head>"
 
         news_toolbar.setText(getIntent().getExtras().getString("title"));
         //image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
-        Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("news_image_link")).placeholder(R.drawable.newsfeed_pre).into(image_bg);
+        Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagePath()+getIntent().getExtras().getString("image_link")).placeholder(R.drawable.newsfeed_pre).into(image_bg);
 
     }
 

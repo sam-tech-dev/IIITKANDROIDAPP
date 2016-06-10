@@ -90,7 +90,8 @@ public class Home_fragment_2 extends Fragment {
         ImageView icon6 = (ImageView) itemHolder6.findViewById(R.id.home_iv_row_item);
         icon6.setImageResource(R.drawable.home_registration);
         TextView text6 = (TextView) itemHolder6.findViewById(R.id.home_tv_row_item);
-        text6.setText("Campus-Life");
+        text6.setText("Campus life");
+
 
         LinearLayout row_iv_itemHolder6 = (LinearLayout) itemHolder6.findViewById(R.id.home_iv_row_item_holder);
 

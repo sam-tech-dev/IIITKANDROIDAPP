@@ -2,6 +2,7 @@ package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,6 +26,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +49,7 @@ public class NewsFeed extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.newsfeed_prev, R.drawable.newsfeed_latest , R.drawable.newsfeed_upcoming};
+    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming };
     static int tab_position;
 
     @Override
@@ -164,70 +167,24 @@ public class NewsFeed extends AppCompatActivity{
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.news_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.news_progress_bar);
 
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+
+
                 case 0:
-                    //Previous
-                    progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getNewsPhpUrl();
-
-                    try {
-                        urlParameters = "filter=" + URLEncoder.encode("prev", "UTF-8") ;
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                    fetchListFromServer(url , urlParameters);
-                    System.out.println(url+urlParameters);
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
-
+                    //Past News- Second Tab
+                    new ServerAsync().execute(new String[]{Consts.News_Constants.NEWS_PREV});
                     break;
+
+
                 case 1:
-                    //Latest
-                    progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getNewsPhpUrl();
-
-                    try {
-                        urlParameters = "filter=" + URLEncoder.encode("latest", "UTF-8") ;
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
+                    //Latest News- First Tab
+                    new ServerAsync().execute(new String[]{Consts.News_Constants.NEWS_LATEST});
                     break;
+
                 case 2:
-                    //Upcoming
-                    progressBar.setVisibility(View.VISIBLE);
-                    url = ServerContract.getNewsPhpUrl();
-
-                    try {
-                        urlParameters = "filter="+URLEncoder.encode("upcoming","UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
+                    //Upcoming - Third Tab
+                    new ServerAsync().execute(new String[]{Consts.News_Constants.NEWS_UPCOMING});
                     break;
             }
 
@@ -236,27 +193,21 @@ public class NewsFeed extends AppCompatActivity{
             return rootView;
         }
 
-        private void fetchListFromServer(String url , String urlParameters) {
 
-            new ServerAsync().execute(url , urlParameters);
-
-        }
-
-        @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , NewsFeed_DetialedView.class);
+            Intent intent = new Intent(getActivity() ,NewsFeed_DetialedView.class);
             intent.putExtra("title" , list.get(position).getNews_tittle());
-            intent.putExtra("date" , list.get(position).getNews_date());
-            intent.putExtra("news_image_link" , list.get(position).getNews_imageLink());
-            intent.putExtra("description" , list.get(position).getNews_description());
             intent.putExtra("subtitle" , list.get(position).getNews_subtitle());
+            intent.putExtra("date" , list.get(position).getNews_date());
+            intent.putExtra("image_link" , list.get(position).getNews_imageLink());
+            intent.putExtra("detail" , list.get(position).getNews_description());
             intent.putExtra("tab_position" , NewsFeed.tab_position);
 
             startActivity(intent);
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<NewsWrapper>> {
 
             private ProgressDialog progressDialog;
 
@@ -267,62 +218,65 @@ public class NewsFeed extends AppCompatActivity{
             }
 
             @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+            protected ArrayList<NewsWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_News(params[0]);
             }
 
+
             @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
+            protected void onPostExecute(ArrayList<NewsWrapper> result) {
+                super.onPostExecute(result);
                 //progressDialog.dismiss();
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity() , "" + result.size() , Toast.LENGTH_SHORT).show();
 
-                list = parseJSON(response);
+                list = result;
+
                 adapter = new News_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
-
-               // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
-
             }
 
-            private ArrayList<NewsWrapper> parseJSON(String response) {
+            private ArrayList<NewsWrapper> fetchDatabaseList_News(String[] selectionArgs) {
                 ArrayList<NewsWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.NEWS_CONTENT_URI,
+                        null, DatabaseContract.NewsTable.NEWS_FLAG + " = ?",//
+                        selectionArgs, null);
 
+                while (cursor.moveToNext()) {
+                    NewsWrapper news = new NewsWrapper();
 
-                        NewsWrapper news = new NewsWrapper();
-                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
-                        news.setNews_tittle(jsonObject.getString("Title"));
-                       Date date=new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("Date"));
-                        news.setNews_date(new SimpleDateFormat("MMM dd").format(date));
+                    news.setNews_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_SERVER_ID)));
 
-                        news.setNews_description(jsonObject.getString("Detail"));
-                        news.setNews_subtitle(jsonObject.getString("Subtitle"));
-                        news.setNews_imageLink(jsonObject.getString("Image"));
+                    news.setNews_tittle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_TITLE)));
+                   // news.setNews_date(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DATE)));
 
-                        list.add(news);
+                    Date date= null;
+                    try {
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DATE)));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    news.setNews_date(new SimpleDateFormat("MMM dd ,yy").format(date));
+
+                    news.setNews_subtitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_SUBTITLE)));
+                    news.setNews_description(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DETAIL)));
+                   news.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_AUTHOR)));
+                    news.setNews_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_IMAGE)));
+
+                    list.add(news);
+
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }
-
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

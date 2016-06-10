@@ -143,14 +143,14 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
                 ArrayList<Integer> unique_Albums = getUniqueAlbums(list); // Unique Album Number
                 //Toast.makeText(Gallery.this , unique_Albums.size() + "" , Toast.LENGTH_SHORT).show();
                 album_map = createAlbumMap(unique_Albums, list);
-                //Toast.makeText(Gallery.this , album_map.size() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , album_map.size() + " : Map Size" , Toast.LENGTH_SHORT).show();
 
                 //recyclerView.setAdapter(new Gallery_Album_Adapter(Gallery.this, unique_Albums, album_map));
 
             } else if (ASYNC_TASK_CODE == GALLERY_ALBUM_RETRIEVAL){
                 album_list = parseJSONGallery_Albums(response);
 
-                //Toast.makeText(Gallery.this , album_list.get(1).getAlbum_number() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , album_list.get(1).getAlbum_number() + " : Map Size" , Toast.LENGTH_SHORT).show();
 
                 Gallery_Album_Adapter adapter = new Gallery_Album_Adapter(Gallery.this , album_list , album_map);
                 recyclerView.setAdapter(adapter);
@@ -172,7 +172,7 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
                     }
                 }
 
-                //Toast.makeText(Gallery.this , list.size() + " : mapIIITK Size" , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Gallery.this , list.size() + " : Map Size" , Toast.LENGTH_SHORT).show();
                 album_map.put(unique_album_number_list.get(i) , list);
             }
 

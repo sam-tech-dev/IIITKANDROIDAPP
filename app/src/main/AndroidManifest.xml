@@ -66,6 +66,8 @@
             android:name=".Program_DetailedView"
             android:label="" />
         <activity android:name=".Gallery_Detailed_View" />
+        <activity android:name=".Campus_life" 
+            android:label="Campus Life"/>
         <activity android:name=".Events"
             android:label="@string/title_activity_events"/>
         <activity android:name=".EventsDetailedView"
@@ -76,11 +78,8 @@
         <activity android:name=".Administration_DetailedView"
             android:label=""></activity>
 
-        <activity android:name=".Scholarship"
-            android:label="@string/title_activity_scholarship"/>
-        <activity android:name=".ScholarshipDetailedView"
-            android:label=""/>
-
+        <activity android:name=".Campus_life_DetialedView"
+            android:label=" "/>
         <provider
             android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
             android:name=".sync_adapter.IIITK_ContentProvider"

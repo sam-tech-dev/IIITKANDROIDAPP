@@ -66,6 +66,7 @@ public class ServerContract {
 
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
+    //ServerContract.getGalleryImagesPath() + uniqueAlbumList.get(position) + "/" + album_map.get(uniqueAlbumList.get(position)).get(position).getAlbum_thumbnail_link()
 
 
     private static String NEWS_PHP_URL = SERVER_URL + "/news.php";
@@ -89,10 +90,12 @@ public class ServerContract {
     private static String NEWS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/news/";
 
 
+      //  public static String getSERVER_URL() {
+          //  return SERVER_URL;
+       // }
 
-    //  public static String getSERVER_URL() {
-    //  return SERVER_URL;
-    // }
+        //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
+        //String finalURL = url + urlSuffix;
 
 
     //Added by-Dixit Chauhan      :03/06/2016
@@ -106,7 +109,23 @@ public class ServerContract {
 
     public static String getEventsImagePath() {
         return EVENTS_IMAGE_PATH;
+        // public static void setNewsImagesUrl(String serverUrl) {
+        // = serverUrl;
+        //}
     }
+
+    public static String getCampusPhpUrl(){
+        return CAMPUS_PHP_URL;
+    }
+
+    private static String CAMPUS_PHP_URL = SERVER_URL + "/campus_life.php";
+
+    private static String CAMPUS_PATH="http://172.16.1.231/iiitk/android/assets/images/campus/";
+
+    public static String getCampusImagesUrl() {
+        return CAMPUS_PATH;
+    }
+
 
     private static String EVENTS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/events/";
 

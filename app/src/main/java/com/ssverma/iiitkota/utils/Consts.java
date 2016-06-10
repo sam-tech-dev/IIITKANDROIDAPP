@@ -32,4 +32,22 @@ public class Consts {
         public final static String EVENTS_PREV = "prev";
         public final static String EVENTS_UPCOMING = "upcoming";
     }
+
+    public static abstract class News_Constants {
+        public final static String NEWS_LATEST = "latest";
+        public final static String NEWS_PREV = "prev";
+        public final static String NEWS_UPCOMING = "upcoming";
+       // public final static String ECE_DEPARTMENT = "Dept. of Electronics & Comm. Engineering";
+
+    }
+
+    public static abstract class Campus_Constants {
+        public final static String CAMPUS_LIFE = "Library";
+
+
+
+    }
+
+
+
 }
