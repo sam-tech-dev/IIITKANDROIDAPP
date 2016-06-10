@@ -2,6 +2,7 @@ package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -22,10 +23,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
 import java.util.ArrayList;
 
@@ -162,54 +161,13 @@ public class Administration extends AppCompatActivity{
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
-                    //CS - First Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "admin=GoverningCouncil";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
-
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.GOVERNINGCOUNCIL});
                     break;
                 case 1:
-                    //EE - Second Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "admin=ExecutiveCouncil";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.EXECUTIVECOUNCIL});
                     break;
                 case 2:
-                    //ECE - Third Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "admin=Adjunct";
-
-                    new ServerAsync().execute(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Administration_Constants.ADJUNCT});
                     break;
             }
 
@@ -222,51 +180,47 @@ public class Administration extends AppCompatActivity{
         @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , Administration_DetailedView.class);
-            intent.putExtra("admin_id" , list.get(position).getAdmin_id());
-            intent.putExtra("admin_name" , list.get(position).getAdmin_name());
-            intent.putExtra("admin_designation" , list.get(position).getAdmin_designation());
+             int temp = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            intent.putExtra("admin_category" , list.get(position).getAdmin_category());
+            if ((temp == 2||temp == 3)&&(position==0)) {
 
-//            intent.putExtra("faculty_email" , list.get(position).getFaculty_email());
-//            intent.putExtra("faculty_image_link" , list.get(position).getFaculty_imageLink());
-//            intent.putExtra("faculty_qualification" , list.get(position).getFaculty_qualification());
-//            intent.putExtra("faculty_research_area" , list.get(position).getFaculty_research_area());
-//            intent.putExtra("faculty_hometown" , list.get(position).getFaculty_hometown());
-//            intent.putExtra("faculty_summary" , list.get(position).getFaculty_summary());
-//            intent.putExtra("faculty_designation" , list.get(position).getFaculty_designation());
+                Intent intent = new Intent(getActivity(), Administration_DetailedView.class);
+                intent.putExtra("admin_id", list.get(position).getAdmin_id());
+                intent.putExtra("admin_name", list.get(position).getAdmin_name());
+                intent.putExtra("admin_designation", list.get(position).getAdmin_designation());
 
-            intent.putExtra("tab_position" , Faculty.tab_position);
-            //ActivityOptionsCompat options = ActivityOptionsCompat.
-            //makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.faculty_image), "profile");
+                intent.putExtra("admin_category", list.get(position).getAdmin_category());
+                intent.putExtra("admin_fragment_no", temp);
 
-            startActivity(intent /*, options.toBundle()*/);
+
+                intent.putExtra("tab_position", Faculty.tab_position);
+
+
+                startActivity(intent /*, options.toBundle()*/);
+            }
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<AdministrationWrapper>>{
 
             private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
+            }
+            @Override
+            protected ArrayList<AdministrationWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Administration(params[0]);
             }
 
-            @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
-            }
 
             @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
-                //progressDialog.dismiss();
+            protected void onPostExecute(ArrayList<AdministrationWrapper> result) {
+                super.onPostExecute(result);
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
-                list = parseJSON(response);
+
+                list = result;
                 adapter = new Administration_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
@@ -275,41 +229,30 @@ public class Administration extends AppCompatActivity{
                 progressBar.setVisibility(View.GONE);
             }
 
-            private ArrayList<AdministrationWrapper> parseJSON(String response) {
+            private ArrayList<AdministrationWrapper> fetchDatabaseList_Administration(String[] selectionArgs) {
                 ArrayList<AdministrationWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        AdministrationWrapper admin = new AdministrationWrapper();
-                        admin.setAdmin_id(jsonObject.getString("id"));
-                        admin.setAdmin_name(jsonObject.getString("Name"));
-                        admin.setAdmin_designation(jsonObject.getString("Designation"));
-                        admin.setAdmin_category(jsonObject.getString("Category"));
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.ADMINISTRATION_CONTENT_URI ,
+                        null , DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?" ,
+                        selectionArgs , null);
+
+                while (cursor.moveToNext()){
+                    AdministrationWrapper administration = new AdministrationWrapper();
+
+                    administration.setAdministration_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)));
+                    administration.setAdmin_name(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_NAME)));
+                    administration.setAdmin_designation(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_DESIGNATION)));
+                    administration.setAdmin_category(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY)));
 
 
-//                        admin.setadmin_id(jsonObject.getString("adminId"));
-//                        admin.setadmin_email(jsonObject.getString("Email"));
-//                        admin.setDOB(jsonObject.getString("DateOfBirth"));
-//                        admin.setadmin_department(jsonObject.getString("Department"));
-//                        admin.setadmin_contact(jsonObject.getString("Contact"));
-//                        admin.setadmin_imageLink(jsonObject.getString("Image"));
-//                        admin.setadmin_qualification(jsonObject.getString("Qualification"));
-//                        admin.setadmin_hometown(jsonObject.getString("Hometown"));
-//                        admin.setadmin_designation(jsonObject.getString("Designation"));
-//                        admin.setadmin_achievements(jsonObject.getString("Achievements"));
-//                        admin.setadmin_summary(jsonObject.getString("Summary"));
-//                        admin.setadmin_research_area(jsonObject.getString("ResearchAreas"));
 
-                        list.add(admin);
-                    }
-                } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+
+
+                    System.out.print("\n\n\n\n\nCategory = "+DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY+"\n\n\n\n\n");
+                    list.add(administration);
+
                 }
-
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }

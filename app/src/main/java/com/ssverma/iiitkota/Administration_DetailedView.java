@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,26 +27,21 @@ public class  Administration_DetailedView extends AppCompatActivity implements A
     private TextView admin_name;
     private TextView admin_designation;
     private TextView admin_category;
+    private TextView admin_qualification;
+    private TextView admin_positionheld;
 
 
 
-//
-//    private CircleImageView faculty_image;
-//    private TextView faculty_name;
-//    private TextView faculty_email;
-      private TextView faculty_name_toolbar;
-//    private TextView faculty_qualification;
-//    private TextView faculty_designation;
-//    private TextView faculty_research_area;
-//    private TextView faculty_hometown;
-//    private TextView faculty_summary;
-      private ImageView image_bg;
+      private TextView admin_name_toolbar;
 
     private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String str1,str2;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administration_detailed_view);
 
@@ -55,49 +49,42 @@ public class  Administration_DetailedView extends AppCompatActivity implements A
         mAppBarLayout.addOnOffsetChangedListener(this);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
-        admin_name = (TextView) findViewById(R.id.faculty_name_faculty_detailed);
-        admin_designation = (TextView) findViewById(R.id.faculty_designation_fd);
-        admin_category = (TextView) findViewById(R.id.faculty_designation_fd);
+        admin_name = (TextView) findViewById(R.id.admin_name_detailed);
+        admin_designation = (TextView) findViewById(R.id.admin_designation_admin);
+        admin_category = (TextView) findViewById(R.id.admin_designation_admin);
+        admin_qualification = (TextView) findViewById(R.id.admin_qualifications);
+        admin_positionheld = (TextView) findViewById(R.id.admin_positions);
 
-        faculty_name_toolbar = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
+        admin_name_toolbar = (TextView) findViewById(R.id.admin_name_toolbar_admin);
 
         admin_name.setText(getIntent().getExtras().getString("admin_name"));
         admin_designation.setText(getIntent().getExtras().getString("admin_designation"));
         admin_category.setText(getIntent().getExtras().getString("admin_category"));
+     int temp = getIntent().getExtras().getInt("admin_fragment_no");
+if(temp==2)
+{
+     str1=getString(R.string.q_director);
+     str2=getString(R.string.p_director);
+     admin_qualification.setText(str1);
+    admin_positionheld.setText(str2);
+}
+if(temp==3)
+{
+    str1=getString(R.string.q_coordinator);
+    admin_qualification.setText(str1);
 
 
-//
-//
-//        faculty_image = (CircleImageView) findViewById(R.id.faculty_image);
-//        faculty_name_toolbar = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
-//        image_bg = (ImageView) findViewById(R.id.imageView_background_faculty_detailed);
-//        faculty_qualification = (TextView) findViewById(R.id.fd_qualifications);
-//        faculty_email = (TextView) findViewById(R.id.fd_email);
-//        faculty_research_area = (TextView) findViewById(R.id.fd_research_area);
-//        faculty_hometown = (TextView) findViewById(R.id.fd_home_town);
-//        faculty_summary = (TextView) findViewById(R.id.fd_other);
-//
-//        faculty_name.setText(getIntent().getExtras().getString("faculty_name"));
-//        faculty_email.setText(getIntent().getExtras().getString("faculty_email"));
-//        faculty_designation.setText(getIntent().getExtras().getString("faculty_designation"));
-//        faculty_qualification.setText(getIntent().getExtras().getString("faculty_qualification"));
-//        faculty_research_area.setText(getIntent().getExtras().getString("faculty_research_area"));
-//        faculty_hometown.setText(getIntent().getExtras().getString("faculty_hometown"));
-//        faculty_summary.setText(getIntent().getExtras().getString("faculty_summary"));
-//
-//        Picasso.with(getApplicationContext()).load(ServerContract.getFacultyImagesPath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+}
 
-        //Toast.makeText(getApplicationContext() , getIntent().getExtras().getString("faculty_image_link") + "" , Toast.LENGTH_SHORT).show();
-        faculty_name_toolbar.setText(getIntent().getExtras().getString("admin_name"));
-//        image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
+        admin_name_toolbar.setText(getIntent().getExtras().getString("admin_name"));
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
+        mToolbar        = (Toolbar) findViewById(R.id.toolbar_admin_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
-        mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mTitle          = (TextView) findViewById(R.id.admin_name_toolbar_admin);
+        mTitleContainer = (LinearLayout) findViewById(R.id.admin_name_data_holder_admin);
+        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_admin_detailed);
     }
 
     @Override

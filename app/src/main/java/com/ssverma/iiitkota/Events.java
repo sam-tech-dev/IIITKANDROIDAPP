@@ -2,6 +2,7 @@ package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,6 +26,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,57 +167,19 @@ public class Events extends AppCompatActivity{
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.latest_events_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.latest_events_progress_bar);
 
-            url = ServerContract.getEventsPhpUrl();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
                     //Latest Events- First Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "filter=latest";
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
-
+                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_LATEST});
                     break;
                 case 1:
                     //Past Events - Second Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "filter=prev";
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_PREV});
                     break;
                 case 2:
                     //Upcoming - Third Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "filter=upcoming";
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_UPCOMING});
                     break;
             }
 
@@ -223,13 +188,7 @@ public class Events extends AppCompatActivity{
             return rootView;
         }
 
-        private void fetchListFromServer(String url , String urlParameters) {
 
-            new ServerAsync().execute(url , urlParameters);
-
-        }
-
-        @Override
         public void onRCVClick(View view, int position) {
 
             Intent intent = new Intent(getActivity() ,EventsDetailedView.class);
@@ -243,7 +202,7 @@ public class Events extends AppCompatActivity{
             startActivity(intent);
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<EventsWrapper>> {
 
             private ProgressDialog progressDialog;
 
@@ -254,67 +213,56 @@ public class Events extends AppCompatActivity{
             }
 
             @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+            protected ArrayList<EventsWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Events(params[0]);
             }
 
+
             @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
+            protected void onPostExecute(ArrayList<EventsWrapper> result) {
+                super.onPostExecute(result);
                 //progressDialog.dismiss();
 
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity() , "" + result.size() , Toast.LENGTH_SHORT).show();
 
-                list = parseJSON(response);
+                list = result;
+
                 adapter = new EventsAdapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
-
-                // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
-
             }
 
-            private ArrayList<EventsWrapper> parseJSON(String response) {
+            private ArrayList<EventsWrapper> fetchDatabaseList_Events(String[] selectionArgs) {
                 ArrayList<EventsWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.EVENTS_CONTENT_URI,
+                        null, DatabaseContract.EventsTable.EVENTS_FLAG + " = ?" ,//
+                        selectionArgs, null);
 
+                while (cursor.moveToNext()) {
+                    EventsWrapper events = new EventsWrapper();
 
-                        EventsWrapper events = new EventsWrapper();
-                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
-                        events.setTitle(jsonObject.getString("Title"));
-                        events.setSubtitle(jsonObject.getString("Subtitle"));
+                    events.setEvents_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_SERVER_ID)));
 
-                      //  events.setDate(jsonObject.getString("Date"));
+                    events.setTitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_TITLE)));
+                    events.setDate(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_DATE)));
+                    events.setSubtitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_SUBTITLE)));
+                    events.setDetail(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_DETAIL)));
+                    events.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_AUTHOR)));
+                    events.setImage(cursor.getString(cursor.getColumnIndex(DatabaseContract.EventsTable.EVENTS_IMAGE)));
 
-                        Date date= null;
-                        try {
-                            date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("Date"));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        events.setDate(new SimpleDateFormat("MMM dd, yyyy").format(date));
-                        events.setDetail(jsonObject.getString("Detail"));
-                        events.setImage(jsonObject.getString("Image"));
+                    list.add(events);
 
-                        list.add(events);
-                    }
-                } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }
-
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

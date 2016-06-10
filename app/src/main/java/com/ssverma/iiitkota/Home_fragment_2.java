@@ -75,7 +75,7 @@ public class Home_fragment_2 extends Fragment {
         row_iv_itemHolder3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , Scholarship.class));
+                startActivity(new Intent(getActivity() ,Scholarship.class));
             }
         });
 

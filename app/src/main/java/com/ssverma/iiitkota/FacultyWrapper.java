@@ -135,8 +135,7 @@ public class FacultyWrapper {
 
     private String faculty_research_area;
 
-<<<<<<< HEAD
-=======
+
     public String getFaculty_facebook() {
         return faculty_facebook;
     }
@@ -156,6 +155,6 @@ public class FacultyWrapper {
     }
 
     private int faculty_server_id;
->>>>>>> remotes/ShyamSunderVerma/iiitkandroidapp/master
+
 
 }

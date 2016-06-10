@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,7 +60,7 @@ public class Contact_Adapter extends RecyclerView.Adapter<Contact_Adapter.ViewHo
         TextView contact_email;
         TextView contact_mobile_no;
         TextView contact_designation;
-        Button call_button;
+       // Button call_button;
       //  CircleImageView contact_image;
 
         public ViewHolder(View itemView) {
@@ -75,8 +74,8 @@ public class Contact_Adapter extends RecyclerView.Adapter<Contact_Adapter.ViewHo
             contact_mobile_no = (TextView) itemView.findViewById(R.id.contact_mobile_no);
             contact_designation = (TextView) itemView.findViewById(R.id.contact_designation);
 
-            call_button = (Button) itemView.findViewById(R.id.buttonCall);
-            call_button.setOnClickListener(this);
+        //    call_button = (Button) itemView.findViewById(R.id.buttonCall);
+            itemHolder.setOnClickListener(this);
            // contact_image = (CircleImageView) itemView.findViewById(R.id.contact_image);
         }
 

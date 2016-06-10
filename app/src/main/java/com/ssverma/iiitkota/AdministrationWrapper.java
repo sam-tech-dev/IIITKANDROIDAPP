@@ -32,4 +32,16 @@ public class AdministrationWrapper {
 
     private String admin_category;
 
+
+
+
+
+    public int getAdministration_server_id() { return administration_server_id; }
+
+    public void setAdministration_server_id(int administration_server_id) { this.administration_server_id = administration_server_id; }
+
+    private int administration_server_id;
+
+
+
 }

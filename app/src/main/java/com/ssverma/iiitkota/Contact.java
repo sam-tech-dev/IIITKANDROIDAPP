@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,10 +30,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
 import java.util.ArrayList;
 
@@ -170,85 +169,23 @@ public class Contact extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
 
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "cat=DeptofCS";
-
-                    new ServerAsync().execute(url, urlParameters);
-
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url, urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.CS_DEPARTMENT});
 
                     break;
                 case 1:
-
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "cat=DeptofECE";
-
-                    new ServerAsync().execute(url, urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url, urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.ECE_DEPARTMENT});
                     break;
                 case 2:
 
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "cat=DeptofEE";
-
-                    new ServerAsync().execute(url, urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url, urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.EE_DEPARTMENT});
                     break;
                 case 3:
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.OFFICE});
 
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "cat=Office";
-
-                    new ServerAsync().execute(url, urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url, urlParameters);
-                        }
-                    });
                     break;
                 case 4:
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.GENERAL});
 
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "cat=General";
-
-                    new ServerAsync().execute(url, urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            new ServerAsync().execute(url, urlParameters);
-                        }
-                    });
                     break;
             }
 
@@ -294,7 +231,7 @@ public class Contact extends AppCompatActivity {
         }
 
 
-        public class ServerAsync extends AsyncTask<String, Void, String> {
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<ContactsWrapper>> {
 
             private ProgressDialog progressDialog;
 
@@ -305,50 +242,99 @@ public class Contact extends AppCompatActivity {
             }
 
             @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0], params[1]);
+            protected ArrayList<ContactsWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Contact(params[0]);
             }
+//            @Override
+//            protected String doInBackground(String... params) {
+//                return ServerConnection.obtainServerResponse(params[0], params[1]);
+//            }
+
+
 
             @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
+            protected void onPostExecute(ArrayList<ContactsWrapper> result) {
+                super.onPostExecute(result);
+                //progressDialog.dismiss();
 
+                //Toast.makeText(getActivity() , "" + result.get(0).getFaculty_name() , Toast.LENGTH_SHORT).show();
 
-                list = parseJSON(response);
-                adapter = new Contact_Adapter(getActivity(), list);
+                list = result;
+
+                adapter = new Contact_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
-
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
-            private ArrayList<ContactsWrapper> parseJSON(String response) {
+
+//            @Override
+//            protected void onPostExecute(String response) {
+//                super.onPostExecute(response);
+//
+//
+//                list = parseJSON(response);
+//                adapter = new Contact_Adapter(getActivity(), list);
+//                recyclerView.setAdapter(adapter);
+//
+//                adapter.setOnRCVClickListener(PlaceholderFragment.this);
+//
+//                swipeRefreshLayout.setRefreshing(false);
+//                progressBar.setVisibility(View.GONE);
+//            }
+
+            private ArrayList<ContactsWrapper> fetchDatabaseList_Contact(String[] selectionArgs) {
                 ArrayList<ContactsWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        ContactsWrapper contact = new ContactsWrapper();
-                        contact.setContact_id(jsonObject.getString("contact_id"));
-                        contact.setContact_name(jsonObject.getString("contact_name"));
-                        contact.setContact_email(jsonObject.getString("contact_email"));
-                        contact.setContact_mobile_no(jsonObject.getString("contact_mobile_no"));
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.CONTACT_CONTENT_URI ,
+                        null , DatabaseContract.ContactTable.CONTACT_CATEGORY + " = ?" ,
+                        selectionArgs , null);
 
 
+                while (cursor.moveToNext()){
+                    ContactsWrapper contact = new ContactsWrapper();
 
-                        contact.setContact_category(jsonObject.getString("contact_category"));
-                        contact.setContact_designation(jsonObject.getString("contact_designation"));
+                    contact.setContact_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_SERVER_ID)));
+                    contact.setContact_name(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_NAME)));
+                    contact.setContact_email(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_EMAIL)));
+                    contact.setContact_mobile_no(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_MOBILE)));
+                    contact.setContact_category(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_CATEGORY)));
+                    contact.setContact_designation(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_DESIGNATION)));
 
 
-                        list.add(contact);
-                    }
-                } catch (JSONException e) {
+
+
+                    System.out.print("\n\n\n\n\nCategory = "+DatabaseContract.ContactTable.CONTACT_CATEGORY+"\n\n\n\n\n");
+                    list.add(contact);
 
                 }
+
+
+//                try {
+//                    JSONArray jsonArray = new JSONArray(response);
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+//
+//                        ContactsWrapper contact = new ContactsWrapper();
+//                        contact.setContact_id(jsonObject.getString("contact_id"));
+//                        contact.setContact_name(jsonObject.getString("contact_name"));
+//                        contact.setContact_email(jsonObject.getString("contact_email"));
+//                        contact.setContact_mobile_no(jsonObject.getString("contact_mobile_no"));
+//
+//
+//
+//                        contact.setContact_category(jsonObject.getString("contact_category"));
+//                        contact.setContact_designation(jsonObject.getString("contact_designation"));
+//
+//
+//                        list.add(contact);
+//                    }
+//                } catch (JSONException e) {
+//
+//                }
 
                 return list;
             }
