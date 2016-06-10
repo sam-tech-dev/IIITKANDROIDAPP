@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ssverma.iiitkota.AboutUs"
+    tools:showIn="@layout/activity_about_us">
+
+    <!--cards holder-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/faculty_detailed_cards_holder"
+        android:orientation="vertical">
+
+
+
+        <!--About IIITK card-->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardElevation="4dp"
+            app:contentPadding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/about_us_about_iiitk_holder"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About IIITK"
+                    android:layout_gravity="top|left"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/about_us_about_iiitk"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="start"
+                    android:text="@string/about_iiitk"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <!--Mission card-->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardElevation="4dp"
+            app:contentPadding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/about_us_mission_holder"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mission"
+                    android:layout_gravity="top|left"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/about_us_mission"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="start"
+                    android:text="@string/mission"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <!--Vision card-->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardElevation="4dp"
+            app:contentPadding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/about_us_vision_holder"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vision"
+                    android:layout_gravity="top|start"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/about_us_vision"
+                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="start"
+                    android:text="@string/vision"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -26,12 +26,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.utils.Consts;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Faculty extends AppCompatActivity{
 
@@ -49,6 +52,8 @@ public class Faculty extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty);
+
+        //Toast.makeText(this , "" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) , Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -25,4 +25,15 @@
     <string name="gargi">"Gargi Hostel"</string>
     <string name="maingate">"MNIT Main Gate"</string>
     <string name="google_api_key">"AIzaSyDbb_gtVij1xgY0pXgPtMrNiM4pdMb77NE"</string>
+    <string name="title_activity_about_us">About Us</string>
+
+    <!--About Us Module-->
+    <string name="about_iiitk">IIIT Kota is a joint venture of the Ministry of Human Resource Development,
+        Government of India, Rajasthan Government with Industries in Public-Private Partnership model.</string>
+    <string name="mission">To create technical manpower for meeting the current and future demands of industry:
+        To recognize education and research in close interactionwith industry with emphasis on the development
+        of leadership qualities in the young menand women entering the portals of the Institute with sensitivity
+        to social development andeye for opportunities for growth in the international perspective</string>
+    <string name="vision">To create a center for imparting technical education of international standards and conduct research at the cutting edge of
+        technology to meet the current and future challenges of technological development.</string>
 </resources>

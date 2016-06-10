@@ -11,10 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/splash_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -29,12 +28,7 @@
             android:name=".Home"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
         <activity
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
@@ -63,55 +57,63 @@
             android:label="@string/title_activity_gallery__images"
             android:theme="@style/AppTheme" />
         <activity android:name=".mapIIITK" />
-        <activity android:name=".Program_DetailedView"
-            android:label=""/>
+        <activity
+            android:name=".Program_DetailedView"
+            android:label="" />
         <activity android:name=".Gallery_Detailed_View" />
-        <activity android:name=".CampusLife" />
-        <activity android:name=".Placement" />
-        <activity android:name=".Scholarship"></activity>
-        <activity android:name=".Events"
-            android:label=""></activity>
-        <activity android:name=".EventsDetailedView"
-            android:label=""></activity>
-
+        <activity
+            android:name=".Events"
+            android:label="" />
+        <activity
+            android:name=".EventsDetailedView"
+            android:label="" />
 
         <provider
-            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
             android:name=".sync_adapter.IIITK_ContentProvider"
-            android:syncable="true">
-        </provider>
+            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
+            android:syncable="true" />
 
         <service android:name=".sync_adapter.AuthenticatorService">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"></action>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
-
-        <service android:name=".sync_adapter.SyncService"
+        <service
+            android:name=".sync_adapter.SyncService"
             android:exported="true"
             android:process=":sync">
-
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"></action>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter"/>
-
+                android:resource="@xml/syncadapter" />
         </service>
-
-            android:theme="@style/AppTheme" />
+        android:theme="@style/AppTheme" />
         <activity android:name=".Contact" />
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

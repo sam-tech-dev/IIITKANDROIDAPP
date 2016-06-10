@@ -111,5 +111,5 @@ public class ServerContract {
         return PROGRAM_IMAGE_PATH;
     }
 
-    public static String PROGRAM_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/events/";
+    public static String PROGRAM_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
 }
