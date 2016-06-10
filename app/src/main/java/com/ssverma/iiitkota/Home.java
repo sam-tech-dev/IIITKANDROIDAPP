@@ -211,7 +211,7 @@ public class Home extends AppCompatActivity
                 startActivity(new Intent(this , Programs.class));
                 break;
             case 3:
-                //startActivity(new Intent(this , Contacts.class));
+                startActivity(new Intent(this , Contact.class));
                 break;
             case 4:
                 startActivity(new Intent(this , Events.class));
@@ -239,10 +239,10 @@ public class Home extends AppCompatActivity
                 //startActivity(new Intent(this , Placements.class));
                 break;
             case 10:
-                //startActivity(new Intent(this , Scholarship.class));
+                startActivity(new Intent(this , Scholarship.class));
                 break;
             case 11:
-                //startActivity(new Intent(this , Administration.class));
+                startActivity(new Intent(this , Administration.class));
                 break;
             case 12:
                 startActivity(new Intent(this , AboutUs.class));
