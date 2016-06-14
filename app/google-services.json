@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "586088243396",
+    "project_id": "iiitkandroidapp-1332"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586088243396:android:df43893894bd1e66",
+        "android_client_info": {
+          "package_name": "com.ssverma.iiitkota"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsbHYbHN5nYQVzC82zg6qUD2eqx0JdWic"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
