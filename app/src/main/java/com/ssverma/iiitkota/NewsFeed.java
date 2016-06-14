@@ -263,7 +263,7 @@ public class NewsFeed extends AppCompatActivity{
 
                     news.setNews_subtitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_SUBTITLE)));
                     news.setNews_description(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DETAIL)));
-                   news.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_AUTHOR)));
+                    news.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_AUTHOR)));
                     news.setNews_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_IMAGE)));
 
                     list.add(news);
@@ -272,6 +272,8 @@ public class NewsFeed extends AppCompatActivity{
 
                 return list;
             }
+
+
         }
     }
 

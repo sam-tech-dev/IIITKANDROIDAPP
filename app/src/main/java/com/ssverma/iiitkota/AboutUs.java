@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
-
 public class AboutUs extends AppCompatActivity {
 
     @Override

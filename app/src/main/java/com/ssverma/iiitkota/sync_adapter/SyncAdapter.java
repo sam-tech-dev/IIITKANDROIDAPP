@@ -13,9 +13,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 import com.ssverma.iiitkota.ServerConnection;
 import com.ssverma.iiitkota.ServerContract;
+import com.ssverma.iiitkota.Splash;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +30,11 @@ import java.util.ArrayList;
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
-    ContentResolver contentResolver;
+    private ContentResolver contentResolver;
+    private static SyncCompletionListener listener;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
-
         contentResolver = context.getContentResolver();
     }
 
@@ -41,6 +43,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         contentResolver = context.getContentResolver();
     }
+
+    public static void setOnSyncCompletionListener(SyncCompletionListener listener){
+        SyncAdapter.listener = listener;
+    }
+
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
@@ -53,9 +60,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 syncServerToLocal_Administration();
                 syncServerToLocal_Events();
                 syncServerToLocal_Scholarship();
-
                 syncServerToLocal_News();
                 syncServerToLocal_Campus();
+
+                if (listener != null){
+                    listener.onSyncComplete();
+                    //Toast.makeText(getContext() , "listener is null" , Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -65,37 +77,28 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     /*Create method like this , according to your module*/
                                    /*replace 'Faculty' by Module Name*/
     private void syncServerToLocal_Faculty() {
-        new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl(), "dept=CS");
-        new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl(), "dept=ECE");
+        new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl());
+        //new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl(), "dept=ECE");
     }
 
-    //sycn
     private void syncServerToLocal_Events() {
         new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl(), "filter=prev");
         new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl(), "filter=upcoming");
         new ServerAsync_Events().execute(ServerContract.getEventsPhpUrl(), "filter=latest");
-
     }
 
-    //sycn
     private void syncServerToLocal_Scholarship() {
         new ServerAsync_Scholarship().execute(ServerContract.getScholarshipPhpUrl());
     }
 
     //CONTACT
     private void syncServerToLocal_Contact() {
-        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl(), "cat=DeptofCS");
-        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl(), "cat=DeptofECE");
-        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl(), "cat=DeptofEE");
-        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl(), "cat=Office");
-        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl(), "cat=General");
+        new ServerAsync_Contact().execute(ServerContract.getContactsPhpUrl());
     }
 
     //ADMINISTRATION
     private void syncServerToLocal_Administration() {
-        new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=GoverningCouncil");
-        new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=ExecutiveCouncil");
-        new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl(), "admin=Adjunct");
+        new ServerAsync_Administration().execute(ServerContract.getAdministrationPhpUrl());
     }
 
     private void syncServerToLocal_News() {
@@ -120,7 +123,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         @Override
         protected String doInBackground(String... params) {
-            return ServerConnection.obtainServerResponse(params[0], params[1]);
+            return ServerConnection.obtainServerResponse(params[0]);
         }
 
         @Override
@@ -134,15 +137,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         private void syncDataToFacultyLocal(ArrayList<ContentValues> list) {
 
-            String selectionClause = DatabaseContract.FacultyTable.FACULTY_SERVER_ID + " = ?" + " AND "
-                    + DatabaseContract.FacultyTable.FACULTY_DEPARTMENT + " = ?";
+            String selectionClause = DatabaseContract.FacultyTable.FACULTY_SERVER_ID + " = ?";
             String[] selectionArgs = null;
 
             int newRowAdded = 0;
 
             for (ContentValues contentValues : list) {
-                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.FacultyTable.FACULTY_SERVER_ID)
-                        , contentValues.getAsString(DatabaseContract.FacultyTable.FACULTY_DEPARTMENT)};
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.FacultyTable.FACULTY_SERVER_ID)};
 
                 int rowAffected = contentResolver.update(DatabaseContract.FACULTY_CONTENT_URI, contentValues, selectionClause, selectionArgs);
 
@@ -189,7 +190,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     list.add(contentValues);
                 }
             } catch (JSONException e) {
-                //tv.setText("JSON E:" + e);
+
             }
 
             return list;
@@ -206,7 +207,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         @Override
         protected String doInBackground(String... params) {
-            return ServerConnection.obtainServerResponse(params[0], params[1]);
+            return ServerConnection.obtainServerResponse(params[0]);
         }
 
         @Override
@@ -219,15 +220,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         private void syncDataToContactLocal(ArrayList<ContentValues> list) {
 
-            String selectionClause = DatabaseContract.ContactTable.CONTACT_SERVER_ID + " = ?" + " AND "
-                    + DatabaseContract.ContactTable.CONTACT_CATEGORY + " = ?";//
+            String selectionClause = DatabaseContract.ContactTable.CONTACT_SERVER_ID + " = ?";
             String[] selectionArgs = null;
 
             int newRowAdded = 0;
 
             for (ContentValues contentValues : list) {
-                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ContactTable.CONTACT_SERVER_ID)
-                        , contentValues.getAsString(DatabaseContract.ContactTable.CONTACT_CATEGORY)};//
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ContactTable.CONTACT_SERVER_ID)};
 
                 int rowAffected = contentResolver.update(DatabaseContract.CONTACT_CONTENT_URI, contentValues, selectionClause, selectionArgs);
 
@@ -262,13 +261,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     contentValues.put(DatabaseContract.ContactTable.CONTACT_CATEGORY, jsonObject.getString("contact_category"));
                     contentValues.put(DatabaseContract.ContactTable.CONTACT_DESIGNATION, jsonObject.getString("contact_designation"));
 
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_TITLE , jsonObject.getString("Title"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DATE, jsonObject.getString("Date"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SUBTITLE , jsonObject.getString("Subtitle"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DETAIL , jsonObject.getString("Detail"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_AUTHOR, jsonObject.getString("Detail"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_IMAGE , jsonObject.getString("Image"));
-
                     list.add(contentValues);
                 }
             } catch (JSONException e) {
@@ -287,7 +279,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         @Override
         protected String doInBackground(String... params) {
-            return ServerConnection.obtainServerResponse(params[0], params[1]);
+            return ServerConnection.obtainServerResponse(params[0]);
         }
 
         @Override
@@ -300,15 +292,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         private void syncDataToAdministrationLocal(ArrayList<ContentValues> list) {
 
-            String selectionClause = DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID + " = ?" + " AND "
-                    + DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?";//
+            String selectionClause = DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID + " = ?";
             String[] selectionArgs = null;
 
             int newRowAdded = 0;
 
             for (ContentValues contentValues : list) {
-                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)
-                        , contentValues.getAsString(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY)};//
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)};
 
                 int rowAffected = contentResolver.update(DatabaseContract.ADMINISTRATION_CONTENT_URI, contentValues, selectionClause, selectionArgs);
 
@@ -341,22 +331,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_DESIGNATION, jsonObject.getString("Designation"));
                     contentValues.put(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY, jsonObject.getString("Category"));
 
-
-//
-//
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_SERVER_ID , jsonObject.getInt("contact_id"));
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_NAME , jsonObject.getString("contact_name"));
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_EMAIL , jsonObject.getString("contact_email"));
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_MOBILE , jsonObject.getString("contact_mobile_no"));
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_CATEGORY , jsonObject.getString("contact_category"));
-//                    contentValues.put(DatabaseContract.ContactTable.CONTACT_DESIGNATION , jsonObject.getString("contact_designation"));
-
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_TITLE , jsonObject.getString("Title"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DATE, jsonObject.getString("Date"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_SUBTITLE , jsonObject.getString("Subtitle"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_DETAIL , jsonObject.getString("Detail"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_AUTHOR, jsonObject.getString("Detail"));
-//                    contentValues.put(DatabaseContract.EventsTable.EVENTS_IMAGE , jsonObject.getString("Image"));
 
                     list.add(contentValues);
                 }

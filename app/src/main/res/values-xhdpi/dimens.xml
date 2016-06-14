@@ -20,10 +20,7 @@
     <dimen name="contact_paddingtop">260dp</dimen>
     <dimen name="contact_paddingleft">36dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    
-    
-    <dimen name="viewpager_margin_top">42dp</dimen>
-    <dimen name="card_extra_margin">-3dp</dimen>
-    <dimen name="card_elevation">0dp</dimen>
+
+    <dimen name="viewpager_margin_top">56dp</dimen>
     
 </resources>

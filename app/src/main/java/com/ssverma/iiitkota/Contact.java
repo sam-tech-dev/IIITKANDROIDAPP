@@ -168,24 +168,19 @@ public class Contact extends AppCompatActivity {
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
-
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.CS_DEPARTMENT});
-
                     break;
                 case 1:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.ECE_DEPARTMENT});
                     break;
                 case 2:
-
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.EE_DEPARTMENT});
                     break;
                 case 3:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.OFFICE});
-
                     break;
                 case 4:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.GENERAL});
-
                     break;
             }
 

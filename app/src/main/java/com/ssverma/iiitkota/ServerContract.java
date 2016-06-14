@@ -55,7 +55,7 @@ public class ServerContract {
 
     public static String getContactsPhpUrl() { return CONTACTS_PHP_URL; }
 
-    private static String CONTACTS_PHP_URL = SERVER_URL + "/contacts.php";
+    private static String CONTACTS_PHP_URL = SERVER_URL + "/contact.php";
 
 
 

@@ -7,7 +7,6 @@ public class Consts {
     public static abstract class Faculty_Constants {
         public final static String CS_DEPARTMENT = "Dept. of Computer Science & Engineering";
         public final static String ECE_DEPARTMENT = "Dept. of Electronics & Comm. Engineering";
-
     }
     public static abstract class Contact_Constants {
         public final static String CS_DEPARTMENT = "Dept of CS";
@@ -22,8 +21,6 @@ public class Consts {
         public final static String GOVERNINGCOUNCIL = "Governing Council";
         public final static String EXECUTIVECOUNCIL = "Executive Council";
         public final static String ADJUNCT = "Adjunct";
-
-
     }
 
 

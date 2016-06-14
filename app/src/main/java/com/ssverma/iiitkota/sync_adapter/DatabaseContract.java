@@ -6,7 +6,7 @@ import android.net.Uri;
  * Created by IIITK on 6/6/2016.
  */
 public class DatabaseContract {
-    public static final String DB_NAME = "demo.db";
+    public static final String DB_NAME = "iiitk.db";
     public static final String AUTHORITY = "com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider";
     private static final String CONTENT_TYPE = "vnd.android.cursor.dir/";
     private static final String CONTENT_TYPE_ID = "vnd.android.cursor.item/";
