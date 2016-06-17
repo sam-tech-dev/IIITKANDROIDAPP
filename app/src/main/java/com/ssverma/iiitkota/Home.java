@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -22,13 +23,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +43,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.gcm.RegisterOnServer;
+import com.ssverma.iiitkota.gcm.registrationService;
 import com.ssverma.iiitkota.utils.Consts;
 
 import org.json.JSONArray;
@@ -109,6 +111,19 @@ public class Home extends AppCompatActivity
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences sharedpreferences = getSharedPreferences("iiitkota", Context.MODE_PRIVATE);
+        if(!sharedpreferences.contains("registerCheck")) {
+            Intent intent = new Intent(this, registrationService.class);
+            startService(intent);
+            new RegisterOnServer(this);
+        }
+    }
+
     private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.home_screen_viewpager);
         //setUpViewPager(viewPager);
@@ -170,23 +185,45 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_admission) {
+            //startActivity(new Intent(this , ));
+        } else if (id == R.id.nav_contact) {
+            startActivity(new Intent(this , Contact.class));
+        } else if (id == R.id.nav_events) {
+            startActivity(new Intent(this , Events.class));
         } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            startActivity(new Intent(this , Gallery.class));
         } else if (id == R.id.nav_share) {
-
+            shareApp();
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_license){
+            displayLicenseDialogFragment();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void displayLicenseDialogFragment() {
+        LicenseDialogFragment dialog = LicenseDialogFragment.newInstance();
+        dialog.show(getSupportFragmentManager(), "LicenseDialog");
+    }
+
+    private void shareApp() {
+        try
+        { Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "IIIT Kota");
+            String msg = "\nDownload IIIT Kota Android application from here \n\n";
+            msg = msg + "https://play.google.com\n\n";
+            i.putExtra(Intent.EXTRA_TEXT, msg);
+            startActivity(Intent.createChooser(i, "Choose your action"));
+        }
+        catch(Exception e) {
+
+        }
     }
 
     private Account createDummyAccount(Context context) {

@@ -25,6 +25,7 @@
     <string name="gargi">"Gargi Hostel"</string>
     <string name="maingate">"MNIT Main Gate"</string>
     <string name="google_api_key">"AIzaSyDbb_gtVij1xgY0pXgPtMrNiM4pdMb77NE"</string>
+    <string name="google_api_key2">"AIzaSyCsbHYbHN5nYQVzC82zg6qUD2eqx0JdWic"</string>
     <string name="title_activity_about_us">About Us</string>
 
     <!--About Us Module-->
