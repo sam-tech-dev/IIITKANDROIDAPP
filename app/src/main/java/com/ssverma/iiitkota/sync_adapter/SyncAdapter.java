@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.ssverma.iiitkota.IIITK_Singleton;
 import com.ssverma.iiitkota.ServerConnection;
 import com.ssverma.iiitkota.ServerContract;
 import com.ssverma.iiitkota.Splash;
@@ -44,10 +45,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         contentResolver = context.getContentResolver();
     }
 
-    public static void setOnSyncCompletionListener(SyncCompletionListener listener){
-        SyncAdapter.listener = listener;
-    }
-
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
@@ -63,10 +60,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 syncServerToLocal_News();
                 syncServerToLocal_Campus();
 
-                if (listener != null){
-                    listener.onSyncComplete();
-                    //Toast.makeText(getContext() , "listener is null" , Toast.LENGTH_SHORT).show();
-                }
+                IIITK_Singleton.getInstance().setPreferencesValue(true);
 
             }
         });

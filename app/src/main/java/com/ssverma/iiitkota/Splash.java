@@ -20,7 +20,7 @@ import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.sync_adapter.SyncAdapter;
 import com.ssverma.iiitkota.sync_adapter.SyncCompletionListener;
 
-public class Splash extends AppCompatActivity implements SyncCompletionListener{
+public class Splash extends AppCompatActivity {
 
     private ImageView splash_logo;
     private SharedPreferences prefs;
@@ -51,13 +51,11 @@ public class Splash extends AppCompatActivity implements SyncCompletionListener{
 
     private void syncFirstTimeOnly(){
 
-        SyncAdapter.setOnSyncCompletionListener(this);
-
         prefs = getSharedPreferences("sync_status" , MODE_PRIVATE);
-        if(!prefs.getBoolean("firstTime", false)) {
+        if(!IIITK_Singleton.getInstance().getPreference().getBoolean("isSyncComplete" , false)) {
             // run your one time code
 
-            Toast.makeText(this , "Called in Splash" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this , "Sync Started : Called in Splash" , Toast.LENGTH_SHORT).show();
 
             Bundle settingsBundle = new Bundle();
             settingsBundle.putBoolean(
@@ -84,11 +82,4 @@ public class Splash extends AppCompatActivity implements SyncCompletionListener{
         return dummyAccount;
     }
 
-    @Override
-    public void onSyncComplete() {
-        Toast.makeText(this , "Sync Completed" , Toast.LENGTH_SHORT).show();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstTime", true);
-        editor.commit();
-    }
 }

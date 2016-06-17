@@ -381,6 +381,8 @@ public class Home extends AppCompatActivity
                     intent.putExtra("image_link" , latest_news_list.get(position).getNews_imageLink());
                     intent.putExtra("detail" , latest_news_list.get(position).getNews_description());
 
+                    //Toast.makeText(Home.this , latest_news_list.get(position).getNews_description() , Toast.LENGTH_SHORT).show();
+
                     startActivity(intent);
                 }
             });
@@ -485,7 +487,8 @@ public class Home extends AppCompatActivity
                 news.setNews_tittle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_TITLE)));
                 news.setNews_subtitle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_SUBTITLE)));
                 news.setNews_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_IMAGE)));
-                news.setNews_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DETAIL)));
+                //news.setNews_imageLink(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DETAIL)));
+                news.setNews_description(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DETAIL)));
 
                 list.add(news);
 
