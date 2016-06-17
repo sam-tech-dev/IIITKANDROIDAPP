@@ -5,16 +5,13 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="com.example.googlemaps.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:allowBackup="true"
@@ -32,8 +29,7 @@
         <activity
             android:name=".Home"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
@@ -66,50 +62,51 @@
             android:name=".Program_DetailedView"
             android:label="" />
         <activity android:name=".Gallery_Detailed_View" />
-
-        <activity android:name=".Campus_life" 
-            android:label="Campus Life"/>
-        <activity android:name=".Events"
-            android:label="@string/title_activity_events"/>
-        <activity android:name=".EventsDetailedView"
-            android:label=""/>
+        <activity
+            android:name=".Campus_life"
+            android:label="Campus Life" />
+        <activity
+            android:name=".Events"
+            android:label="@string/title_activity_events" />
+        <activity
+            android:name=".EventsDetailedView"
+            android:label="" />
         <activity android:name=".Contact" />
-
         <activity android:name=".Administration" />
-        <activity android:name=".Administration_DetailedView"
-            android:label=""></activity>
+        <activity
+            android:name=".Administration_DetailedView"
+            android:label="" />
+        <activity
+            android:name=".Campus_life_DetialedView"
+            android:label=" " />
 
-        <activity android:name=".Campus_life_DetialedView"
-            android:label=" "/>
         <provider
-            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
             android:name=".sync_adapter.IIITK_ContentProvider"
-            android:syncable="true">
-        </provider>
+            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
+            android:syncable="true" />
 
         <service android:name=".sync_adapter.AuthenticatorService">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"></action>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
-
-        <service android:name=".sync_adapter.SyncService"
+        <service
+            android:name=".sync_adapter.SyncService"
             android:exported="true"
             android:process=":sync">
-
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"></action>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter"/>
-
+                android:resource="@xml/syncadapter" />
         </service>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -121,16 +118,21 @@
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Scholarship"
-            android:label=""/>
-        <activity android:name=".ScholarshipDetailedView"></activity>
+        <activity
+            android:name=".Scholarship"
+            android:label="" />
+        <activity android:name=".ScholarshipDetailedView" />
         <activity
             android:name=".SocialConnect"
             android:label="Social Connect" />
-        <activity android:name=".SocialViews"></activity>
+        <activity android:name=".SocialViews" />
+        <activity android:name=".Fest" />
+        <activity android:name=".Fest_DetailedView"
+            android:label=""></activity>
     </application>
 
 </manifest>

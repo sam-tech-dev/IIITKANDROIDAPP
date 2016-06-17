@@ -6,16 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.ssverma.iiitkota.Contact">
+    tools:context="com.ssverma.iiitkota.Fest">
 
-    <android.support.v4.view.ViewPager
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="38dp"/>
 
-    <android.support.design.widget.TabLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
@@ -25,7 +26,13 @@
         app:tabMode="fixed"
         app:tabTextColor="#FFFFFF"
         app:tabSelectedTextColor="#FFFFDD"
-        android:id="@+id/tabLayout"/>
+        android:id="@+id/header"
+        android:fillViewport="false"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -44,11 +51,13 @@
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
 
+
+
             <com.flaviofaria.kenburnsview.KenBurnsView
                 android:id="@+id/image_Ken_Burns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/contact"/>
+                android:src="@drawable/fest"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -63,4 +72,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
 </android.support.design.widget.CoordinatorLayout>
+
+
+

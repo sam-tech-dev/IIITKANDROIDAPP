@@ -16,11 +16,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -28,13 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
-import com.ssverma.iiitkota.utils.Consts;
-
-import java.util.ArrayList;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  , RCVClickListener{
@@ -47,13 +40,13 @@ public class Home extends AppCompatActivity
             "Contacts" , "Events" , "Faculty" ,
             "Gallery" , "Map" , "News feed",
             "Placements" , "Scholarship" , "Administration" ,
-            "About Us" , "Campus Life" , "Social Connect"};
+            "About Us" , "Campus Life" , "Social Connect" , "Fest"};
 
     private int[] icons = {R.drawable.home_join_ , R.drawable.home_map_ , R.drawable.home_academic_programs_ ,
             R.drawable.home_contact_, R.drawable.home_events_ , R.drawable.home_faculty_ ,
             R.drawable.home_gallary_ , R.drawable.home_map_ , R.drawable.home_news_feed_ ,
             R.drawable.home_map_ , R.drawable.home_map_ , R.drawable.home_map_ ,
-            R.drawable.home_about_us_ , R.drawable.home_map_ , R.drawable.home_map_};
+            R.drawable.home_about_us_ , R.drawable.home_map_ , R.drawable.home_map_ , R.drawable.home_map_};
 
     private LocationManager locationManager;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -252,6 +245,9 @@ public class Home extends AppCompatActivity
                 break;
             case 14:
                 startActivity(new Intent(this , SocialConnect.class));
+                break;
+            case 15:
+                startActivity(new Intent(this , Fest.class));
                 break;
         }
     }
