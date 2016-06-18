@@ -3,6 +3,7 @@ package com.ssverma.iiitkota;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,18 +11,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
@@ -29,11 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class Programs extends AppCompatActivity {
+/**
+ * Author-Dixit Chauhan : 13/06/2016
+ */
+public class Academic_Research extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -42,13 +41,13 @@ public class Programs extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.projects, R.drawable.research_paper };
     static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_programs);
+        setContentView(R.layout.activity_academic_research);
 
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,7 +123,7 @@ public class Programs extends AppCompatActivity {
 
         private RecyclerView recyclerView;
         private RecyclerView.LayoutManager layoutManager;
-        private Program_Adapter adapter;
+        private Academic_Research_Adapter adapter;
 
         private String url;
         private String urlParameters = null;
@@ -132,7 +131,7 @@ public class Programs extends AppCompatActivity {
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-        private ArrayList<ProgramWrapper> list;
+        private ArrayList<Academic_ResearchWrapper> list;
 
 
         public PlaceholderFragment() {
@@ -153,23 +152,24 @@ public class Programs extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_program, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_academic_research, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.program_recycler_view);
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.research_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
-            progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
-            url = ServerContract.getProgramsPhpUrl();
+            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.research_swipe_refresh_layout);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.research_progress_bar);
+
+            url = ServerContract.getAcademicResearchPhpUrl();
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
 
 
                 case 0:
-                    //CS - First Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    urlParameters = "program=UG";
+
+                    urlParameters = "filter=project";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -180,17 +180,12 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
-                    // Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
-                    //  Log.d("EEEEEEEEEEEEEEEEE" , );
+
                     break;
-
-
-
                 case 1:
-                    //EE - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
 
-                    urlParameters = "program=UG";
+                    urlParameters = "filter=publication";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -201,6 +196,7 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
+
                     break;
 
             }
@@ -216,18 +212,19 @@ public class Programs extends AppCompatActivity {
 
         }
 
-        @Override
+
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , Program_DetailedView.class);
-            intent.putExtra("Program_name" , list.get(position).getProgram_name());
-            intent.putExtra("Program_desc" , list.get(position).getProgram_desc());
-            intent.putExtra("Program_eligibility" , list.get(position).getProgram_eligibility());
-            intent.putExtra("Program_image" , list.get(position).getProgram_image());
-            intent.putExtra("Program_duration",list.get(position).getProgram_dur());
-            intent.putExtra("Program_seats",list.get(position).getProgram_seats());
-            intent.putExtra("Program_fee",list.get(position).getProgram_fee());
-            intent.putExtra("tab_position" , Programs.tab_position);
+
+            Intent intent = new Intent(getActivity() , Academic_ResearchDetailedView.class);
+
+            intent.putExtra("Project_name" , list.get(position).getProject_name());
+            intent.putExtra("Person_name" , list.get(position).getPerson_name());
+            intent.putExtra("Person_position" , list.get(position).getPerson_position());
+            intent.putExtra("Detail" , list.get(position).getDetail());
+            intent.putExtra("Person_image_link",list.get(position).getPerson_image_link());
+            intent.putExtra("Project_image_link",list.get(position).getProject_image_link());
+            intent.putExtra("tab_position" , Academic_Research.tab_position);
 
             startActivity(intent);
         }
@@ -254,7 +251,7 @@ public class Programs extends AppCompatActivity {
 
                 //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
-                adapter = new Program_Adapter( getActivity() , list);
+                adapter = new Academic_Research_Adapter( getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
@@ -263,30 +260,35 @@ public class Programs extends AppCompatActivity {
 
             }
 
-            private ArrayList<ProgramWrapper> parseJSON(String response) {
-                ArrayList<ProgramWrapper> list = new ArrayList<>();
+            private ArrayList<Academic_ResearchWrapper> parseJSON(String response) {
+                ArrayList<Academic_ResearchWrapper> list = new ArrayList<>();
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        ProgramWrapper program = new ProgramWrapper();
-                        program.setProgram_name(jsonObject.getString("Program_name"));
-                        program.setProgram_desc(jsonObject.getString("Program_desc"));
-                        program.setProgram_eligibility(jsonObject.getString("Program_eli"));
-                        program.setProgram_seats(jsonObject.getInt("Program_seats"));
-                        program.setProgram_dur(jsonObject.getInt("Program_duration"));
-                        program.setProgram_fee(jsonObject.getInt("Program_fee"));
-                        program.setProgram_image(jsonObject.getString("Program_image"));
-                        list.add(program);
-                        //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
-                    }
 
+                        Academic_ResearchWrapper researchWrapper = new Academic_ResearchWrapper();
+                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
+                        researchWrapper.setResearch_type(jsonObject.getString("research_type"));
+                        researchWrapper.setPerson_name(jsonObject.getString("person_name"));
+
+                        //  events.setDate(jsonObject.getString("Date"));
+
+                        researchWrapper.setPerson_position(jsonObject.getString("person_position"));
+                        researchWrapper.setProject_name(jsonObject.getString("project_name"));
+                        researchWrapper.setDetail(jsonObject.getString("detail"));
+
+                        researchWrapper.setPerson_image_link(jsonObject.getString("person_image_link"));
+                        researchWrapper.setProject_image_link(jsonObject.getString("project_image_link"));
+
+                        list.add(researchWrapper);
+                    }
                 } catch (JSONException e) {
                     //tv.setText("JSON E:" + e);
                 }
-                //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
+
                 //tv.setText(list.get(0).getS_name());
                 return list;
             }
@@ -317,9 +319,9 @@ public class Programs extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "UG";
+                    return "Projects";
                 case 1:
-                    return "PG";
+                    return "Publications";
             }
             return null;
         }

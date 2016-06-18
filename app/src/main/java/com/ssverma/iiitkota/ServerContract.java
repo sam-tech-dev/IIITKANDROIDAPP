@@ -90,12 +90,12 @@ public class ServerContract {
     private static String NEWS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/news/";
 
 
-      //  public static String getSERVER_URL() {
-          //  return SERVER_URL;
-       // }
+    //  public static String getSERVER_URL() {
+    //  return SERVER_URL;
+    // }
 
-        //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
-        //String finalURL = url + urlSuffix;
+    //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
+    //String finalURL = url + urlSuffix;
 
 
     //Added by-Dixit Chauhan      :03/06/2016
@@ -153,4 +153,49 @@ public class ServerContract {
     }
 
     public static String PROGRAM_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
+
+    //Academics : Added by Dixit Chauhan
+
+    public static String getAcademicCalendarPhpUrl() {
+        return ACADEMIC_CALENDAR_PHP_URL;
+    }
+
+    public static String ACADEMIC_CALENDAR_PHP_URL = SERVER_URL + "/academic_calendar.php";
+
+    public static String getAcademicTimetablePhpUrl() {
+        return ACADEMIC_TIMETABLE_PHP_URL;
+    }
+
+    public static String ACADEMIC_TIMETABLE_PHP_URL = SERVER_URL + "/academic_timetable.php";
+
+    public static String getAcademicResourcesPhpUrl() {
+        return ACADEMIC_RESOURCES_PHP_URL;
+    }
+
+    private static String ACADEMIC_RESOURCES_PHP_URL= SERVER_URL + "/academic_resources.php";
+
+    public static String getAcademicResearchPhpUrl() {
+        return ACADEMIC_RESEARCH_PHP_URL;
+    }
+
+    public static String ACADEMIC_RESEARCH_PHP_URL = SERVER_URL + "/academic_research.php";
+
+    private static String ACADEMIC_RESEARCH_PROJECT_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/research/project/";
+
+    public static String getAcademicResearchPersonImagePath() {
+        return ACADEMIC_RESEARCH_PERSON_IMAGE_PATH;
+    }
+
+    public static String getAcademicResearchProjectImagePath() {
+        return ACADEMIC_RESEARCH_PROJECT_IMAGE_PATH;
+    }
+
+    private static String ACADEMIC_RESEARCH_PERSON_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/research/person/";
+
+    public static String getAcademicCoursesPhpUrl() {
+        return ACADEMIC_COURSES_PHP_URL;
+    }
+
+    private static String ACADEMIC_COURSES_PHP_URL = SERVER_URL + "/academic_courses.php";
+
 }

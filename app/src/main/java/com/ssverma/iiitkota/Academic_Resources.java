@@ -1,27 +1,25 @@
 package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
@@ -29,11 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class Programs extends AppCompatActivity {
+/*
+ * Author-Dixit Chauhan
+ */
+public class Academic_Resources extends AppCompatActivity{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -42,13 +41,13 @@ public class Programs extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.programming_lab, R.drawable.design_lab , R.drawable.language_lab };
     static int tab_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_programs);
+        setContentView(R.layout.activity_academic_resources);
 
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,12 +89,8 @@ public class Programs extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,7 +110,7 @@ public class Programs extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment implements RCVClickListener {
+    public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -124,7 +119,7 @@ public class Programs extends AppCompatActivity {
 
         private RecyclerView recyclerView;
         private RecyclerView.LayoutManager layoutManager;
-        private Program_Adapter adapter;
+        private Academic_ResourcesAdapter adapter;
 
         private String url;
         private String urlParameters = null;
@@ -132,8 +127,9 @@ public class Programs extends AppCompatActivity {
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-        private ArrayList<ProgramWrapper> list;
+        private ArrayList<Academic_ResourcesWrapper> list;
 
+        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
 
         public PlaceholderFragment() {
         }
@@ -153,23 +149,23 @@ public class Programs extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_program, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_academic_resources, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            recyclerView = (RecyclerView) rootView.findViewById(R.id.program_recycler_view);
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.resources_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
-            progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
-            url = ServerContract.getProgramsPhpUrl();
+            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.resources_swipe_refresh_layout);
+            progressBar = (ProgressBar) rootView.findViewById(R.id.resources_progress_bar);
+
+            url = ServerContract.getAcademicResourcesPhpUrl();
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
-
-
                 case 0:
-                    //CS - First Tab
                     progressBar.setVisibility(View.VISIBLE);
-                    urlParameters = "program=UG";
+
+                    urlParameters = "filter=programming_lab";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -180,17 +176,12 @@ public class Programs extends AppCompatActivity {
                             fetchListFromServer(url , urlParameters);
                         }
                     });
-                    // Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
-                    //  Log.d("EEEEEEEEEEEEEEEEE" , );
+
                     break;
-
-
-
                 case 1:
-                    //EE - Second Tab
                     progressBar.setVisibility(View.VISIBLE);
 
-                    urlParameters = "program=UG";
+                    urlParameters = "filter=designing_lab";
 
                     fetchListFromServer(url , urlParameters);
 
@@ -202,7 +193,21 @@ public class Programs extends AppCompatActivity {
                         }
                     });
                     break;
+                case 2:
+                    progressBar.setVisibility(View.VISIBLE);
 
+                    urlParameters = "filter=language_lab";
+
+                    fetchListFromServer(url , urlParameters);
+
+                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            progressBar.setVisibility(View.VISIBLE);
+                            fetchListFromServer(url , urlParameters);
+                        }
+                    });
+                    break;
             }
 
 
@@ -216,23 +221,7 @@ public class Programs extends AppCompatActivity {
 
         }
 
-        @Override
-        public void onRCVClick(View view, int position) {
-
-            Intent intent = new Intent(getActivity() , Program_DetailedView.class);
-            intent.putExtra("Program_name" , list.get(position).getProgram_name());
-            intent.putExtra("Program_desc" , list.get(position).getProgram_desc());
-            intent.putExtra("Program_eligibility" , list.get(position).getProgram_eligibility());
-            intent.putExtra("Program_image" , list.get(position).getProgram_image());
-            intent.putExtra("Program_duration",list.get(position).getProgram_dur());
-            intent.putExtra("Program_seats",list.get(position).getProgram_seats());
-            intent.putExtra("Program_fee",list.get(position).getProgram_fee());
-            intent.putExtra("tab_position" , Programs.tab_position);
-
-            startActivity(intent);
-        }
-
-        public class ServerAsync extends AsyncTask<String , Void , String> {
+        public class ServerAsync extends AsyncTask<String , Void , String>{
 
             private ProgressDialog progressDialog;
 
@@ -250,43 +239,46 @@ public class Programs extends AppCompatActivity {
             @Override
             protected void onPostExecute(String response) {
                 super.onPostExecute(response);
+                //progressDialog.dismiss();
 
+                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
-                //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
-                adapter = new Program_Adapter( getActivity() , list);
+                adapter = new Academic_ResourcesAdapter(getContext() , list);
                 recyclerView.setAdapter(adapter);
-                adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
 
+                // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
+
             }
 
-            private ArrayList<ProgramWrapper> parseJSON(String response) {
-                ArrayList<ProgramWrapper> list = new ArrayList<>();
+            private ArrayList<Academic_ResourcesWrapper> parseJSON(String response) {
+                ArrayList<Academic_ResourcesWrapper> list = new ArrayList<>();
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        ProgramWrapper program = new ProgramWrapper();
-                        program.setProgram_name(jsonObject.getString("Program_name"));
-                        program.setProgram_desc(jsonObject.getString("Program_desc"));
-                        program.setProgram_eligibility(jsonObject.getString("Program_eli"));
-                        program.setProgram_seats(jsonObject.getInt("Program_seats"));
-                        program.setProgram_dur(jsonObject.getInt("Program_duration"));
-                        program.setProgram_fee(jsonObject.getInt("Program_fee"));
-                        program.setProgram_image(jsonObject.getString("Program_image"));
-                        list.add(program);
-                        //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
-                    }
 
+                        Academic_ResourcesWrapper resourcesWrapper = new Academic_ResourcesWrapper();
+                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
+                        resourcesWrapper.setLab_type(jsonObject.getString("lab_type"));
+                        resourcesWrapper.setLab_no(jsonObject.getString("lab_no"));
+
+                      //  events.setDate(jsonObject.getString("Date"));
+
+                        resourcesWrapper.setTotal_pc(jsonObject.getString("total_pc"));
+                        resourcesWrapper.setDeployment(jsonObject.getString("deployment"));
+
+                        list.add(resourcesWrapper);
+                    }
                 } catch (JSONException e) {
                     //tv.setText("JSON E:" + e);
                 }
-                //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
+
                 //tv.setText(list.get(0).getS_name());
                 return list;
             }
@@ -309,17 +301,19 @@ public class Programs extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
-            return 2;
+            // Show 3 total pages.
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "UG";
+                    return "Programming Lab";
                 case 1:
-                    return "PG";
+                    return "Designing Lab";
+                case 2:
+                    return "Language Lab";
             }
             return null;
         }

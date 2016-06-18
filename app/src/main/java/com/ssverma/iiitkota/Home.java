@@ -63,7 +63,7 @@ public class Home extends AppCompatActivity
     private RecyclerView recyclerView;
     private Home_Adapter adapter;
 
-    private String[] icon_names = {"Join IIITK", "Admissions", "Programs",
+    private String[] icon_names = {"Academics", "Admissions", "Programs",
             "Contacts", "Events", "Faculty",
             "Gallery", "Map", "News feed",
             "Placements", "Scholarship", "Administration",
@@ -238,7 +238,7 @@ public class Home extends AppCompatActivity
     public void onRCVClick(View view, int position) {
         switch (position) {
             case 0:
-                //startActivity(new Intent(this , Programs.class));
+                startActivity(new Intent(this , Academic_Home.class));//Added by Dixit Chauhan
                 break;
             case 1:
                 //startActivity(new Intent(this , Programs.class));
