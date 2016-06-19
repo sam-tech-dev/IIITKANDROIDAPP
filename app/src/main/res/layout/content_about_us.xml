@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:contentPadding="16dp">
 
             <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:contentPadding="16dp">
 
             <LinearLayout
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:contentPadding="16dp">
 
             <LinearLayout

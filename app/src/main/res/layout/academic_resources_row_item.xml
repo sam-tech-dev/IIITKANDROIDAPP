@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:layout_margin="2dp">
-    <!--Author-Dixit Chauhan      :08/06/2016-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,12 +14,10 @@
         android:orientation="vertical"
         android:id="@+id/resources_row_item_holder">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal">
@@ -31,20 +28,18 @@
                 android:text="Lab No."
                 android:id="@+id/lab_no_title"
                 android:textSize="18dp"
-                android:textColor="@color/colorAccent"
-                android:fontFamily="cursive"
-                android:layout_gravity="bottom"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_alignParentLeft="true"
                 android:padding="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lab_no"
-                android:fontFamily="@string/section_format"
                 android:textSize="16dp"
                 android:padding="5dp"
-                android:layout_gravity="bottom"
-                android:textColorLink="@color/colorPrimaryDark"/>
+                android:layout_toRightOf="@+id/lab_no_title"
+                android:textColor="@color/colorTextSecondary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,9 +47,8 @@
                 android:id="@+id/total_pc_title"
                 android:text="Total PC: "
                 android:textSize="18dp"
-                android:textColor="@color/colorAccent"
-                android:fontFamily="cursive"
-                android:layout_gravity="bottom"
+                android:textColor="@color/colorTextPrimary"
+                android:layout_toLeftOf="@+id/total_pc"
                 android:padding="5dp"/>
 
             <TextView
@@ -62,14 +56,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/total_pc"
                 android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/total_pc_title"
-                android:fontFamily="@string/section_format"
                 android:textSize="16dp"
-                android:layout_gravity="bottom"
                 android:padding="5dp"
-                android:textColorLink="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorTextSecondary"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,9 +78,7 @@
                 android:text="Deployment: "
                 android:id="@+id/deployment_title"
                 android:textSize="18dp"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="bottom"
-                android:fontFamily="cursive"
+                android:textColor="@color/colorTextPrimary"
                 android:padding="5dp"/>
 
             <TextView
@@ -97,11 +86,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/deployment"
                 android:layout_below="@+id/deployment_title"
-                android:fontFamily="@string/section_format"
-                android:textSize="16dp"
-                android:layout_gravity="bottom"
+                android:textSize="14dp"
                 android:padding="5dp"
-                android:textColorLink="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorTextSecondary"/>
 
         </RelativeLayout>
 

@@ -52,11 +52,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Handler h = new Handler(Looper.getMainLooper());
         h.post(new Runnable() {
             public void run() {
+              //  syncServerToLocal_Fest();
                 syncServerToLocal_Faculty();
                 syncServerToLocal_Contact();
                 syncServerToLocal_Administration();
                 syncServerToLocal_Events();
                 syncServerToLocal_Scholarship();
+
                 syncServerToLocal_News();
                 syncServerToLocal_Campus();
 
@@ -107,6 +109,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private void syncServerToLocal_Campus() {
         new ServerAsync_Campus().execute(ServerContract.getCampusPhpUrl());
     }
+
+//    //FEST
+//
+//    private void syncServerToLocal_Fest() {
+//        new ServerAsync_Fest().execute(ServerContract.getFestPhpUrl());
+//    }
 
     // ... create methods here
 
@@ -650,5 +658,106 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             return list;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//    // FEST
+//
+//
+//    public class ServerAsync_Fest extends AsyncTask<String, Void, String> {
+//
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            return ServerConnection.obtainServerResponse(params[0]);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String response) {
+//            super.onPostExecute(response);
+//
+//            Toast.makeText(getContext(),response+" : Response ", Toast.LENGTH_LONG).show();
+//
+//            ArrayList<ContentValues> list = parseCampusJSON(response);
+//            syncDataToFestLocal(list);
+//
+//        }
+//
+//        private void syncDataToFestLocal(ArrayList<ContentValues> list) {
+//
+//            String selectionClause = DatabaseContract.FestTable.FEST_SERVER_ID + " = ?" + " AND "
+//                    + DatabaseContract.FestTable.FEST_NAME + " = ?";//
+//            String[] selectionArgs = null;
+//
+//            int newRowAdded = 0;
+//
+//            for (ContentValues contentValues : list) {
+//                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.FestTable.FEST_SERVER_ID)
+//                        , contentValues.getAsString(DatabaseContract.FestTable.FEST_NAME)};//
+//
+//                int rowAffected = contentResolver.update(DatabaseContract.FEST_CONTENT_URI, contentValues, selectionClause, selectionArgs);
+//
+//                if (rowAffected == 0) {
+//                    Uri uri = contentResolver.insert(DatabaseContract.FEST_CONTENT_URI, contentValues);
+//                    long rowId = ContentUris.parseId(uri);
+//                    if (rowId > 0) {
+//                        newRowAdded++;
+//                    }
+//                }
+//
+//                contentResolver.notifyChange(DatabaseContract.FEST_CONTENT_URI, null);
+//            }
+//        }
+//
+//
+//        private ArrayList<ContentValues> parseCampusJSON(String response) {
+//
+//            ArrayList<ContentValues> list = new ArrayList<>();
+//
+//            try {
+//                JSONArray jsonArray = new JSONArray(response);
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+//
+//                    ContentValues contentValues = new ContentValues();
+//
+//                    contentValues.put(DatabaseContract.FestTable.FEST_SERVER_ID, jsonObject.getInt("id"));
+//                    contentValues.put(DatabaseContract.FestTable.FEST_NAME, jsonObject.getString("name"));
+//
+//                    contentValues.put(DatabaseContract.FestTable.FEST_DATE, jsonObject.getString("date"));
+//                    contentValues.put(DatabaseContract.FestTable.FEST_DESCRIPTION, jsonObject.getInt("description"));
+//                    contentValues.put(DatabaseContract.FestTable.FEST_IMAGE, jsonObject.getString("image_link"));
+//
+////                    contentValues.put(DatabaseContract.CampusTable.CAMPUS_TITLE, jsonObject.getString("Title"));
+////                    contentValues.put(DatabaseContract.CampusTable.CAMPUS_DETAIL, jsonObject.getString("Description"));
+////                    contentValues.put(DatabaseContract.CampusTable.CAMPUS_IMAGE, jsonObject.getString("image_link"));
+//
+//
+//                    list.add(contentValues);
+//                }
+//            } catch (JSONException e) {
+//                //tv.setText("JSON E:" + e);
+//            }
+//
+//            return list;
+//        }
+//    }
 
 }

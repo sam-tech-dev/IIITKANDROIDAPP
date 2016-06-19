@@ -14,11 +14,14 @@ import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -42,6 +45,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.ssverma.iiitkota.admission.Admission_Home;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.gcm.RegisterOnServer;
 import com.ssverma.iiitkota.gcm.registrationService;
@@ -67,13 +71,15 @@ public class Home extends AppCompatActivity
             "Contacts", "Events", "Faculty",
             "Gallery", "Map", "News feed",
             "Placements", "Scholarship", "Administration",
-            "About Us", "Campus Life", "Social Connect"};
+            "About Us", "Campus Life", "Social Connect" ,
+            "Fest"};
 
     private int[] icons = {R.drawable.home_join_, R.drawable.home_map_, R.drawable.home_academic_programs_,
             R.drawable.home_contact_, R.drawable.home_events_, R.drawable.home_faculty_,
             R.drawable.home_gallary_, R.drawable.home_map_, R.drawable.home_news_feed_,
             R.drawable.home_map_, R.drawable.home_map_, R.drawable.home_map_,
-            R.drawable.home_about_us_, R.drawable.home_map_, R.drawable.home_map_};
+            R.drawable.home_about_us_, R.drawable.home_map_, R.drawable.home_map_ ,
+            R.drawable.home_map_};
 
     private LocationManager locationManager;
 
@@ -149,19 +155,16 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -182,11 +185,11 @@ public class Home extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_admission) {
-            //startActivity(new Intent(this , ));
+            startActivity(new Intent(this , Admission_Home.class));
         } else if (id == R.id.nav_contact) {
             startActivity(new Intent(this , Contact.class));
         } else if (id == R.id.nav_events) {
@@ -196,9 +199,9 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             shareApp();
         } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_license){
-            displayLicenseDialogFragment();
+            //
+        } else if (id == R.id.nav_about){
+            startActivity(new Intent(this , About_App.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -206,10 +209,6 @@ public class Home extends AppCompatActivity
         return true;
     }
 
-    private void displayLicenseDialogFragment() {
-        LicenseDialogFragment dialog = LicenseDialogFragment.newInstance();
-        dialog.show(getSupportFragmentManager(), "LicenseDialog");
-    }
 
     private void shareApp() {
         try
@@ -238,10 +237,10 @@ public class Home extends AppCompatActivity
     public void onRCVClick(View view, int position) {
         switch (position) {
             case 0:
-                startActivity(new Intent(this , Academic_Home.class));//Added by Dixit Chauhan
+                startActivity(new Intent(this , Academic_Home.class));
                 break;
             case 1:
-                //startActivity(new Intent(this , Programs.class));
+                startActivity(new Intent(this , Admission_Home.class));
                 break;
             case 2:
                 startActivity(new Intent(this, Programs.class));
@@ -287,6 +286,9 @@ public class Home extends AppCompatActivity
                 break;
             case 14:
                 startActivity(new Intent(this, SocialConnect.class));
+                break;
+            case 15:
+                startActivity(new Intent(this , Fest.class));
                 break;
         }
     }
@@ -418,9 +420,18 @@ public class Home extends AppCompatActivity
                     intent.putExtra("image_link" , latest_news_list.get(position).getNews_imageLink());
                     intent.putExtra("detail" , latest_news_list.get(position).getNews_description());
 
-                    //Toast.makeText(Home.this , latest_news_list.get(position).getNews_description() , Toast.LENGTH_SHORT).show();
+                    Pair<View, String> imagePair = Pair.create((View)news_image, "tImage");
 
-                    startActivity(intent);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(Home.this, imagePair);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        startActivity(intent , options.toBundle());
+                    }else {
+                        startActivity(intent);
+                    }
+
+
                 }
             });
 

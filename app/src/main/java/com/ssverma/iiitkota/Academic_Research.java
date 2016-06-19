@@ -29,9 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Author-Dixit Chauhan : 13/06/2016
- */
 public class Academic_Research extends AppCompatActivity {
 
 
@@ -49,16 +46,12 @@ public class Academic_Research extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_academic_research);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -75,7 +68,6 @@ public class Academic_Research extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -91,19 +83,15 @@ public class Academic_Research extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_faculty, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -111,18 +99,11 @@ public class Academic_Research extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private Academic_Research_Adapter adapter;
 
         private String url;
@@ -137,10 +118,6 @@ public class Academic_Research extends AppCompatActivity {
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -153,8 +130,6 @@ public class Academic_Research extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_academic_research, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.research_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -231,14 +206,6 @@ public class Academic_Research extends AppCompatActivity {
 
         public class ServerAsync extends AsyncTask<String , Void , String> {
 
-            private ProgressDialog progressDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-            }
-
             @Override
             protected String doInBackground(String... params) {
                 return ServerConnection.obtainServerResponse(params[0] , params[1]);
@@ -248,8 +215,6 @@ public class Academic_Research extends AppCompatActivity {
             protected void onPostExecute(String response) {
                 super.onPostExecute(response);
 
-
-                //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
                 list = parseJSON(response);
                 adapter = new Academic_Research_Adapter( getActivity() , list);
                 recyclerView.setAdapter(adapter);
@@ -268,13 +233,10 @@ public class Academic_Research extends AppCompatActivity {
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
                         Academic_ResearchWrapper researchWrapper = new Academic_ResearchWrapper();
-                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
+
                         researchWrapper.setResearch_type(jsonObject.getString("research_type"));
                         researchWrapper.setPerson_name(jsonObject.getString("person_name"));
-
-                        //  events.setDate(jsonObject.getString("Date"));
 
                         researchWrapper.setPerson_position(jsonObject.getString("person_position"));
                         researchWrapper.setProject_name(jsonObject.getString("project_name"));
@@ -286,10 +248,9 @@ public class Academic_Research extends AppCompatActivity {
                         list.add(researchWrapper);
                     }
                 } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }
@@ -304,14 +265,13 @@ public class Academic_Research extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+
             return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
+
             return 2;
         }
 

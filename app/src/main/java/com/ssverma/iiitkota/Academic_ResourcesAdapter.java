@@ -10,23 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Author-Dixit Chauhan
- */
 class Academic_ResourcesAdapter extends RecyclerView.Adapter<Academic_ResourcesAdapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<Academic_ResourcesWrapper> list;
-
-    //private RCVClickListener listener;
 
     Academic_ResourcesAdapter(Context context , ArrayList<Academic_ResourcesWrapper> list){
         this.context = context;
         this.list = list;
     }
-
-   // public void setOnRCVClickListener(RCVClickListener listener){this.listener = listener;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,16 +34,6 @@ class Academic_ResourcesAdapter extends RecyclerView.Adapter<Academic_ResourcesA
         holder.lab_no.setText(list.get(position).getLab_no());
         holder.total_pc.setText(list.get(position).getTotal_pc());
         holder.deployment.setText(list.get(position).getDeployment());
-
-
-       // Toast.makeText(this.context,""+ServerContract.getNewsImagePath()+listEvents.get(position).getImage(),Toast.LENGTH_LONG).show();
-        //Picasso.with(context).load(ServerContract.getEventsImagePath()+listEvents.get(position).getImage()).into(holder.event_image);
-
-        //holder.news_image.setImageResource(R.drawable.background);
-
-        //Toast.makeText(this.context, "" +ServerContract.getNewsImagesUrl()+listNews.get(0).getFaculty_imageLink()  , Toast.LENGTH_LONG).show();
-        //holder.events_date_cal.setText(listEvents.get(position).getDate());
-
     }
 
     @Override
@@ -73,7 +55,6 @@ class Academic_ResourcesAdapter extends RecyclerView.Adapter<Academic_ResourcesA
             super(itemView);
 
             itemHolder = (LinearLayout) itemView.findViewById(R.id.resources_row_item_holder);
-         //   itemHolder.setOnClickListener(this);
 
             lab_no= (TextView) itemView.findViewById(R.id.lab_no);
             total_pc= (TextView) itemView.findViewById(R.id.total_pc);

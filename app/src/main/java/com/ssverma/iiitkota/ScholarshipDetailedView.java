@@ -22,17 +22,13 @@ import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Author-Dixit Chauhan      :08/06/2016
- */
+public class ScholarshipDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-public class ScholarshipDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
-
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
@@ -44,11 +40,8 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
     private TextView income;
     private TextView academic;
     private TextView category;
-    private TextView value,procedure,remark,toolbar,toolbar_title,title,site_link;
+    private TextView value, procedure, remark, toolbar, toolbar_title, title, site_link;
     private ImageView image_bg;
-
-    private WebView news_desc;
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming};
 
 
     @Override
@@ -87,37 +80,31 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
         site_link.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view)
-            {
-                Uri adress= Uri.parse(getIntent().getExtras().getString("link"));
-                Intent browser= new Intent(Intent.ACTION_VIEW, adress);
+            public void onClick(View view) {
+                Uri adress = Uri.parse(getIntent().getExtras().getString("link"));
+                Intent browser = new Intent(Intent.ACTION_VIEW, adress);
                 startActivity(browser);
             }
 
         });
 
 
-        // Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagesUrl()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
-        // news_desc.loadData(getIntent().getExtras().getString("description"));
-        //
-      Picasso.with(getApplicationContext()).load(ServerContract.getScholarshipImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
-        //String summary=getIntent().getExtras().getString("detail");
-        //String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:12px;}</style></head><body>"+"<p>"+summary+"</p>"+"</body></html>" ;
-       // news_desc.loadData(desc, "text/html", "utf-8");
+        Picasso.with(getApplicationContext()).load(ServerContract.getScholarshipImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+
 
         toolbar.setText(getIntent().getExtras().getString("name"));
         toolbar_title.setText(getIntent().getExtras().getString("name"));
-        //image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
-        Picasso.with(getApplicationContext()).load(ServerContract.getScholarshipImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
+
+        Picasso.with(getApplicationContext()).load(ServerContract.getScholarshipImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
 
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.scholarship_name_toolbar_fd);
+        mTitle = (TextView) findViewById(R.id.scholarship_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.scholarship_name_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
     }
 
     @Override
@@ -132,7 +119,7 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
+            if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
@@ -148,7 +135,7 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
 
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
@@ -162,7 +149,7 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);

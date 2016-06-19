@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -39,46 +40,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Author-Dixit Chauhan      :08/06/2016
- */
-
 public class Scholarship  extends AppCompatActivity implements RCVClickListener {
 
-   // private KenBurnsView kenBurnsView;
-   // private int[] ken_burns_bg = {R.drawable.newsfeed_prev, R.drawable.newsfeed_latest, R.drawable.newsfeed_upcoming};
-
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private ScholarshipAdapter adapter;
-    ArrayList<ScholarshipWrapper> list;
+    private ArrayList<ScholarshipWrapper> list;
 
+    private ProgressBar progressBar;
+    private LinearLayout loadingHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scholarship);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Scholarships");
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        // mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        // mViewPager = (ViewPager) findViewById(R.id.container);
-        // mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        //tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        //  tabLayout.setupWithViewPager(mViewPager);
-
-       // kenBurnsView = (KenBurnsView) findViewById(R.id.image_Ken_Burns);
 
         recyclerView = (RecyclerView) findViewById(R.id.container);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        loadingHolder = (LinearLayout) findViewById(R.id.loading_holder);
 
         try {new ServerAsync().execute((String[][]) null);
         } catch (Exception e) {
@@ -89,12 +75,9 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -104,9 +87,6 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
 
     @Override
     public void onRCVClick(View view, int position) {
-        // start new Activity here
-
-
 
         Intent intent = new Intent(this , ScholarshipDetailedView.class);
         intent.putExtra("name" , list.get(position).getName());
@@ -118,21 +98,12 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
         intent.putExtra("remark" , list.get(position).getRemark());
         intent.putExtra("link" , list.get(position).getLink());
         intent.putExtra("faculty_image_link" , list.get(position).getImage());
-       // intent.putExtra("tab_position" , Events.tab_position);
 
         startActivity(intent);
     }
 
 
     public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<ScholarshipWrapper>> {
-
-        private ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-        }
 
         @Override
         protected ArrayList<ScholarshipWrapper> doInBackground(String[]... params) {
@@ -142,19 +113,14 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
         @Override
         protected void onPostExecute(ArrayList<ScholarshipWrapper> result) {
             super.onPostExecute(result);
-            //progressDialog.dismiss();
 
-           // Toast.makeText(Scholarship.this , "" + response , Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            loadingHolder.setVisibility(View.GONE);
 
             list = result;
             adapter = new ScholarshipAdapter(Scholarship.this, list);
             recyclerView.setAdapter(adapter);
             adapter.setOnRCVClickListener(Scholarship.this);
-
-            //swipeRefreshLayout.setRefreshing(false);
-            //progressBar.setVisibility(View.GONE);
-
-            // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
 
         }
 
@@ -162,7 +128,7 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
             ArrayList<ScholarshipWrapper> list = new ArrayList<>();
 
             Cursor cursor = getContentResolver().query(DatabaseContract.SCHOLARSHIP_CONTENT_URI,
-                    null, null ,//
+                    null, null ,
                     selectionArgs, null);
 
             while (cursor.moveToNext()) {

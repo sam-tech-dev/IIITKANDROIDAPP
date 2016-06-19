@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,17 +23,14 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-/**
- * Created by DIXIT on 12/06/2016.
- */
-
 public class Academic_Calendar extends AppCompatActivity implements RCVClickListener{
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private Academic_Calendar_Adapter adapter;
-    ArrayList<Academic_CalendarWrapper> list;
+    private ArrayList<Academic_CalendarWrapper> list;
 
+    private ProgressBar progressBar;
+    private LinearLayout loadingHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +45,30 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
         recyclerView = (RecyclerView) findViewById(R.id.container);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        try {new ServerAsync().execute(ServerContract.getAcademicCalendarPhpUrl() , "filter=" + URLEncoder.encode("prev", "UTF-8"));
-        } catch (Exception e) {
-            e.printStackTrace();
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        loadingHolder = (LinearLayout) findViewById(R.id.loading_holder);
+
+
+        if (ServerConnection.isNetworkAvailable(this)){
+            try {new ServerAsync().execute(ServerContract.getAcademicCalendarPhpUrl() , "filter=" + URLEncoder.encode("prev", "UTF-8"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            progressBar.setVisibility(View.GONE);
+            loadingHolder.setVisibility(View.GONE);
+
+            Toast.makeText(this , "No Internet Connection" , Toast.LENGTH_LONG).show();
         }
+
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -70,9 +79,7 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
 
     @Override
     public void onRCVClick(View view, int position) {
-        // start new Activity here
-        ;
-        // intent.putExtra("tab_position" , Events.tab_position);
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String url = "http://172.16.1.231/iiitk/android/assets/documents/academic_calendar/" + list.get(position).getLink();
         intent.setData(Uri.parse(url));
@@ -80,14 +87,6 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
     }
 
     public class ServerAsync extends AsyncTask<String , Void , String> {
-
-        private ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -97,19 +96,14 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
-            //progressDialog.dismiss();
 
-           // Toast.makeText(Scholarship.this , "" + response , Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            loadingHolder.setVisibility(View.GONE);
 
             list = parseJSON(response);
             adapter = new Academic_Calendar_Adapter(Academic_Calendar.this, list);
             recyclerView.setAdapter(adapter);;
             adapter.setOnRCVClickListener(Academic_Calendar.this);
-
-            //swipeRefreshLayout.setRefreshing(false);
-            //progressBar.setVisibility(View.GONE);
-
-            // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
 
         }
 
@@ -124,16 +118,14 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
 
                     Academic_CalendarWrapper academic_calendarWrapper = new Academic_CalendarWrapper();
 
-                    //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
                     academic_calendarWrapper.setName(jsonObject.getString("name"));;
                     academic_calendarWrapper.setLink(jsonObject.getString("link"));
                     list.add(academic_calendarWrapper);
                 }
             } catch (JSONException e) {
-                //tv.setText("JSON E:" + e);
+
             }
 
-            //tv.setText(list.get(0).getS_name());
             return list;
 
         }

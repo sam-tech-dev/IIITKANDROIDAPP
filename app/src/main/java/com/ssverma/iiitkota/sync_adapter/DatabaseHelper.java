@@ -143,6 +143,35 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
 
+
+
+
+
+
+
+
+//
+//    //FEST
+//
+//
+//    private static final String CREATE_FEST_TABLE = "CREATE TABLE "
+//            + DatabaseContract.FestTable.TABLE_NAME + " ("
+//            + DatabaseContract.FestTable.FEST_SERVER_ID + INTEGER_TYPE + COMMA
+//            + DatabaseContract.FestTable.FEST_NAME + TEXT_TYPE + COMMA
+//            + DatabaseContract.FestTable.FEST_DATE + TEXT_TYPE + COMMA
+//            + DatabaseContract.FestTable.FEST_DESCRIPTION + TEXT_TYPE
+//            + DatabaseContract.FestTable.FEST_IMAGE + TEXT_TYPE +
+//
+//
+//            " )";
+//
+//    //
+//    private static final String DROP_FEST_TABLE = "DROP TABLE IF EXISTS "
+//            +DatabaseContract.FestTable.TABLE_NAME;
+//
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DatabaseContract.DB_NAME, null, DATABASE_VERSION);
     }
@@ -156,6 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_SCHOLARSHIP_TABLE);
         db.execSQL(CREATE_NEWS_TABLE);
         db.execSQL(CREATE_CAMPUS_TABLE);
+  //      db.execSQL(CREATE_FEST_TABLE);
     }
 
     @Override
@@ -172,6 +202,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         db.execSQL(DROP_NEWS_TABLE);
         db.execSQL(DROP_CAMPUS_TABLE);
+ //       db.execSQL(DROP_FEST_TABLE);
+
 
         onCreate(db);
     }

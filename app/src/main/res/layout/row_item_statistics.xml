@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="5dp">
+
+    <LinearLayout
+        android:id="@+id/table_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"></View>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Branch Name"
+            android:textStyle="bold"
+            android:id="@+id/branch_name"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"></View>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:stretchColumns="1"
+            android:padding="5dp">
+
+            <TableRow
+                android:padding="10dp">
+                <TextView
+                    android:padding="3dip"
+                    android:text="Category"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:padding="3dip"
+                    android:text="Starting Rank"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Closing Rank"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"/>
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp">
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="SC"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:padding="3dip"
+                    android:id="@+id/sc_sr"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/sc_cr"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp">
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="ST"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:padding="3dip"
+                    android:id="@+id/st_sr"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/st_cr"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp">
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="OBC-NCL"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:padding="3dip"
+                    android:id="@+id/obc_sr"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/obc_cr"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp">
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="GENERAL"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:padding="3dip"
+                    android:id="@+id/gen_sr"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/gen_cr"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -12,13 +12,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Gallery_Images extends AppCompatActivity implements RCVClickListener{
+public class Gallery_Images extends AppCompatActivity implements RCVClickListener {
 
     private RecyclerView recyclerView;
     private Gallery_Images_Adapter adapter;
@@ -27,7 +29,11 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
     private int album_number;
 
     private boolean isGrid = true;
-    private boolean isLongClicked = false;
+
+    private boolean isAlbumInfoClicked;
+
+    private String album_name;
+    private String album_summary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +45,14 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
         album_number = getIntent().getExtras().getInt("album_number");
 
         recyclerView = (RecyclerView) findViewById(R.id.gallery_images_recycler_view);
-        layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new Gallery_Images_Adapter(Gallery_Images.this , Gallery.getAlbum_map() , album_number);
+        adapter = new Gallery_Images_Adapter(Gallery_Images.this, Gallery.getAlbum_map(), album_number);
         recyclerView.setAdapter(adapter);
         adapter.setRCVClickListener(this);
 
-        final String album_name = getIntent().getExtras().getString("album_name");
-        final String album_summary = getIntent().getExtras().getString("album_summary");
+        album_name = getIntent().getExtras().getString("album_name");
+        album_summary = getIntent().getExtras().getString("album_summary");
 
         getSupportActionBar().setTitle(album_name);
 
@@ -56,55 +62,17 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
             public void onClick(View view) {
 
 
-                if (isLongClicked){
-                    isLongClicked = false;
-                    hideDetails(findViewById(R.id.album_details_holder));
-                    recyclerView.setVisibility(View.VISIBLE);
-                }else {
-
-                    if (isGrid) {
-                        layoutManager.setSpanCount(1);
-                        isGrid = false;
-                        fab.setImageResource(R.drawable.linear_icon);
-                    } else {
-                        layoutManager.setSpanCount(2);
-                        isGrid = true;
-                        fab.setImageResource(R.drawable.grid_icon);
-                    }
+                if (isGrid) {
+                    layoutManager.setSpanCount(3);
+                    isGrid = false;
+                    fab.setImageResource(R.drawable.linear_icon);
+                } else {
+                    layoutManager.setSpanCount(2);
+                    isGrid = true;
+                    fab.setImageResource(R.drawable.grid_icon);
                 }
 
 
-            }
-        });
-
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                TextView album_title = (TextView) findViewById(R.id.album_title);
-                album_title.setText("");
-                //Toast.makeText(getApplicationContext() , "Clicked" , Toast.LENGTH_SHORT).show();
-
-                revealDetails(findViewById(R.id.album_details_holder));
-                isLongClicked = true;
-
-                album_title.setText(album_name);
-
-                WebView album_summary_WV = (WebView) findViewById(R.id.album_summary);
-                String webView_string = "<html><head>"
-                        + "<style type=\"text/css\">body{color: #ffffff; background-color: #99444444;}"
-                        + "</style></head>"
-                        + "<body>"
-                        + album_summary
-                        + "</body></html>";
-
-                album_summary_WV.loadData(webView_string , "text/html" , "utf-8");
-
-                album_summary_WV.setBackgroundColor(99444444);
-                //getSupportActionBar().setTitle("");
-
-                recyclerView.setVisibility(View.INVISIBLE);
-
-                return true;
             }
         });
 
@@ -117,38 +85,100 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
         Animator anim = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+            view.setVisibility(View.VISIBLE);
+            anim.start();
+        } else {
+            view.setVisibility(View.VISIBLE);
         }
-        view.setVisibility(View.VISIBLE);
-        //isEditTextVisible = true;
-        anim.start();
+
     }
 
-    public void hideDetails(final View view){
+    public void hideDetails(final View view) {
         int cx = view.getRight() - 30;
         int cy = view.getBottom() - 60;
         int initialRadius = view.getWidth();
         Animator anim = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0);
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    view.setVisibility(View.INVISIBLE);
+                }
+            });
+            anim.start();
+        } else {
+            view.setVisibility(View.INVISIBLE);
         }
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                view.setVisibility(View.INVISIBLE);
-            }
-        });
-        //isEditTextVisible = false;
-        anim.start();
+
 
     }
 
     @Override
     public void onRCVClick(View view, int position) {
-        Intent intent = new Intent(Gallery_Images.this , Gallery_Detailed_View.class);
-        intent.putExtra("cip" , position);
-        intent.putExtra("album_number" , album_number);
+        Intent intent = new Intent(Gallery_Images.this, Gallery_Detailed_View.class);
+        intent.putExtra("cip", position);
+        intent.putExtra("album_number", album_number);
 
         startActivity(intent);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_gallery__images, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.album_info) {
+
+            WebView album_summary_WV;
+
+            if (!isAlbumInfoClicked) {
+                isAlbumInfoClicked = true;
+
+                TextView album_title = (TextView) findViewById(R.id.album_title);
+                album_title.setText("");
+                //Toast.makeText(getApplicationContext() , "Clicked" , Toast.LENGTH_SHORT).show();
+
+                revealDetails(findViewById(R.id.album_details_holder));
+
+                album_title.setText(album_name);
+
+                album_summary_WV = (WebView) findViewById(R.id.album_summary);
+                String webView_string = "<html><head>"
+                        + "<style type=\"text/css\">body{color: #ffffff; background-color: #99444444;}"
+                        + "</style></head>"
+                        + "<body>"
+                        + album_summary
+                        + "</body></html>";
+
+                album_summary_WV.loadData(webView_string, "text/html", "utf-8");
+
+                album_summary_WV.setBackgroundColor(99444444);
+                //getSupportActionBar().setTitle("");
+
+                recyclerView.setVisibility(View.INVISIBLE);
+
+            } else {
+                hideDetails(findViewById(R.id.album_details_holder));
+                recyclerView.setVisibility(View.VISIBLE);
+                isAlbumInfoClicked = false;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

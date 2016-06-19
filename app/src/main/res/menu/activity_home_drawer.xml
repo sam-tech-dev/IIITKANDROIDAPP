@@ -33,11 +33,11 @@
         </menu>
     </item>
 
-    <item android:title="Legal">
+    <item android:title="App info">
         <menu>
-            <item
-                android:id="@+id/nav_license"
-                android:title="Open Source License" />
+            <!--<item-->
+                <!--android:id="@+id/nav_license"-->
+                <!--android:title="Open Source License" />-->
             <item
                 android:id="@+id/nav_about"
                 android:title="About" />

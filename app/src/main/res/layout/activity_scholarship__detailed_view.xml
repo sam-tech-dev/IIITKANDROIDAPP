@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.ssverma.iiitkota.Faculty_DetailedView">
 
-    <!--Author-Dixit Chauhan      :08/06/2016-->
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -115,7 +114,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -156,7 +155,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
 
@@ -165,8 +164,8 @@
                         android:layout_height="wrap_content"
                         android:text="Total Parental Income (Rs)"
                         android:textSize="17dp"
+                        android:textStyle="italic"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
                         android:layout_marginLeft="0dp"
                         android:padding="5dp"/>
 
@@ -185,8 +184,8 @@
                         android:text="Academic and Other Eligibility Criteria"
                         android:layout_marginLeft="0dp"
                         android:textSize="17dp"
+                        android:textStyle="italic"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
                         android:padding="5dp"/>
 
                     <TextView
@@ -204,8 +203,8 @@
                         android:text="Category"
                         android:layout_marginLeft="0dp"
                         android:textSize="17dp"
+                        android:textStyle="italic"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
                         android:padding="5dp"/>
 
                     <TextView
@@ -245,7 +244,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -285,7 +284,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -323,7 +322,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -362,7 +361,7 @@
                         android:layout_marginLeft="0dp"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -379,24 +378,6 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
-
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="6dp"-->
-            <!--app:cardElevation="8dp"-->
-            <!--app:contentPadding="16dp">-->
-
-            <!--&lt;!&ndash;Elements&ndash;&gt;-->
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/mytext"/>-->
-
-            <!--</android.support.v7.widget.CardView>-->
-
 
         </LinearLayout>
 

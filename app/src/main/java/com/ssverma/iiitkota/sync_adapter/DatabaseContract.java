@@ -23,7 +23,8 @@ public class DatabaseContract {
     public static final Uri CONTACT_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.ContactTable.TABLE_NAME);
     //ADMINISTRATION
     public static final Uri ADMINISTRATION_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.AdministrationTable.TABLE_NAME);
-
+//FEST
+//public static final Uri FEST_CONTENT_URI = Uri.parse("content://" + DatabaseContract.AUTHORITY + "/" + DatabaseContract.FestTable.TABLE_NAME);
 
 
     public abstract class FacultyTable {
@@ -113,6 +114,30 @@ public class DatabaseContract {
 //        public static final String EVENTS_AUTHOR = "Author";
 //        public static final String EVENTS_IMAGE = "Image";
     }
+
+
+//
+//    //FEST
+//
+//    public abstract  class FestTable{
+//
+//        public static final String FEST_CONTENT_TYPE =
+//                CONTENT_TYPE + "vnd.Demo_ContentProvider.fest";
+//        public static final String FEST_CONTENT_TYPE_ID =
+//                CONTENT_TYPE_ID + "vnd.Demo_ContentProvider.fest";
+//
+//        public static final String TABLE_NAME="fest_table";
+//
+//        public static final String FEST_SERVER_ID = "id";
+//        public static final String FEST_NAME = "name";
+//        public static final String FEST_DATE = "date";
+//        public static final String FEST_DESCRIPTION = "description";
+//        public static final String FEST_IMAGE = "image_link";
+//
+//    }
+
+
+
 
 
     //ADMINISTRATION

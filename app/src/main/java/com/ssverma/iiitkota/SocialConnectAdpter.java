@@ -26,7 +26,7 @@ public class SocialConnectAdpter extends  RecyclerView.Adapter<SocialConnectAdpt
     private RCVClickListener listener;
 
     SocialConnectAdpter(Context context){
-        socialList=new ArrayList<Social>();
+        socialList=new ArrayList<>();
         this.context = context;
 
         Social fb=new Social("facebook","Facebook","facebook","https://www.facebook.com/HgSmiiitians/");
@@ -40,10 +40,6 @@ public class SocialConnectAdpter extends  RecyclerView.Adapter<SocialConnectAdpt
         socialList.add(lkd);
         socialList.add(tw);
         socialList.add(yt);
-
-
-
-
 
     }
 
@@ -65,7 +61,7 @@ public class SocialConnectAdpter extends  RecyclerView.Adapter<SocialConnectAdpt
 
         holder.internal_connect.setImageResource(context.getResources().getIdentifier("com.ssverma.iiitkota:drawable/" + socialList.get(position).internalImage, null, null));
         holder.connect_name.setText(socialList.get(position).name);
-        holder.external_connect.setImageResource(context.getResources().getIdentifier("com.ssverma.iiitkota:drawable/" + socialList.get(position).externalImage, null, null));
+        //holder.external_connect.setImageResource(R.drawable.social_connect_external_icon);
 
     }
 

@@ -14,9 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Author-Dixit Chauhan : 13/06/2016
- */
 public class Academic_ResearchDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
 
@@ -51,6 +48,7 @@ public class Academic_ResearchDetailedView extends AppCompatActivity implements 
         setContentView(R.layout.activity_academic_research_detailed_view);
 
         bindActivity();
+
         mAppBarLayout.addOnOffsetChangedListener(this);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 

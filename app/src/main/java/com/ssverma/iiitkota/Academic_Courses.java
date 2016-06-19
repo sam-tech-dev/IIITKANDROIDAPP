@@ -27,9 +27,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Author-Dixit Chauhan : 16/06/2016
- */
 public class Academic_Courses extends AppCompatActivity{
 
 
@@ -48,16 +45,12 @@ public class Academic_Courses extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_academic_courses);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -74,7 +67,6 @@ public class Academic_Courses extends AppCompatActivity{
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -93,12 +85,9 @@ public class Academic_Courses extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -117,7 +106,6 @@ public class Academic_Courses extends AppCompatActivity{
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private Academic_CoursesAdapter adapter;
 
         private String url;
@@ -127,8 +115,6 @@ public class Academic_Courses extends AppCompatActivity{
         private ProgressBar progressBar;
 
         private ArrayList<Academic_CoursesWrapper> list;
-
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
 
         public PlaceholderFragment() {
         }
@@ -149,8 +135,6 @@ public class Academic_Courses extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_academic_courses, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.courses_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -237,14 +221,6 @@ public class Academic_Courses extends AppCompatActivity{
 
         public class ServerAsync extends AsyncTask<String , Void , String>{
 
-            private ProgressDialog progressDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-            }
-
             @Override
             protected String doInBackground(String... params) {
                 return ServerConnection.obtainServerResponse(params[0] , params[1]);
@@ -253,9 +229,6 @@ public class Academic_Courses extends AppCompatActivity{
             @Override
             protected void onPostExecute(String response) {
                 super.onPostExecute(response);
-                //progressDialog.dismiss();
-
-                //Toast.makeText(getActivity() , "" + response , Toast.LENGTH_SHORT).show();
 
                 list = parseJSON(response);
                 adapter = new Academic_CoursesAdapter(getContext() , list);
@@ -263,8 +236,6 @@ public class Academic_Courses extends AppCompatActivity{
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
-
-                // Toast.makeText(getActivity() , "Size : " + list.size() , Toast.LENGTH_SHORT).show();
 
             }
 
@@ -278,12 +249,9 @@ public class Academic_Courses extends AppCompatActivity{
 
 
                         Academic_CoursesWrapper academic_coursesWrapper = new Academic_CoursesWrapper();
-                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
                         academic_coursesWrapper.setCourse_name(jsonObject.getString("Name"));
                         academic_coursesWrapper.setCode(jsonObject.getString("Code"));
                         academic_coursesWrapper.setAbbr(jsonObject.getString("Abbreviation"));
-
-                      //  events.setDate(jsonObject.getString("Date"));
 
                         academic_coursesWrapper.setCredit(jsonObject.getString("Credit"));
                         academic_coursesWrapper.setSemester(jsonObject.getString("Semester"));
@@ -291,10 +259,9 @@ public class Academic_Courses extends AppCompatActivity{
                         list.add(academic_coursesWrapper);
                     }
                 } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+
                 }
 
-                //tv.setText(list.get(0).getS_name());
                 return list;
             }
         }
@@ -316,7 +283,6 @@ public class Academic_Courses extends AppCompatActivity{
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
             return 4;
         }
 

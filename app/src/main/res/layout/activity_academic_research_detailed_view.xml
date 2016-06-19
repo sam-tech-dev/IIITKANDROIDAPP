@@ -1,60 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ssverma.iiitkota.Academic_ResearchDetailedView">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_research_detailed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appbar_research_detailed">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_research_detailed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            android:id="@+id/collapsing_toolbar_research_detailed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
+                android:id="@+id/imageView_background_research_detailed"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/background"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier ="0.9"
-                android:id="@+id/imageView_background_research_detailed"
-                />
+                app:layout_collapseParallaxMultiplier="0.9" />
 
             <FrameLayout
+                android:id="@+id/frame_layout_research_detailed"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorPrimary"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier ="0.3"
-                android:id="@+id/frame_layout_research_detailed">
+                app:layout_collapseParallaxMultiplier="0.3">
 
 
                 <LinearLayout
+                    android:id="@+id/research_name_data_holder_fd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:id="@+id/research_name_data_holder_fd"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/project_name_project_detailed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="Project Name"
-                        android:textSize="30dp"
                         android:textColor="@android:color/white"
-                        android:id="@+id/project_name_project_detailed"/>
+                        android:textSize="30dp" />
 
                 </LinearLayout>
 
@@ -73,9 +71,9 @@
 
         <!--cards holder-->
         <LinearLayout
+            android:id="@+id/project_detailed_cards_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/project_detailed_cards_holder"
             android:orientation="vertical">
 
 
@@ -88,33 +86,30 @@
                 app:contentPadding="16dp">
 
                 <LinearLayout
+                    android:id="@+id/fd_project_name_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fd_project_name_holder"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Project Name"
                         android:layout_gravity="top|left"
-                        android:textSize="20dp"
+                        android:text="Project Name"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-
-                        />
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/fd_project_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fd_project_name"
-                        android:fontFamily="sans-serif"
-                        android:layout_marginTop="5dp"
-                        android:gravity="start"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="start"
                         android:textColor="@color/colorPrimaryDark"
-                        />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -130,33 +125,30 @@
                 app:contentPadding="16dp">
 
                 <LinearLayout
+                    android:id="@+id/fd_person_name_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fd_person_name_holder"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Person Name"
                         android:layout_gravity="top|left"
-                        android:textSize="20dp"
+                        android:text="Person Name"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-
-                        />
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/fd_person_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fd_person_name"
-                        android:fontFamily="sans-serif"
-                        android:layout_marginTop="5dp"
-                        android:gravity="start"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="start"
                         android:textColor="@color/colorPrimaryDark"
-                        />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -172,38 +164,34 @@
                 app:contentPadding="16dp">
 
                 <LinearLayout
+                    android:id="@+id/fd_person_position_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fd_person_position_holder"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Person Position"
                         android:layout_gravity="top|left"
-                        android:textSize="20dp"
+                        android:text="Person Position"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-
-                        />
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/fd_person_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fd_person_position"
-                        android:fontFamily="sans-serif"
-                        android:layout_marginTop="5dp"
-                        android:gravity="start"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="start"
                         android:textColor="@color/colorPrimaryDark"
-                        />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
 
 
             <!--Detail card-->
@@ -215,45 +203,45 @@
                 app:contentPadding="16dp">
 
                 <LinearLayout
+                    android:id="@+id/fd_detail_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/fd_detail_holder"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Detail"
                         android:layout_gravity="top|left"
-                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:text="Detail"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textSize="20dp"
 
                         />
 
                     <TextView
+                        android:id="@+id/fd_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fd_detail"
-                        android:fontFamily="sans-serif"
-                        android:layout_marginTop="5dp"
-                        android:gravity="start"
                         android:layout_gravity="center_vertical"
-                        android:textSize="16dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="start"
                         android:textColor="@color/colorPrimaryDark"
-                        />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_project_detailed"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_anchor="@id/frame_layout_research_detailed"
-        android:id="@+id/toolbar_project_detailed"
         app:popupTheme="@style/AppTheme.AppBarOverlay">
 
         <LinearLayout
@@ -266,31 +254,30 @@
                 android:layout_height="30dp" />
 
             <TextView
+                android:id="@+id/project_name_toolbar_fd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="Project Name"
                 android:textColor="#ffffff"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:id="@+id/project_name_toolbar_fd"/>
+                android:textSize="20dp" />
 
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/project_detailed_project_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/home_faculty"
         android:layout_gravity="center_horizontal"
-        app:finalYPosition="2dp"
+        android:src="@drawable/home_faculty"
         app:finalHeight="@dimen/image_final_width"
-        app:startToolbarPosition="2dp"
-        app:startHeight="2dp"
-        app:startXPosition="2dp"
+        app:finalYPosition="2dp"
         app:layout_behavior="com.ssverma.iiitkota.AvatarImageBehavior"
-        android:id="@+id/project_detailed_project_image"
-        />
+        app:startHeight="2dp"
+        app:startToolbarPosition="2dp"
+        app:startXPosition="2dp" />
 
 
 </android.support.design.widget.CoordinatorLayout>

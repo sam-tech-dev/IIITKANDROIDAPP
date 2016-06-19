@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Author-Dixit Chauhan : 13/06/2016
- */
 public class Academic_Research_Adapter extends RecyclerView.Adapter<Academic_Research_Adapter.ViewHolder > {
 
     private Context context;
@@ -48,8 +45,6 @@ public class Academic_Research_Adapter extends RecyclerView.Adapter<Academic_Res
         holder.project_name.setText(list.get(position).getProject_name());
 
         Picasso.with(context).load(ServerContract.getAcademicResearchPersonImagePath() + list.get(position).getPerson_image_link()).into(holder.person_image);
-       // Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
-
     }
 
     @Override

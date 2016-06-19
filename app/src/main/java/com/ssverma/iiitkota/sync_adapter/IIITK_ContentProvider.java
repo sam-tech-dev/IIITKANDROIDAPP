@@ -49,6 +49,12 @@ public class IIITK_ContentProvider extends ContentProvider{
     private static final int ADMINISTRATION_TABLE = 14;  // All rows
     private static final int ADMINISTRATION_TABLE_ROW = 15;  //Single row;
 
+
+    //22
+    //23
+//    private static final int FEST_TABLE = 22;  // All rows
+//    private static final int FEST_TABLE_ROW = 23;  //Single row;
+
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase db;
 
@@ -82,6 +88,11 @@ public class IIITK_ContentProvider extends ContentProvider{
         //Campus life
         uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.CampusTable.TABLE_NAME , CAMPUS_TABLE);
         uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.CampusTable.TABLE_NAME + "/#" ,CAMPUS_TABLE_ROW);
+
+//        //FEST
+//
+//        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.FestTable.TABLE_NAME , FEST_TABLE);
+//        uriMatcher.addURI(DatabaseContract.AUTHORITY , DatabaseContract.FestTable.TABLE_NAME + "/#" ,FEST_TABLE_ROW);
     }
 
 
@@ -173,6 +184,16 @@ public class IIITK_ContentProvider extends ContentProvider{
                 selection = "_ID LIKE " + uri.getLastPathSegment();
                 return db.query(DatabaseContract.CampusTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
 
+//            // FEST
+//
+//            case FEST_TABLE :
+//                cursor = db.query(DatabaseContract.FestTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
+//                cursor.setNotificationUri(getContext().getContentResolver() , uri);
+//                return cursor;
+//
+//            case FEST_TABLE_ROW :
+//                selection = "_ID LIKE " + uri.getLastPathSegment();
+//                return db.query(DatabaseContract.FestTable.TABLE_NAME , projection , selection , selectionArgs , null , null , sortOrder);
 
         }
 
@@ -233,6 +254,14 @@ public class IIITK_ContentProvider extends ContentProvider{
                 return DatabaseContract.CampusTable.CAMPUS_CONTENT_TYPE;
             case CAMPUS_TABLE_ROW:
                 return DatabaseContract.CampusTable.CAMPUS_CONTENT_TYPE_ID;
+
+
+//            //FEST
+//            case FEST_TABLE:
+//                return DatabaseContract.FestTable.FEST_CONTENT_TYPE;
+//            case FEST_TABLE_ROW:
+//                return DatabaseContract.FestTable.FEST_CONTENT_TYPE_ID;
+
 
         }
 
@@ -298,6 +327,15 @@ public class IIITK_ContentProvider extends ContentProvider{
                 //getContext().getContentResolver().notifyChange(_uri , null);
                 return _uri_campus;
 
+
+//            //FEST
+//
+//            case FEST_TABLE:
+//                long row_id_fest = db.insert(DatabaseContract.FestTable.TABLE_NAME , null , values);
+//                Uri _uri_fest = ContentUris.withAppendedId(uri , row_id_fest);
+//                //getContext().getContentResolver().notifyChange(_uri , null);
+//                return _uri_fest;
+
         }
 
         return null;
@@ -348,6 +386,14 @@ public class IIITK_ContentProvider extends ContentProvider{
             case CAMPUS_TABLE:
                 int updatedRowsCampus = db.update(DatabaseContract.CampusTable.TABLE_NAME , values , selection , selectionArgs);
                 return updatedRowsCampus;
+
+
+//
+//            //FEST
+//
+//            case FEST_TABLE:
+//                int updatedRowsFest = db.update(DatabaseContract.FestTable.TABLE_NAME , values , selection , selectionArgs);
+//                return updatedRowsFest;
 
         }
 

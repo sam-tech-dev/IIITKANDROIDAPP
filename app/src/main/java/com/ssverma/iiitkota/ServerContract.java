@@ -64,6 +64,16 @@ public class ServerContract {
     private static String ADMINISTRATION_PHP_URL = SERVER_URL + "/administration.php";
 
 
+    public static String getFestPhpUrl() { return FEST_PHP_URL; }
+
+    private static String FEST_PHP_URL = SERVER_URL + "/fest.php";
+
+    private static String FEST_PATH="http://172.16.1.231/iiitk/android/assets/images/fest/";
+
+    public static String getFestImagesUrl() {
+        return FEST_PATH;
+    }
+
     //String urlSuffix = "?s_name="+s_name+"&s_id="+s_id;
     //String finalURL = url + urlSuffix;
     //ServerContract.getGalleryImagesPath() + uniqueAlbumList.get(position) + "/" + album_map.get(uniqueAlbumList.get(position)).get(position).getAlbum_thumbnail_link()

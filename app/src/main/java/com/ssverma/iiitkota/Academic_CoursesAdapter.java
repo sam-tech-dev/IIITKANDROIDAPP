@@ -10,23 +10,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Author-Dixit Chauhan      :16/06/2016
- */
 class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<Academic_CoursesWrapper> list;
-
-    //private RCVClickListener listener;
 
     Academic_CoursesAdapter(Context context , ArrayList<Academic_CoursesWrapper> list){
         this.context = context;
         this.list = list;
     }
 
-   // public void setOnRCVClickListener(RCVClickListener listener){this.listener = listener;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,16 +36,6 @@ class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapt
         holder.course_code.setText(list.get(position).getCode());
         holder.credit.setText(list.get(position).getCredit());
         holder.abbr.setText(list.get(position).getAbbr());
-
-
-       // Toast.makeText(this.context,""+ServerContract.getNewsImagePath()+listEvents.get(position).getImage(),Toast.LENGTH_LONG).show();
-        //Picasso.with(context).load(ServerContract.getEventsImagePath()+listEvents.get(position).getImage()).into(holder.event_image);
-
-        //holder.news_image.setImageResource(R.drawable.background);
-
-        //Toast.makeText(this.context, "" +ServerContract.getNewsImagesUrl()+listNews.get(0).getFaculty_imageLink()  , Toast.LENGTH_LONG).show();
-        //holder.events_date_cal.setText(listEvents.get(position).getDate());
-
     }
 
     @Override
@@ -74,7 +57,6 @@ class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapt
             super(itemView);
 
             itemHolder = (LinearLayout) itemView.findViewById(R.id.courses_row_item_holder);
-         //   itemHolder.setOnClickListener(this);
 
             course_name= (TextView) itemView.findViewById(R.id.course_name);
             course_code= (TextView) itemView.findViewById(R.id.course_code);
