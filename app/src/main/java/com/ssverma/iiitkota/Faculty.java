@@ -24,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
@@ -151,6 +153,7 @@ public class Faculty extends AppCompatActivity{
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
+            url = ServerContract.getFacultyPhpUrl();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
@@ -168,8 +171,10 @@ public class Faculty extends AppCompatActivity{
             }
 
 
+
             return rootView;
         }
+
 
         @Override
         public void onRCVClick(View view, int position) {

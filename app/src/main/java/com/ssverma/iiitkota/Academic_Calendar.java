@@ -81,7 +81,7 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
     public void onRCVClick(View view, int position) {
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String url = "http://172.16.1.231/iiitk/android/assets/documents/academic_calendar/" + list.get(position).getLink();
+        String url = ServerContract.getAcademicCalendar_URL() + list.get(position).getLink();
         intent.setData(Uri.parse(url));
         startActivity(intent);
     }

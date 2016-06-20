@@ -7,6 +7,15 @@ public class ProgramWrapper {
 
     private String Program_name;
 
+    public int getProgram_server_id() {
+        return Program_server_id;
+    }
+
+    public void setProgram_server_id(int program_server_id) {
+        Program_server_id = program_server_id;
+    }
+
+    private int Program_server_id;
     public String getProgram_image() {
         return Program_image;
     }

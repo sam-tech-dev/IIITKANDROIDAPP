@@ -47,4 +47,10 @@ public class Consts {
 
 
 
+    //UG and PG for programs
+    public static abstract class Program_Constants{
+        public final static String UG_PROGRAMS="UG";
+        public final static String PG_PROGRAMS="PG";
+    }
+
 }

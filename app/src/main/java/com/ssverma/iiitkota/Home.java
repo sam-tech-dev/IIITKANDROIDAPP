@@ -270,7 +270,7 @@ public class Home extends AppCompatActivity
                 startActivity(new Intent(this, NewsFeed.class));
                 break;
             case 9:
-                //startActivity(new Intent(this , Placements.class));
+                startActivity(new Intent(this , Placement.class));
                 break;
             case 10:
                 startActivity(new Intent(this, Scholarship.class));

@@ -221,6 +221,13 @@
             android:name=".admission.WriteQueries"
             android:label="Write Your Queries" />
         <activity android:name=".About_App"></activity>
+
+
+
+        <activity android:name=".Placement_module_detailed_view"></activity>
+        <activity android:name=".Placement"></activity>
+        <activity android:name=".Placement_Visiting_company_DetailedView"
+            android:label=""/>
     </application>
 
 </manifest>

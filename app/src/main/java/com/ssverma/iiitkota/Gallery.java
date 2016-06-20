@@ -100,8 +100,8 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         Intent intent = new Intent(Gallery.this , Gallery_Images.class);
         intent.putExtra("album_number"  , album_list.get(position).getAlbum_number());
-        intent.putExtra("album_name"  , album_list.get(position).getAlbum_title());
-        intent.putExtra("album_summary"  , album_list.get(position).getAlbum_summary());
+        intent.putExtra("album_name"    , album_list.get(position).getAlbum_title());
+        intent.putExtra("album_summary" , album_list.get(position).getAlbum_summary());
 
         startActivity(intent);
     }
