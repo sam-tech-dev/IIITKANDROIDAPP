@@ -33,8 +33,8 @@
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/faculty_image"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -42,16 +42,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/admin_name"
                 android:text="Name"
-
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorTextPrimary"
                 android:padding="5dp"
-                android:textSize="20dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:textSize="18dp"
+                android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/admin_designation"
                 android:text="Designation"
+                android:textStyle="bold"
+
                 android:padding="5dp"/>
             <TextView
                 android:layout_width="wrap_content"

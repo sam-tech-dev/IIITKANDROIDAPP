@@ -10,12 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by IIITK on 5/27/2016.
- */
 public class Administration_Adapter extends RecyclerView.Adapter<Administration_Adapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<AdministrationWrapper> listAdministration;
 
@@ -44,8 +40,7 @@ public class Administration_Adapter extends RecyclerView.Adapter<Administration_
         holder.admin_name.setText(listAdministration.get(position).getAdmin_name());
         holder.admin_designation.setText(listAdministration.get(position).getAdmin_designation());
         holder.admin_category.setText(listAdministration.get(position).getAdmin_category());
-       // holder.faculty_email.setText(listAdministration.get(position).getAdmin_email());
-      //  Picasso.with(context).load(ServerContract.getFacultyImagesPath() + listAdministration.get(position).getFaculty_imageLink()).into(holder.faculty_image);
+
     }
 
     @Override
@@ -60,7 +55,6 @@ public class Administration_Adapter extends RecyclerView.Adapter<Administration_
         TextView admin_designation;
         TextView admin_category;
 
-     //   CircleImageView faculty_image;
 
         public ViewHolder(View itemView) {
             super(itemView);

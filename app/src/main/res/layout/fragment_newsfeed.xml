@@ -25,4 +25,16 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nothing To Show :("
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:id="@+id/nothingToShow"/>
+
+
 </RelativeLayout>

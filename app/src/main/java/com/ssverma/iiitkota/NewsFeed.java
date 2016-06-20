@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -57,16 +58,12 @@ public class NewsFeed extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -102,12 +99,9 @@ public class NewsFeed extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -126,16 +120,14 @@ public class NewsFeed extends AppCompatActivity{
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private News_Adapter adapter;
-
-        private String url;
-        private String urlParameters = null;
 
         private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
         private ArrayList<NewsWrapper> list;
+
+        private TextView nothingToShow;
 
         public PlaceholderFragment() {
         }
@@ -156,14 +148,14 @@ public class NewsFeed extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_newsfeed, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.newsfeed_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.news_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.news_progress_bar);
+
+            nothingToShow = (TextView) rootView.findViewById(R.id.nothingToShow);
 
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
@@ -207,14 +199,6 @@ public class NewsFeed extends AppCompatActivity{
 
         public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<NewsWrapper>> {
 
-            private ProgressDialog progressDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-            }
-
             @Override
             protected ArrayList<NewsWrapper>  doInBackground(String[]... params) {
                 return fetchDatabaseList_News(params[0]);
@@ -224,11 +208,15 @@ public class NewsFeed extends AppCompatActivity{
             @Override
             protected void onPostExecute(ArrayList<NewsWrapper> result) {
                 super.onPostExecute(result);
-                //progressDialog.dismiss();
-
-                // Toast.makeText(getActivity() , "" + result.size() , Toast.LENGTH_SHORT).show();
 
                 list = result;
+
+                if (list.size() == 0){
+                    nothingToShow.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+
+                    return;
+                }
 
                 adapter = new News_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);

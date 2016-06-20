@@ -17,13 +17,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 //Author-Dixit Chauhan      :03/06/2016
 
-public class EventsDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+public class EventsDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
@@ -39,7 +39,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
     private ImageView image_bg;
 
     private WebView news_desc;
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming};
+    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past, R.drawable.event_upcoming};
 
 
     @Override
@@ -61,25 +61,24 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         news_tittle.setText(getIntent().getExtras().getString("tittle"));
         news_subtitle.setText(getIntent().getExtras().getString("subtitle"));
         news_date.setText(getIntent().getExtras().getString("date"));
-        // Picasso.with(getApplicationContext()).load(ServerContract.getNewsImagesUrl()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
-        // news_desc.loadData(getIntent().getExtras().getString("description"));
-        //
-         Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
-        String summary=getIntent().getExtras().getString("detail");
-        String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:12px;}</style></head><body>"+"<p>"+summary+"</p>"+"</body></html>" ;
+
+
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+        String summary = getIntent().getExtras().getString("detail");
+        String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:16px;}</style></head><body>" + "<p>" + summary + "</p>" + "</body></html>";
         news_desc.loadData(desc, "text/html", "utf-8");
         news_toolbar.setText(getIntent().getExtras().getString("tittle"));
-        //image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
-        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath()+getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
+
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
 
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_faculty_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
+        mTitle = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
+            if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
@@ -110,7 +109,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
 
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
@@ -124,7 +123,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);

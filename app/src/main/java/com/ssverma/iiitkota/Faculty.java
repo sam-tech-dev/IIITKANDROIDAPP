@@ -40,7 +40,7 @@ public class Faculty extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.material_bg_ , R.drawable.faculty_electronics_engineering};
+    private int[] ken_burns_bg = {R.drawable.cs_bg_, R.drawable.material_bg_ , R.drawable.optimized_ec_bg};
     static int tab_position;
 
     @Override

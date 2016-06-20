@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -57,16 +58,13 @@ public class Events extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        //
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -83,7 +81,7 @@ public class Events extends AppCompatActivity{
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
+
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -102,12 +100,9 @@ public class Events extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -126,26 +121,18 @@ public class Events extends AppCompatActivity{
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private EventsAdapter adapter;
-
-        private String url;
-        private String urlParameters = null;
-
-        private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
+
+        private TextView nothingToShow;
 
         private ArrayList<EventsWrapper> list;
 
-        private String dummy[] = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M"};
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -158,14 +145,13 @@ public class Events extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_events, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.events_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.latest_events_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.latest_events_progress_bar);
+
+            nothingToShow = (TextView) rootView.findViewById(R.id.nothingToShow);
 
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
@@ -204,14 +190,6 @@ public class Events extends AppCompatActivity{
 
         public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<EventsWrapper>> {
 
-            private ProgressDialog progressDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-            }
-
             @Override
             protected ArrayList<EventsWrapper>  doInBackground(String[]... params) {
                 return fetchDatabaseList_Events(params[0]);
@@ -221,17 +199,21 @@ public class Events extends AppCompatActivity{
             @Override
             protected void onPostExecute(ArrayList<EventsWrapper> result) {
                 super.onPostExecute(result);
-                //progressDialog.dismiss();
-
-               // Toast.makeText(getActivity() , "" + result.size() , Toast.LENGTH_SHORT).show();
 
                 list = result;
+
+                if (list.size() == 0){
+                    //Toast.makeText(getActivity() , "Nothing to show :(" , Toast.LENGTH_SHORT).show();
+                    nothingToShow.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+
+                    return;
+                }
 
                 adapter = new EventsAdapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
-                swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
