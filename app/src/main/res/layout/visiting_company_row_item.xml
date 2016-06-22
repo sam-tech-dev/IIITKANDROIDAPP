@@ -19,7 +19,7 @@
             android:id="@+id/vc_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/home_maps"
+            android:src="@drawable/person_placeholder"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"
             android:layout_centerVertical="true"
@@ -34,8 +34,8 @@
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/vc_image"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -44,15 +44,17 @@
                 android:id="@+id/vc_name"
                 android:text="Name"
                 android:padding="5dp"
-                android:textSize="20dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:textSize="18dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/vc_desc"
                 android:text="Details"
                 android:singleLine="true"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:textColor="@color/colorTextSecondary"/>
 
         </LinearLayout>
 

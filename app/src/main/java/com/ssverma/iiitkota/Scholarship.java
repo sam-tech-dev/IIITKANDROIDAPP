@@ -57,7 +57,7 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Scholarships");
+        getSupportActionBar().setTitle(null);
 
 
         recyclerView = (RecyclerView) findViewById(R.id.container);
@@ -75,11 +75,10 @@ public class Scholarship  extends AppCompatActivity implements RCVClickListener 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

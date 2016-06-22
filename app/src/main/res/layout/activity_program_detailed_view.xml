@@ -54,6 +54,8 @@
                         android:text="Program Name"
                         android:textSize="30dp"
                         android:textColor="@android:color/white"
+                        android:singleLine="true"
+                        android:gravity="center"
                         android:id="@+id/program_name_program_detailed"/>
 
                 </LinearLayout>
@@ -100,9 +102,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-
-                       />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         />
 
                     <TextView
@@ -180,7 +180,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         />
 
                     <TextView
@@ -218,8 +218,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-                        />
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -254,8 +253,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
-                        />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -294,6 +292,7 @@
                 android:textColor="#ffffff"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
+                android:singleLine="true"
                 android:id="@+id/program_name_toolbar_fd"/>
 
         </LinearLayout>

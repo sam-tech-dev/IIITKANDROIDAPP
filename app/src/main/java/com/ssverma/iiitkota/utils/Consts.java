@@ -8,15 +8,15 @@ public class Consts {
         public final static String CS_DEPARTMENT = "Dept. of Computer Science & Engineering";
         public final static String ECE_DEPARTMENT = "Dept. of Electronics & Comm. Engineering";
     }
+
     public static abstract class Contact_Constants {
         public final static String CS_DEPARTMENT = "Dept of CS";
         public final static String ECE_DEPARTMENT = "Dept of ECE";
-
-        public final static String EE_DEPARTMENT = "Dept of EE";
-        public final static String OFFICE= "Office";
-
+        public final static String ADJUNCT = "Adjunct";
+        public final static String OFFICE = "Office";
         public final static String GENERAL = "General";
     }
+
     public static abstract class Administration_Constants {
         public final static String GOVERNINGCOUNCIL = "Governing Council";
         public final static String EXECUTIVECOUNCIL = "Executive Council";
@@ -34,23 +34,16 @@ public class Consts {
         public final static String NEWS_LATEST = "latest";
         public final static String NEWS_PREV = "prev";
         public final static String NEWS_UPCOMING = "upcoming";
-       // public final static String ECE_DEPARTMENT = "Dept. of Electronics & Comm. Engineering";
 
     }
 
     public static abstract class Campus_Constants {
         public final static String CAMPUS_LIFE = "Library";
-
-
-
     }
 
-
-
-    //UG and PG for programs
-    public static abstract class Program_Constants{
-        public final static String UG_PROGRAMS="UG";
-        public final static String PG_PROGRAMS="PG";
+    public static abstract class Program_Constants {
+        public final static String UG_PROGRAMS = "UG";
+        public final static String PG_PROGRAMS = "PG";
     }
 
 }

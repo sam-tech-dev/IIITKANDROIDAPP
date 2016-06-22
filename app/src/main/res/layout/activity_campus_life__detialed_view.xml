@@ -76,7 +76,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
         app:behavior_overlapTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -152,7 +152,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/clander1"
+        android:src="@drawable/person_placeholder"
         android:layout_gravity="center_horizontal"
         app:finalYPosition="2dp"
         app:finalHeight="@dimen/image_final_width"

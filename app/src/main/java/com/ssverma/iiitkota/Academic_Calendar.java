@@ -1,6 +1,5 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -66,11 +65,10 @@ public class Academic_Calendar extends AppCompatActivity implements RCVClickList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

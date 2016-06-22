@@ -17,12 +17,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 5/27/2016.
- */
 class News_Adapter extends RecyclerView.Adapter<News_Adapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<NewsWrapper> listNews;
 
@@ -50,12 +46,6 @@ class News_Adapter extends RecyclerView.Adapter<News_Adapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.news_tittle.setText(listNews.get(position).getNews_tittle());
         holder.news_date.setText(listNews.get(position).getNews_subtitle());
-        //Toast.makeText(this,ServerContract.getNewsImagesUrl()+listNews.get(position).getNews_imageLink(),Toast.LENGTH_SHORT).show();
-       // Picasso.with(context).load(ServerContract.getNewsImagesUrl()+listNews.get(position).getNews_imageLink()).into(holder.news_image);
-
-        //holder.news_image.setImageResource(R.drawable.background);
-
-        //Toast.makeText(this.context, "" +ServerContract.getNewsImagesUrl()+listNews.get(0).getNews_imageLink()  , Toast.LENGTH_LONG).show();
         holder.newsdatecal.setText(listNews.get(position).getNews_date());
     }
 

@@ -6,18 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
-/**
- * Author-Dixit Chauhan : 10/06/2016
- */
 public class Academic_Home extends AppCompatActivity implements Academic_Home_Adapter.RCVClickListener{
 
     private RecyclerView recyclerView;
     private Academic_Home_Adapter adapter;
 
     private String[] icon_names = {"Academic Timetable" , "Academic Calendar" , "Curricula and Syllabi","Academic Resources" , "Sponsored Research"};
-    private int[] icons = {R.drawable.home_map_ , R.drawable.home_map_ , R.drawable.home_map_ , R.drawable.home_map_ , R.drawable.home_map_};
+    private int[] icons = {R.drawable.academic_timetable_icon , R.drawable.academic_calender_icon ,
+            R.drawable.academic_courses_icon , R.drawable.academic_resources_icon , R.drawable.academic_research_icon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,8 @@ public class Academic_Home extends AppCompatActivity implements Academic_Home_Ad
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle("Academics");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this , 2));
@@ -35,6 +35,17 @@ public class Academic_Home extends AppCompatActivity implements Academic_Home_Ad
         recyclerView.setAdapter(adapter);
 
         adapter.setRCVClickListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

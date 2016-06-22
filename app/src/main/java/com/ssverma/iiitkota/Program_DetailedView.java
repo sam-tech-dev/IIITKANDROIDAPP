@@ -14,10 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 5/31/2016.
- * Detailed view of Programs By Rajat Jain
- */
 public class Program_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
 
@@ -44,7 +40,7 @@ public class Program_DetailedView extends AppCompatActivity implements AppBarLay
     private TextView program_duration;
     private TextView program_eligibility;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.programs_ug, R.drawable.programs_pg };
 
 
     @Override

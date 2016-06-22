@@ -1,47 +1,34 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.utils.Consts;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Events extends AppCompatActivity{
+public class Events extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -50,7 +37,7 @@ public class Events extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming };
+    private int[] ken_burns_bg = {R.drawable.events, R.drawable.events, R.drawable.events};
     static int tab_position;
 
     @Override
@@ -95,29 +82,19 @@ public class Events extends AppCompatActivity{
     }
 
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
@@ -154,7 +131,7 @@ public class Events extends AppCompatActivity{
             nothingToShow = (TextView) rootView.findViewById(R.id.nothingToShow);
 
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
                     //Latest Events- First Tab
                     new ServerAsync().execute(new String[]{Consts.Events_Constants.EVENTS_LATEST});
@@ -170,28 +147,27 @@ public class Events extends AppCompatActivity{
             }
 
 
-
             return rootView;
         }
 
 
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() ,EventsDetailedView.class);
-            intent.putExtra("tittle" , list.get(position).getTitle());
-            intent.putExtra("subtitle" , list.get(position).getSubtitle());
-            intent.putExtra("date" , list.get(position).getDate());
-            intent.putExtra("faculty_image_link" , list.get(position).getImage());
-            intent.putExtra("detail" , list.get(position).getDetail());
-            intent.putExtra("tab_position" , Events.tab_position);
+            Intent intent = new Intent(getActivity(), EventsDetailedView.class);
+            intent.putExtra("tittle", list.get(position).getTitle());
+            intent.putExtra("subtitle", list.get(position).getSubtitle());
+            intent.putExtra("date", list.get(position).getDate());
+            intent.putExtra("faculty_image_link", list.get(position).getImage());
+            intent.putExtra("detail", list.get(position).getDetail());
+            intent.putExtra("tab_position", Events.tab_position);
 
             startActivity(intent);
         }
 
-        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<EventsWrapper>> {
+        public class ServerAsync extends AsyncTask<String[], Void, ArrayList<EventsWrapper>> {
 
             @Override
-            protected ArrayList<EventsWrapper>  doInBackground(String[]... params) {
+            protected ArrayList<EventsWrapper> doInBackground(String[]... params) {
                 return fetchDatabaseList_Events(params[0]);
             }
 
@@ -202,15 +178,13 @@ public class Events extends AppCompatActivity{
 
                 list = result;
 
-                if (list.size() == 0){
-                    //Toast.makeText(getActivity() , "Nothing to show :(" , Toast.LENGTH_SHORT).show();
+                if (list.size() == 0) {
                     nothingToShow.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
-
                     return;
                 }
 
-                adapter = new EventsAdapter(getActivity() , list);
+                adapter = new EventsAdapter(getActivity(), list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
@@ -221,7 +195,7 @@ public class Events extends AppCompatActivity{
                 ArrayList<EventsWrapper> list = new ArrayList<>();
 
                 Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.EVENTS_CONTENT_URI,
-                        null, DatabaseContract.EventsTable.EVENTS_FLAG + " = ?" ,//
+                        null, DatabaseContract.EventsTable.EVENTS_FLAG + " = ?",
                         selectionArgs, null);
 
                 while (cursor.moveToNext()) {
@@ -254,8 +228,6 @@ public class Events extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
 

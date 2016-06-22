@@ -42,7 +42,7 @@ public class Faculty extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.cs_bg_, R.drawable.material_bg_ , R.drawable.optimized_ec_bg};
+    private int[] ken_burns_bg = {R.drawable.faculty_cse, R.drawable.faculty_ece};
     static int tab_position;
 
     @Override
@@ -86,18 +86,11 @@ public class Faculty extends AppCompatActivity{
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -120,7 +113,7 @@ public class Faculty extends AppCompatActivity{
         private String url;
         private String urlParameters = null;
 
-        private SwipeRefreshLayout swipeRefreshLayout;
+        //private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
         private ArrayList<FacultyWrapper> list;
@@ -150,7 +143,7 @@ public class Faculty extends AppCompatActivity{
             recyclerView = (RecyclerView) rootView.findViewById(R.id.faculty_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
+            //swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
             url = ServerContract.getFacultyPhpUrl();
@@ -161,13 +154,13 @@ public class Faculty extends AppCompatActivity{
                     new ServerAsync().execute(new String[]{Consts.Faculty_Constants.CS_DEPARTMENT});
                     break;
                 case 1:
-                    //EE - Second Tab
-                    new ServerAsync().execute(new String[]{Consts.Faculty_Constants.ECE_DEPARTMENT});
-                    break;
-                case 2:
                     //ECE - Third Tab
                     new ServerAsync().execute(new String[]{Consts.Faculty_Constants.ECE_DEPARTMENT});
                     break;
+//                case 2:
+//                    //Adjunct - Second Tab
+//                    new ServerAsync().execute(new String[]{Consts.Faculty_Constants.ECE_DEPARTMENT});
+//                    break;
             }
 
 
@@ -216,7 +209,7 @@ public class Faculty extends AppCompatActivity{
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
-                swipeRefreshLayout.setRefreshing(false);
+                //swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -273,7 +266,7 @@ public class Faculty extends AppCompatActivity{
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -282,9 +275,9 @@ public class Faculty extends AppCompatActivity{
                 case 0:
                     return "CS";
                 case 1:
-                    return "EE";
-                case 2:
                     return "ECE";
+//                case 2:
+//                    return "Adjunct";
             }
             return null;
         }

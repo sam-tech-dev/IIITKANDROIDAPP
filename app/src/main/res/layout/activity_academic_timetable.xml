@@ -30,7 +30,7 @@
                 android:id="@+id/image_Ken_Burns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/academic_timetable"
+                android:src="@drawable/academic_timetable_"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier ="0.4"/>
 

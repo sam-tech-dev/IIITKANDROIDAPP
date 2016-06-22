@@ -13,9 +13,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 6/7/2016.
- */
 public class Placement_VisitingCompany_Adapter extends RecyclerView.Adapter<Placement_VisitingCompany_Adapter.ViewHolder >{
     private Context context;
     private ArrayList<Placement_VisitingCompany_Wrapper> listPlace;
@@ -43,9 +40,6 @@ public class Placement_VisitingCompany_Adapter extends RecyclerView.Adapter<Plac
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.name.setText(listPlace.get(position).getCompany_name());
         holder.summary.setText(listPlace.get(position).getCompany_summary());
-      //  Picasso.with(context).load(ServerContract.getProgramImagesPath() + listPlace.get(position).getImage()).into(holder.rep_image);
-        // Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
-
     }
 
     @Override

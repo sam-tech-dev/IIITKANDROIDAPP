@@ -22,7 +22,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class Faculty_Adapter extends RecyclerView.Adapter<Faculty_Adapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private Cursor currentCursor;
 

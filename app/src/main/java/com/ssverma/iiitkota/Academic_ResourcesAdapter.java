@@ -49,7 +49,6 @@ class Academic_ResourcesAdapter extends RecyclerView.Adapter<Academic_ResourcesA
         TextView lab_no;
         TextView deployment;
         TextView total_pc;
-        TextView deployment_title;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,8 +58,6 @@ class Academic_ResourcesAdapter extends RecyclerView.Adapter<Academic_ResourcesA
             lab_no= (TextView) itemView.findViewById(R.id.lab_no);
             total_pc= (TextView) itemView.findViewById(R.id.total_pc);
             deployment = (TextView) itemView.findViewById(R.id.deployment);
-
-            deployment_title = (TextView) itemView.findViewById(R.id.deployment_title);
 
         }
 

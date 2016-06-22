@@ -43,7 +43,7 @@ public class Placement extends AppCompatActivity {
     ArrayList<Placement_module_wrapper> list;
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee, R.drawable.faculty_cs_};
+    private int[] ken_burns_bg = {R.drawable.placements, R.drawable.placements, R.drawable.placements};
     static int tab_position;
 
     @Override
@@ -54,6 +54,7 @@ public class Placement extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Placements");
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -87,32 +88,18 @@ public class Placement extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
@@ -222,18 +209,15 @@ public class Placement extends AppCompatActivity {
 
                 switch (ASYNC_CODE) {
                     case RETRIEVE_REP_LIST:
-                        // Toast.makeText(getActivity() , "hello"+response , Toast.LENGTH_SHORT).show();
                         adapter = new Placement_rep_Adapter(getActivity(), list_rp);
                         recyclerView.setAdapter(adapter);
                         break;
                     case RETRIEVE_COMPANY_LIST:
-                        // Toast.makeText(getActivity() , "hello"+response , Toast.LENGTH_SHORT).show();
                         adapter2 = new Placement_VisitingCompany_Adapter(getActivity(), list_vc);
                         recyclerView.setAdapter(adapter2);
                         adapter2.setOnRCVClickListener(PlaceholderFragment.this);
                         break;
                     case RETRIEVE_PLT_LIST:
-                        // Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         list_pm = parsePlacementJSON(response);
                         adapter3 = new Placement_module_adapter(getActivity(), list_pm);
                         recyclerView.setAdapter(adapter3);
@@ -290,9 +274,7 @@ public class Placement extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Placement_module_wrapper placement_wrapper = new Placement_module_wrapper();
-                        //Toast.makeText(getContext(),"jhjhhf",Toast.LENGTH_SHORT).show();
                         placement_wrapper.setReport_type(jsonObject.getString("report_type"));
-                        ;
                         placement_wrapper.setLink(jsonObject.getString("link"));
                         list_pm.add(placement_wrapper);
                     }

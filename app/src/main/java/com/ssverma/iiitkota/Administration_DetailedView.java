@@ -9,13 +9,13 @@ import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class  Administration_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+public class Administration_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
@@ -31,16 +31,13 @@ public class  Administration_DetailedView extends AppCompatActivity implements A
     private TextView admin_positionheld;
 
 
-
-      private TextView admin_name_toolbar;
-
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    private TextView admin_name_toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        String str1,str2;
+        String str1, str2;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administration_detailed_view);
@@ -60,31 +57,29 @@ public class  Administration_DetailedView extends AppCompatActivity implements A
         admin_name.setText(getIntent().getExtras().getString("admin_name"));
         admin_designation.setText(getIntent().getExtras().getString("admin_designation"));
         admin_category.setText(getIntent().getExtras().getString("admin_category"));
-     int temp = getIntent().getExtras().getInt("admin_fragment_no");
-if(temp==2)
-{
-     str1=getString(R.string.q_director);
-     str2=getString(R.string.p_director);
-     admin_qualification.setText(str1);
-    admin_positionheld.setText(str2);
-}
-if(temp==3)
-{
-    str1=getString(R.string.q_coordinator);
-    admin_qualification.setText(str1);
+        int temp = getIntent().getExtras().getInt("admin_fragment_no");
+        if (temp == 2) {
+            str1 = getString(R.string.q_director);
+            str2 = getString(R.string.p_director);
+            admin_qualification.setText(str1);
+            admin_positionheld.setText(str2);
+        }
+        if (temp == 3) {
+            str1 = getString(R.string.q_coordinator);
+            admin_qualification.setText(str1);
 
 
-}
+        }
 
         admin_name_toolbar.setText(getIntent().getExtras().getString("admin_name"));
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_admin_detailed);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_admin_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.admin_name_toolbar_admin);
+        mTitle = (TextView) findViewById(R.id.admin_name_toolbar_admin);
         mTitleContainer = (LinearLayout) findViewById(R.id.admin_name_data_holder_admin);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_admin_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_admin_detailed);
     }
 
     @Override
@@ -99,7 +94,7 @@ if(temp==3)
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
+            if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
@@ -115,7 +110,7 @@ if(temp==3)
 
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
@@ -129,7 +124,7 @@ if(temp==3)
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);

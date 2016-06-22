@@ -36,37 +36,29 @@ import com.ssverma.iiitkota.utils.Consts;
 import java.util.ArrayList;
 
 
-
 public class Contact extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
-    private Button button;
-
     private KenBurnsView kenBurnsView;
 
     private int[] ken_burns_bg = {R.drawable.contact, R.drawable.contact, R.drawable.contact, R.drawable.contact, R.drawable.contact};
     static int tab_position;
-    String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Contacts");
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -95,22 +87,11 @@ public class Contact extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contact, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -119,30 +100,17 @@ public class Contact extends AppCompatActivity {
 
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
 
-         //The fragment argument representing the section number for this fragment.
-
-
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private Contact_Adapter adapter;
-
-        private String url;
-        private String urlParameters = null;
-
-        private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
-       private ArrayList<ContactsWrapper> list;
+        private ArrayList<ContactsWrapper> list;
 
-        private Button button;
 
         public PlaceholderFragment() {
         }
-
-
-        // Returns a new instance of this fragment for the given section number.
 
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -160,28 +128,28 @@ public class Contact extends AppCompatActivity {
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.contact_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.contact_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.contact_cs_progress_bar);
 
-            url = ServerContract.getContactsPhpUrl();
-
             switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
+
                 case 0:
-                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.CS_DEPARTMENT});
-                    break;
-                case 1:
-                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.ECE_DEPARTMENT});
-                    break;
-                case 2:
-                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.EE_DEPARTMENT});
-                    break;
-                case 3:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.OFFICE});
                     break;
+                case 1:
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.CS_DEPARTMENT});
+                    break;
+                case 2:
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.ECE_DEPARTMENT});
+                    break;
+
+                case 3:
+                    new ServerAsync().execute(new String[]{Consts.Contact_Constants.ADJUNCT});
+                    break;
+
                 case 4:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.GENERAL});
                     break;
+
             }
 
             return rootView;
@@ -195,9 +163,9 @@ public class Contact extends AppCompatActivity {
             String c = s.getContact_mobile_no();
             final String number = "tel:" + c;
 
-            AlertDialog.Builder alert= new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
-            alert.setTitle("Call Confirmation");
+            alert.setTitle("Proceed Call");
             alert.setMessage("Do you want to proceed the call?");
 
             alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -226,70 +194,37 @@ public class Contact extends AppCompatActivity {
         }
 
 
-        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<ContactsWrapper>> {
-
-            private ProgressDialog progressDialog;
+        public class ServerAsync extends AsyncTask<String[], Void, ArrayList<ContactsWrapper>> {
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-            }
-
-            @Override
-            protected ArrayList<ContactsWrapper>  doInBackground(String[]... params) {
+            protected ArrayList<ContactsWrapper> doInBackground(String[]... params) {
                 return fetchDatabaseList_Contact(params[0]);
             }
-//            @Override
-//            protected String doInBackground(String... params) {
-//                return ServerConnection.obtainServerResponse(params[0], params[1]);
-//            }
-
 
 
             @Override
             protected void onPostExecute(ArrayList<ContactsWrapper> result) {
                 super.onPostExecute(result);
-                //progressDialog.dismiss();
-
-                //Toast.makeText(getActivity() , "" + result.get(0).getFaculty_name() , Toast.LENGTH_SHORT).show();
 
                 list = result;
 
-                adapter = new Contact_Adapter(getActivity() , list);
+                adapter = new Contact_Adapter(getActivity(), list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
-
-                swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
-
-//            @Override
-//            protected void onPostExecute(String response) {
-//                super.onPostExecute(response);
-//
-//
-//                list = parseJSON(response);
-//                adapter = new Contact_Adapter(getActivity(), list);
-//                recyclerView.setAdapter(adapter);
-//
-//                adapter.setOnRCVClickListener(PlaceholderFragment.this);
-//
-//                swipeRefreshLayout.setRefreshing(false);
-//                progressBar.setVisibility(View.GONE);
-//            }
 
             private ArrayList<ContactsWrapper> fetchDatabaseList_Contact(String[] selectionArgs) {
                 ArrayList<ContactsWrapper> list = new ArrayList<>();
 
 
-                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.CONTACT_CONTENT_URI ,
-                        null , DatabaseContract.ContactTable.CONTACT_CATEGORY + " = ?" ,
-                        selectionArgs , null);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.CONTACT_CONTENT_URI,
+                        null, DatabaseContract.ContactTable.CONTACT_CATEGORY + " = ?",
+                        selectionArgs, null);
 
 
-                while (cursor.moveToNext()){
+                while (cursor.moveToNext()) {
                     ContactsWrapper contact = new ContactsWrapper();
 
                     contact.setContact_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_SERVER_ID)));
@@ -299,37 +234,10 @@ public class Contact extends AppCompatActivity {
                     contact.setContact_category(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_CATEGORY)));
                     contact.setContact_designation(cursor.getString(cursor.getColumnIndex(DatabaseContract.ContactTable.CONTACT_DESIGNATION)));
 
-
-
-
-                    System.out.print("\n\n\n\n\nCategory = "+DatabaseContract.ContactTable.CONTACT_CATEGORY+"\n\n\n\n\n");
                     list.add(contact);
 
                 }
 
-
-//                try {
-//                    JSONArray jsonArray = new JSONArray(response);
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-//
-//                        ContactsWrapper contact = new ContactsWrapper();
-//                        contact.setContact_id(jsonObject.getString("contact_id"));
-//                        contact.setContact_name(jsonObject.getString("contact_name"));
-//                        contact.setContact_email(jsonObject.getString("contact_email"));
-//                        contact.setContact_mobile_no(jsonObject.getString("contact_mobile_no"));
-//
-//
-//
-//                        contact.setContact_category(jsonObject.getString("contact_category"));
-//                        contact.setContact_designation(jsonObject.getString("contact_designation"));
-//
-//
-//                        list.add(contact);
-//                    }
-//                } catch (JSONException e) {
-//
-//                }
 
                 return list;
             }
@@ -345,8 +253,6 @@ public class Contact extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return Contact.PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -360,13 +266,13 @@ public class Contact extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "CS";
-                case 1:
-                    return "ECE";
-                case 2:
-                    return "EE";
-                case 3:
                     return "Office";
+                case 1:
+                    return "CS Department";
+                case 2:
+                    return "ECE Department";
+                case 3:
+                    return "Adjunct";
                 case 4:
                     return "General";
             }

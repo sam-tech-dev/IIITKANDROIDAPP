@@ -231,4 +231,22 @@ public class ServerContract {
 
     public static String PLACEMENT_REPORT_URL = SERVER_URL + "/iiitk/android/assets/documents/academic_calendar/";
 
+    public static String getFaqUrl() {
+        return FAQ_URL;
+    }
+
+    public static String FAQ_URL = SERVER_URL + "/faq.php";
+
+    public static String getAdmissionStatisticsUrl() {
+        return ADMISSION_STATISTICS_URL;
+    }
+
+    public static String ADMISSION_STATISTICS_URL = SERVER_URL + "/admission_statistics.php";
+
+    public static String getAdmissionQueriesUrl() {
+        return ADMISSION_QUERIES_URL;
+    }
+
+    public static String ADMISSION_QUERIES_URL = SERVER_URL + "/admission_queries.php";
+
 }

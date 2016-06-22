@@ -55,7 +55,7 @@ public class Splash extends AppCompatActivity {
         if(!IIITK_Singleton.getInstance().getPreference().getBoolean("isSyncComplete" , false)) {
             // run your one time code
 
-            Toast.makeText(this , "Sync Started : Called in Splash" , Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this , "Sync Started : Called in Splash" , Toast.LENGTH_SHORT).show();
 
             Bundle settingsBundle = new Bundle();
             settingsBundle.putBoolean(
@@ -64,12 +64,6 @@ public class Splash extends AppCompatActivity {
                     ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
             ContentResolver.requestSync(createDummyAccount(this) , DatabaseContract.AUTHORITY , settingsBundle);
-
-
-            //Toast.makeText(this , "Sync Completed" , Toast.LENGTH_SHORT).show();
-            //SharedPreferences.Editor editor = prefs.edit();
-            //editor.putBoolean("firstTime", true);
-            //editor.commit();
 
         }
     }

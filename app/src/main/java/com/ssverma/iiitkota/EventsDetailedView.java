@@ -16,8 +16,6 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-//Author-Dixit Chauhan      :03/06/2016
-
 public class EventsDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
@@ -40,8 +38,6 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
     private ImageView image_bg;
 
     private WebView news_desc;
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past, R.drawable.event_upcoming};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +75,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         setSupportActionBar(mToolbar);
         mTitle = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_gallery_detailed);
     }
 
     @Override

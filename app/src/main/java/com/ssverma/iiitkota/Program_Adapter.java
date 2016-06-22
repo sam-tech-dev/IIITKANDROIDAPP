@@ -14,10 +14,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 5/31/2016.
- * Adapter for Programs Module--Rajat Jain
- */
 public class Program_Adapter extends RecyclerView.Adapter<Program_Adapter.ViewHolder > {
 
     private Context context;
@@ -48,8 +44,6 @@ public class Program_Adapter extends RecyclerView.Adapter<Program_Adapter.ViewHo
         holder.program_name.setText(listProgram.get(position).getProgram_name());
         holder.program_desc.setText(listProgram.get(position).getProgram_desc());
         Picasso.with(context).load(ServerContract.getProgramImagePath() + listProgram.get(position).getProgram_image()).into(holder.program_image);
-       // Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
-
     }
 
     @Override

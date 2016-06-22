@@ -3,9 +3,11 @@ package com.ssverma.iiitkota.admission;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import java.net.URLEncoder;
 import java.util.regex.Pattern;
 import com.ssverma.iiitkota.R;
 import com.ssverma.iiitkota.ServerConnection;
+import com.ssverma.iiitkota.ServerContract;
 
 public class WriteQueries extends AppCompatActivity {
 
@@ -27,7 +30,6 @@ public class WriteQueries extends AppCompatActivity {
 
     private Button submit;
 
-    private static String SERVER_URL = "http://172.16.1.231/iiitk/android";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class WriteQueries extends AppCompatActivity {
         setContentView(R.layout.activity_write_queries);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         et_name = (EditText) findViewById(R.id.wq_name);
         et_email = (EditText) findViewById(R.id.wq_email);
@@ -44,6 +46,11 @@ public class WriteQueries extends AppCompatActivity {
         et_query = (EditText) findViewById(R.id.wq_query);
 
         submit = (Button) findViewById(R.id.submit_button);
+
+        if (!ServerConnection.isNetworkAvailable(this)){
+            Snackbar.make(findViewById(R.id.wq_root_coordinator), "No internet Connection", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Action", null).show();
+        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +86,14 @@ public class WriteQueries extends AppCompatActivity {
                     }
 
 
-                    String url = SERVER_URL + "/admission_queries.php";
+                    String url = ServerContract.getAdmissionQueriesUrl();
 
                     if (ServerConnection.isNetworkAvailable(WriteQueries.this)){
                         new ServerAsync().execute(url, param1, param2, param3, param4, param5);
                     }else {
-                        Toast.makeText(WriteQueries.this , "No internet Connection" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(WriteQueries.this , "No internet Connection" , Toast.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(R.id.wq_root_coordinator), "No internet Connection", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
                     }
                 }
 
@@ -92,6 +101,18 @@ public class WriteQueries extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public final static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();

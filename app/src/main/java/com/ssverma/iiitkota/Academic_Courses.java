@@ -1,6 +1,5 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -27,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Academic_Courses extends AppCompatActivity{
+public class Academic_Courses extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -36,8 +35,8 @@ public class Academic_Courses extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.courses, R.drawable.courses ,
-                                     R.drawable.courses, R.drawable.courses  };
+    private int[] ken_burns_bg = {R.drawable.acadamics_courses, R.drawable.acadamics_courses,
+            R.drawable.acadamics_courses, R.drawable.acadamics_courses};
     static int tab_position;
 
     @Override
@@ -80,29 +79,18 @@ public class Academic_Courses extends AppCompatActivity{
     }
 
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
@@ -119,10 +107,6 @@ public class Academic_Courses extends AppCompatActivity{
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -144,19 +128,19 @@ public class Academic_Courses extends AppCompatActivity{
 
             url = ServerContract.getAcademicCoursesPhpUrl();
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
                     progressBar.setVisibility(View.VISIBLE);
 
                     urlParameters = "filter=1";
 
-                    fetchListFromServer(url , urlParameters);
+                    fetchListFromServer(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            fetchListFromServer(url, urlParameters);
                         }
                     });
 
@@ -166,13 +150,13 @@ public class Academic_Courses extends AppCompatActivity{
 
                     urlParameters = "filter=2";
 
-                    fetchListFromServer(url , urlParameters);
+                    fetchListFromServer(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            fetchListFromServer(url, urlParameters);
                         }
                     });
                     break;
@@ -181,13 +165,13 @@ public class Academic_Courses extends AppCompatActivity{
 
                     urlParameters = "filter=3";
 
-                    fetchListFromServer(url , urlParameters);
+                    fetchListFromServer(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            fetchListFromServer(url, urlParameters);
                         }
                     });
                     break;
@@ -196,34 +180,33 @@ public class Academic_Courses extends AppCompatActivity{
 
                     urlParameters = "filter=4";
 
-                    fetchListFromServer(url , urlParameters);
+                    fetchListFromServer(url, urlParameters);
 
                     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
+                            fetchListFromServer(url, urlParameters);
                         }
                     });
                     break;
             }
 
 
-
             return rootView;
         }
 
-        private void fetchListFromServer(String url , String urlParameters) {
+        private void fetchListFromServer(String url, String urlParameters) {
 
-            new ServerAsync().execute(url , urlParameters);
+            new ServerAsync().execute(url, urlParameters);
 
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String>{
+        public class ServerAsync extends AsyncTask<String, Void, String> {
 
             @Override
             protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+                return ServerConnection.obtainServerResponse(params[0], params[1]);
             }
 
             @Override
@@ -231,7 +214,7 @@ public class Academic_Courses extends AppCompatActivity{
                 super.onPostExecute(response);
 
                 list = parseJSON(response);
-                adapter = new Academic_CoursesAdapter(getContext() , list);
+                adapter = new Academic_CoursesAdapter(getContext(), list);
                 recyclerView.setAdapter(adapter);
 
                 swipeRefreshLayout.setRefreshing(false);
@@ -244,7 +227,7 @@ public class Academic_Courses extends AppCompatActivity{
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
 
@@ -276,8 +259,6 @@ public class Academic_Courses extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
 

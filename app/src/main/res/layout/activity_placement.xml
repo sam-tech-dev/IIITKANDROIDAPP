@@ -22,7 +22,7 @@
         android:background="@color/colorPrimary"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabTextColor="#FFFFFF"
         app:tabSelectedTextColor="#FFFFDD"
         android:id="@+id/tabLayout"/>
@@ -49,7 +49,7 @@
                 android:id="@+id/image_Ken_Burns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/faculty_cs_"/>
+                android:src="@drawable/placements"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

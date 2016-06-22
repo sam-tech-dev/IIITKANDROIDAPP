@@ -19,7 +19,7 @@
             android:id="@+id/rep_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/home_maps"
+            android:src="@drawable/person_placeholder"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"
             android:layout_centerVertical="true"
@@ -34,8 +34,8 @@
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/rep_image"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -44,8 +44,9 @@
                 android:id="@+id/rep_name"
                 android:text="Name"
                 android:padding="5dp"
-                android:textSize="20dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextPrimary" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
                 android:text="Position"
                 android:padding="5dp"
                 android:textSize="15dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:textColor="@color/colorTextPrimary"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +62,7 @@
                 android:text="Contact"
                 android:padding="5dp"
                 android:textSize="12dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:textColor="@color/colorTextSecondary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +70,8 @@
                 android:id="@+id/rep_email"
                 android:text="Email"
                 android:singleLine="true"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:textColor="@color/colorTextSecondary"/>
 
         </LinearLayout>
 

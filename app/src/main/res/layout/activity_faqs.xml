@@ -30,4 +30,23 @@
         android:layout_below="@+id/progressbar">
     </ExpandableListView>
 
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/no_connection_"
+        android:layout_centerInParent="true"
+        android:id="@+id/no_internet_connection_icon"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Internet Connection"
+        android:id="@+id/no_internet_connection_text"
+        android:layout_below="@+id/no_internet_connection_icon"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:textColor="@android:color/background_dark"
+        android:visibility="invisible"/>
+
 </RelativeLayout>

@@ -15,15 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 6/13/2016.
- */
-public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
+public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
@@ -39,8 +36,6 @@ public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout
 
     private WebView fest_desc;
 
-    private int[] ken_burns_bg = {R.drawable.campus1, R.drawable.campus2, R.drawable.campus3};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,36 +50,27 @@ public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout
         fest_title = (TextView) findViewById(R.id.fest_tittle);
 
 
-       fest_toolbar = (TextView) findViewById(R.id.fest_toolbar_fd);
+        fest_toolbar = (TextView) findViewById(R.id.fest_toolbar_fd);
         image_bg = (KenBurnsView) findViewById(R.id.imageView_background_fest_detailed);
         fest_image = (CircleImageView) findViewById(R.id.fest_detailed_fest_image);
-        String title=getIntent().getExtras().getString("Name");
+        String title = getIntent().getExtras().getString("Name");
         fest_title.setText(title);
 
-
-
-        String summary=getIntent().getExtras().getString("Description");
-
-        //  Toast.makeText(getApplicationContext(),"" +summary ,Toast.LENGTH_SHORT).show();
-
+        String summary = getIntent().getExtras().getString("Description");
         fest_desc.loadData(summary, "text/html", "utf-8");
-
-
         fest_toolbar.setText(getIntent().getExtras().getString("Name"));
 
-       Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl()+getIntent().getExtras().getString("ImageLink")).into(image_bg);
-       // Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl()+getIntent().getExtras().getString("image_link")).into(image_bg);
-        Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl()+getIntent().getExtras().getString("ImageLink")).into(fest_image);
+        Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl() + getIntent().getExtras().getString("ImageLink")).into(image_bg);
+        Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl() + getIntent().getExtras().getString("ImageLink")).into(fest_image);
 
-     //   Picasso.with(getApplicationContext()).load(ServerContract.getFestImagesUrl()+getIntent().getExtras().getString("image_link")).placeholder(R.drawable.campus2).into(fest_image);
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_fest_detailed);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_fest_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.fest_toolbar_fd);
+        mTitle = (TextView) findViewById(R.id.fest_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.fest_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_fest_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_fest_detailed);
     }
 
     @Override
@@ -99,7 +85,7 @@ public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
+            if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
@@ -115,7 +101,7 @@ public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout
 
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
@@ -129,7 +115,7 @@ public class Fest_DetailedView extends AppCompatActivity implements AppBarLayout
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);
