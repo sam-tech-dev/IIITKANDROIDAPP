@@ -50,6 +50,7 @@ public class NewsFeed_DetialedView extends AppCompatActivity implements AppBarLa
         bindActivity();
         mAppBarLayout.addOnOffsetChangedListener(this);
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+
         news_desc = (WebView) findViewById(R.id.desc);
         news_subtitle = (WebView) findViewById(R.id.subtitle);
         news_title = (TextView) findViewById(R.id.news_tittle);

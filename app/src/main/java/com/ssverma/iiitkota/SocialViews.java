@@ -4,18 +4,22 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 public class SocialViews extends AppCompatActivity {
-    WebView plugin;
+    private WebView plugin;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_views);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         Bundle bundle = getIntent().getExtras();
         String Url = bundle.getString("url");
@@ -33,7 +37,16 @@ public class SocialViews extends AppCompatActivity {
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+            }
         });
+
+
+
     }
 
 

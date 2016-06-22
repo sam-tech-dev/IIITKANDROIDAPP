@@ -8,22 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.ssverma.iiitkota.Faculty">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginTop="50dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:layout_anchor="@+id/appbar"
-        android:orientation="horizontal"
-        app:layout_anchorGravity="bottom"
-        android:id="@+id/tabLayout"/>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -38,27 +22,18 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
-
-            <!--
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
-
-             -->
 
 
             <com.flaviofaria.kenburnsview.KenBurnsView
                 android:id="@+id/image_Ken_Burns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/faculty_cs_"/>
+                android:src="@drawable/faculty_cs_"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier ="0.4"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -73,5 +48,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>

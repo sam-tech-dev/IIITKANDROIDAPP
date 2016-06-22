@@ -3,26 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ssverma.iiitkota.Faculty$PlaceholderFragment">
-    <!--Author-Dixit Chauhan      :03/06/2016-->
+
     <ProgressBar
+        android:id="@+id/latest_events_progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:id="@+id/latest_events_progress_bar"/>
+        android:indeterminate="true" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/latest_events_swipe_refresh_layout"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/events_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/latest_events_progress_bar"></android.support.v7.widget.RecyclerView>
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/latest_events_progress_bar">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/events_recycler_view"></android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+        android:text="Nothing To Show :("
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:background="@android:color/background_dark"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:id="@+id/nothingToShow"/>
 
 </RelativeLayout>

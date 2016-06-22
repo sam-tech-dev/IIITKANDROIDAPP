@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -34,6 +36,9 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
     private final int GALLERY_IMAGES_RETRIEVAL = 2;
     private ArrayList<Gallery_Album_Wrapper> album_list;
 
+    private ProgressBar progressBar;
+    private LinearLayout loadingHolder;
+
     private boolean isGrid = true;
 
     public static HashMap<Integer, ArrayList<Gallery_Images_Wrapper>> getAlbum_map() {
@@ -47,18 +52,20 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.gallery_recycler_view);
         layoutManager = new StaggeredGridLayoutManager(2 , StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        loadingHolder = (LinearLayout) findViewById(R.id.loading_holder);
+
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+
                 if (isGrid){
                     layoutManager.setSpanCount(1);
                     isGrid = false;
@@ -71,38 +78,20 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
             }
         });
 
-        performServerOperation();
 
-    }
+        if (ServerConnection.isNetworkAvailable(this)){
+            new ServerGalleryAsync(GALLERY_IMAGES_RETRIEVAL).execute(ServerContract.getGalleryPhpUrl());  //Images
+            new ServerGalleryAsync(GALLERY_ALBUM_RETRIEVAL).execute(ServerContract.getGalleryAlbumPhpUrl());   //Albums
 
-    private void performServerOperation() {
-        //String url = ServerContract.getGalleryPhpUrl();
+        }else {
+            progressBar.setVisibility(View.GONE);
+            loadingHolder.setVisibility(View.GONE);
 
-        new ServerGalleryAsync(GALLERY_IMAGES_RETRIEVAL).execute(ServerContract.getGalleryPhpUrl());  //Images
-        new ServerGalleryAsync(GALLERY_ALBUM_RETRIEVAL).execute(ServerContract.getGalleryAlbumPhpUrl());   //Albums
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            Toast.makeText(this , "No Internet Connection" , Toast.LENGTH_LONG).show();
         }
 
-        return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onRCVClick(View view, int position) {
@@ -111,8 +100,8 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         Intent intent = new Intent(Gallery.this , Gallery_Images.class);
         intent.putExtra("album_number"  , album_list.get(position).getAlbum_number());
-        intent.putExtra("album_name"  , album_list.get(position).getAlbum_title());
-        intent.putExtra("album_summary"  , album_list.get(position).getAlbum_summary());
+        intent.putExtra("album_name"    , album_list.get(position).getAlbum_title());
+        intent.putExtra("album_summary" , album_list.get(position).getAlbum_summary());
 
         startActivity(intent);
     }
@@ -135,6 +124,9 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
+
+            progressBar.setVisibility(View.GONE);
+            loadingHolder.setVisibility(View.GONE);
 
             if (ASYNC_TASK_CODE == GALLERY_IMAGES_RETRIEVAL) {
                 ArrayList<Gallery_Images_Wrapper> list = parseJSONGallery_Images(response);

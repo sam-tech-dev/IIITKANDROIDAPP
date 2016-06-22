@@ -11,12 +11,28 @@
         android:layout_height="match_parent"
         android:background="@drawable/home_notification_bg"
         android:clickable="true"
-        android:id="@+id/faculty_row_item_holder"
-        android:padding="10dp">
+        android:id="@+id/home_viewpager_row_item_holder"
+        android:padding="1dp">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/date_strip">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="12dp"
+                android:textColor="@android:color/white"
+                android:id="@+id/home_viewpager_date"/>
+
+        </LinearLayout>
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/faculty_image"
+            android:id="@+id/home_viewpager_news_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src="@drawable/home_maps"
@@ -24,6 +40,7 @@
             app:civ_border_color="#FF000000"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:transitionName="tImage"
             />
 
         <LinearLayout
@@ -31,7 +48,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/faculty_image"
+            android:layout_toRightOf="@+id/home_viewpager_news_image"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -40,19 +57,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/faculty_name"
-                android:text="News Title"
+                android:id="@+id/home_viewpager_news_title"
+                android:text="No Internet Connection ... "
                 android:padding="5dp"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
-                android:fontFamily="sans-serif-smallcaps"/>
+                android:fontFamily="sans-serif-smallcaps"
+                android:maxLines="3"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/faculty_email"
-                android:text="Sub Title"
+                android:id="@+id/home_viewpager_news_subtitle"
+                android:text=""
                 android:textColor="@android:color/white"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:singleLine="true"/>
 
         </LinearLayout>
 

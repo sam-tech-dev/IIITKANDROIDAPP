@@ -209,7 +209,6 @@ public class PinchZoom extends ImageView{
             scale = Math.min(scaleX, scaleY);
             matrix.setScale(scale, scale);
 
-            // Center the image
             float redundantYSpace = (float) viewHeight
                     - (scale * (float) bmHeight);
             float redundantXSpace = (float) viewWidth

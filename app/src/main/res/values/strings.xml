@@ -48,4 +48,72 @@
     Director, of NIT Hamirpur
     </string>
     <string name="q_coordinator">Ph.D. from University of Southampton, UK M.E.(CSE) from IISc Bangalore B.E.(ECE) from JNV University, Jodhpur </string>
+
+
+    <!--Admission Module-->
+
+    <string name="title_activity_admission_procedure">AdmissionProcedure</string>
+    <string name="title_activity_office_contacts">OfficeContacts</string>
+    <string name="title_activity_hostel_admission">HostelAdmission</string>
+
+    <string name="ap_intro">IIIT Kota is offering the following programmes.
+1. 4 year B. Tech. in Computer Science and Engineering (CSE) with student strength of 60 (increased from 2015).
+2. 4 year B. Tech. in Electronics and Communications Engineering (ECE) with student strength of 30. </string>
+
+    <string name="ap_admission_procedure">
+        The admissions to <b>B Tech</b> program (Computer Science and Engineering, Electronics and Communications Engineering) at
+        the IIIT Kota will be through the process as announced by jeemain.nic.in .
+        Since we receive many such queries related to admissions, you may find useful links
+        given below. For complete details, please visit josaa.nic.in and MUST read BUSINESS RULES.\n\n
+    </string>
+
+    <string name="ap_classes">The classes for IIIT Kota are being held at <b>MNIT Jaipur</b>. Schedule
+        of classes and examinations shall be as per the academic calendar of MNIT Jaipur for the academic calendar 2016-2017.</string>
+
+    <string name="ap_links"><b>(1)</b> <a href="http://jeemain.nic.in/.">JEE Main</a>
+    \n\n<b>(2)</b> <a href="http://josaa.nic.in">JoSSA</a>
+    \n\n<b>(3)</b> <a href="http://www.mnit.ac.in">MNIT Jaipur</a>
+    \n\n<b>(4)</b> <a href="http://www.iiitkota.ac.in/wp-content/uploads/2016/05/Joint-Seat-Allocation-Authority-2016.pdf">JoSSA Sample guidelines</a>
+    \n\n<b>(5)</b> <a href="http://csab.nic.in/WebInfo/PDF/ORCR_SpecialRound.pdf">Rank status of IIIT Kota for 2015-16 (previous year)</a></string>
+
+    <string name="ap_rank_status"><a href="http://www.google.com">Rank status of IIIT Kota for 2015-16 (previous year)</a>></string>
+
+    <string name="oc_intro">Indian Institute of Information Technology, Kota
+        \n\nII Floor, Prabha bhawan , MNIT
+        \nJLN Marg, Jaipur 302017
+
+\n\nPhone: 0141-2713494
+\nEmail: office@iiitkota.ac.in
+        \nadmission@iiitkota.ac.in
+ </string>
+
+    <string name="oc_office_address">Office of IIIT Kota, 2nd Floor,
+Prabha Bhawan, MNIT Jaipur,
+J L N Marg, Jaipur-302017</string>
+
+    <string name="ha_intro">The students admitted to B.Tech. program (Computer Science and Engineering,
+        Electronics and Communications Engineering) of IIIT Kota may be accommodated in the hostel
+        premises of MNIT Jaipur as per the availability of hostel rooms.</string>
+
+    <string name="ha_imp_links">
+        \n<b>(1)</b> <a href="http://www.iiitkota.ac.in/wp-content/uploads/2015/07/Hostel-Allotment-Registration.pdf">Hostel Allotment Form</a>
+    \n\n<b>(2)</b> <a href="http://www.mnit.ac.in">MNIT Jaipur</a>
+    </string>
+
+    <string name="ha_hostel_allotment_policy">MNIT hostel facility is available to students admitted to IIIT Kota.
+        Rooms shall be alloted as per availability of the rooms. Hostel allotment shall be on “First Come First Served” basis
+        and only after admission procedure has been completed and admission fee has been paid. </string>
+
+    <string name="ha_hostel_fee">\n<b>1</b>. Hostel fee shall be accepted through Demand Draft only. Cash/Cheques shall NOT be accepted.
+\n\n<b>2</b>. Demand Draft should be in favour of "MNIT MESS COUNCIL" payable at Jaipur.
+\n\n<b>3</b>. For new students, hostel fee shall be Rs 33500/- (Rupees Thirty Three Thousand Five Hundred Only).
+\n\n<b>4</b>. For current students, hostel fee shall be Rs 23500/- (Rupees Twenty Three Thousand Five Hundred Only).
+\n\n<b>5</b>. Students are required to fill in a form (download here) , attach a recent passport size photograph and submit this along with DD in “Hostel Office, Hostel No. 1, MNIT Jaipur”. A copy of admission fee challan should should also be attached.
+\n\n<b>6</b>. Hostel fee shall be accepted only after admission has been secured and admission fee has been paid.
+\n\n<b>7</b>. Students are advised to keep a record of details of fee paid.</string>
+    <string name="title_activity_admission_statistics">AdmissionStatistics</string>
+    <string name="title_activity_write_queries">WriteQueries</string>
+
+    <!--Admission Module-->
+
 </resources>

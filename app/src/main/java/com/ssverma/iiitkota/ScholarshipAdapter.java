@@ -17,12 +17,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Author-Dixit Chauhan      :08/06/2016
- */
 class ScholarshipAdapter extends RecyclerView.Adapter<ScholarshipAdapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<ScholarshipWrapper> listEvents;
 
@@ -50,17 +46,9 @@ class ScholarshipAdapter extends RecyclerView.Adapter<ScholarshipAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-       // String name = "<html><style type=\"text/css\">p{text-align:justify;font-size:12px;}</style></head><body>"+"<p>"+listEvents.get(position).getName()+"</p>"+"</body></html>" ;
+
         holder.scholarship_name.setText(listEvents.get(position).getName());
         holder.scholarship_link.setText(listEvents.get(position).getLink());
-
-        // Toast.makeText(this.context,""+ServerContract.getNewsImagePath()+listEvents.get(position).getImage(),Toast.LENGTH_LONG).show();
-        //Picasso.with(context).load(ServerContract.getEventsImagePath()+listEvents.get(position).getImage()).into(holder.event_image);
-
-        //holder.news_image.setImageResource(R.drawable.background);
-
-        //Toast.makeText(this.context, "" +ServerContract.getNewsImagesUrl()+listNews.get(0).getFaculty_imageLink()  , Toast.LENGTH_LONG).show();
-      //  holder.events_date_cal.setText(listEvents.get(position).getDate());
     }
 
     @Override
@@ -75,8 +63,6 @@ class ScholarshipAdapter extends RecyclerView.Adapter<ScholarshipAdapter.ViewHol
         RelativeLayout itemHolder;
         TextView scholarship_name;
         TextView scholarship_link;
-        TextView events_date_cal;
-        RelativeLayout event_image;
 
         public ViewHolder(View itemView) {
             super(itemView);

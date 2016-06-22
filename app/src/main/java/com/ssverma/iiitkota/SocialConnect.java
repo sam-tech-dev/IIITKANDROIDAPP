@@ -122,12 +122,6 @@ public class SocialConnect extends AppCompatActivity implements RCVClickListener
             Intent intent = new Intent(this, SocialViews.class);
             intent.putExtra("url", SocialConnectAdpter.socialList.get(position).url);
             startActivity(intent);
-            ProgressDialog  progressDialog=new ProgressDialog(SocialConnect.this);
-            progressDialog.setMessage("loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(1);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
         }
     }
 

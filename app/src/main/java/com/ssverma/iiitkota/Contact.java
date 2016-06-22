@@ -47,7 +47,7 @@ public class Contact extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee, R.drawable.faculty_electronics_engineering, R.drawable.faculty_ee, R.drawable.faculty_ee};
+    private int[] ken_burns_bg = {R.drawable.contact, R.drawable.contact, R.drawable.contact, R.drawable.contact, R.drawable.contact};
     static int tab_position;
     String s;
 
@@ -168,24 +168,19 @@ public class Contact extends AppCompatActivity {
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
-
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.CS_DEPARTMENT});
-
                     break;
                 case 1:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.ECE_DEPARTMENT});
                     break;
                 case 2:
-
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.EE_DEPARTMENT});
                     break;
                 case 3:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.OFFICE});
-
                     break;
                 case 4:
                     new ServerAsync().execute(new String[]{Consts.Contact_Constants.GENERAL});
-
                     break;
             }
 

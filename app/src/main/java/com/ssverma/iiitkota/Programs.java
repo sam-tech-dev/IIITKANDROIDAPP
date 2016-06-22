@@ -2,6 +2,7 @@ package com.ssverma.iiitkota;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
+import com.ssverma.iiitkota.utils.Consts;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -162,58 +165,18 @@ public class Programs extends AppCompatActivity {
 
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.program_ug_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
-            url = ServerContract.getProgramsPhpUrl();
+
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
-
-
                 case 0:
                     //CS - First Tab
-                    progressBar.setVisibility(View.VISIBLE);
-                    urlParameters = "program=UG";
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
-                   // Toast.makeText(getActivity() , list + "" , Toast.LENGTH_LONG).show();
-                     //  Log.d("EEEEEEEEEEEEEEEEE" , );
+                    new ServerAsync().execute(new String[]{Consts.Program_Constants.UG_PROGRAMS});
                     break;
-
-
-
                 case 1:
                     //EE - Second Tab
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    urlParameters = "program=UG";
-
-                    fetchListFromServer(url , urlParameters);
-
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            progressBar.setVisibility(View.VISIBLE);
-                            fetchListFromServer(url , urlParameters);
-                        }
-                    });
+                    new ServerAsync().execute(new String[]{Consts.Program_Constants.PG_PROGRAMS});
                     break;
-
             }
-
-
-
             return rootView;
-        }
-
-        private void fetchListFromServer(String url , String urlParameters) {
-
-            new ServerAsync().execute(url , urlParameters);
-
         }
 
         @Override
@@ -232,68 +195,59 @@ public class Programs extends AppCompatActivity {
             startActivity(intent);
         }
 
-        public class ServerAsync extends AsyncTask<String , Void , String> {
+        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<ProgramWrapper> > {
 
-            private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
+                //Toast.makeText(getActivity(),"dcyug",Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+            protected ArrayList<ProgramWrapper>  doInBackground(String[]... params) {
+                return fetchDatabaseList_Program(params[0]);
             }
+            protected void onPostExecute(ArrayList<ProgramWrapper> result) {
+                super.onPostExecute(result);
+                //progressDialog.dismiss();
 
-            @Override
-            protected void onPostExecute(String response) {
-                super.onPostExecute(response);
+                //Toast.makeText(getActivity() , "gdtdut "+ result.size() ,Toast.LENGTH_SHORT).show();
 
+                list = result;
 
-                //Toast.makeText(getActivity() , "RESPONSE : " + response , Toast.LENGTH_LONG).show();
-                list = parseJSON(response);
-                adapter = new Program_Adapter( getActivity() , list);
+                adapter = new Program_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
 
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
-
             }
 
-            private ArrayList<ProgramWrapper> parseJSON(String response) {
+            private ArrayList<ProgramWrapper> fetchDatabaseList_Program(String[] selectionArgs) {
                 ArrayList<ProgramWrapper> list = new ArrayList<>();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.PROGRAM_CONTENT_URI ,
+                        null , DatabaseContract.ProgramTable.PROGRAM_Type + " = ?" ,
+                        selectionArgs , null);
 
-                        ProgramWrapper program = new ProgramWrapper();
-                        program.setProgram_name(jsonObject.getString("Program_name"));
-                        program.setProgram_desc(jsonObject.getString("Program_desc"));
-                        program.setProgram_eligibility(jsonObject.getString("Program_eli"));
-                        program.setProgram_seats(jsonObject.getInt("Program_seats"));
-                        program.setProgram_dur(jsonObject.getInt("Program_duration"));
-                        program.setProgram_fee(jsonObject.getInt("Program_fee"));
-                        program.setProgram_image(jsonObject.getString("Program_image"));
-                        list.add(program);
-                        //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (JSONException e) {
-                    //tv.setText("JSON E:" + e);
+                while (cursor.moveToNext()){
+                    ProgramWrapper program = new ProgramWrapper();
+                    program.setProgram_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_SERVER_ID)));
+                    program.setProgram_seats(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_SEAT)));
+                    program.setProgram_fee(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_FEE)));
+                    program.setProgram_dur(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_DURATION)));
+                    program.setProgram_desc(cursor.getString(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_DESC)));
+                    program.setProgram_eligibility(cursor.getString(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_ELIGIBILITY)));
+                    program.setProgram_name(cursor.getString(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_NAME)));
+                    program.setProgram_type(cursor.getString(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_Type)));
+                    program.setProgram_image(cursor.getString(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_IMAGE)));
+                    list.add(program);
                 }
-                //Toast.makeText(getActivity() , list.size() + "" , Toast.LENGTH_LONG).show();
-                //tv.setText(list.get(0).getS_name());
+
                 return list;
             }
         }
-
     }
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

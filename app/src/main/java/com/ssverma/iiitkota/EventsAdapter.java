@@ -32,6 +32,7 @@ class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder>{
         this.listEvents = list;
     }
 
+
     public void setOnRCVClickListener(RCVClickListener listener){
         this.listener = listener;
     }

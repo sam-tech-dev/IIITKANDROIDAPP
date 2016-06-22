@@ -110,7 +110,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -145,7 +145,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -183,7 +183,7 @@
                     android:layout_gravity="top|left"
                     android:textSize="20dp"
                     android:textColor="@color/colorAccent"
-                    android:fontFamily="cursive"
+                    android:textStyle="bold"
                     android:padding="5dp"/>
 
                 <TextView
@@ -192,6 +192,7 @@
                     android:id="@+id/fd_research_area"
                     android:fontFamily="monospace"
                     android:textSize="16dp"
+                    android:padding="5dp"
                     android:textColor="@color/colorPrimaryDark"/>
 
             </LinearLayout>
@@ -220,7 +221,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -229,6 +230,7 @@
                         android:id="@+id/fd_home_town"
                         android:fontFamily="monospace"
                         android:textSize="16dp"
+                        android:padding="5dp"
                         android:textColor="@color/colorPrimaryDark"/>
 
                 </LinearLayout>
@@ -257,7 +259,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -266,6 +268,7 @@
                         android:id="@+id/fd_achievements"
                         android:fontFamily="monospace"
                         android:textSize="16dp"
+                        android:padding="5dp"
                         android:textColor="@color/colorPrimaryDark"/>
 
                 </LinearLayout>
@@ -293,7 +296,7 @@
                         android:layout_gravity="top|left"
                         android:textSize="20dp"
                         android:textColor="@color/colorAccent"
-                        android:fontFamily="cursive"
+                        android:textStyle="bold"
                         android:padding="5dp"/>
 
                     <TextView
@@ -302,6 +305,7 @@
                         android:id="@+id/fd_other"
                         android:fontFamily="monospace"
                         android:textSize="16dp"
+                        android:padding="5dp"
                         android:textColor="@color/colorPrimaryDark"/>
 
                 </LinearLayout>
@@ -373,6 +377,7 @@
         app:startXPosition="2dp"
         app:layout_behavior="com.ssverma.iiitkota.AvatarImageBehavior"
         android:id="@+id/faculty_image"
+        android:transitionName="tImage"
         />
 
 

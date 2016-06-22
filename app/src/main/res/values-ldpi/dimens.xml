@@ -1,0 +1,29 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="image_width">120dp</dimen>
+    <dimen name="image_final_width">32dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+
+    <!-- news items. -->
+    <dimen name="news_image_detailed_height">400dp</dimen>
+    <dimen name="news_title_textsize">20dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+
+    <dimen name="contact_paddingtop">260dp</dimen>
+    <dimen name="contact_paddingleft">36dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    
+
+
+    <!--Viewpager MarginTop-->
+    <dimen name="viewpager_margin_top">13dp</dimen>
+    
+</resources>

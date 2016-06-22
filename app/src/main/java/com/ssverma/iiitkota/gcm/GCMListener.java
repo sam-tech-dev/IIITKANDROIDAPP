@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.gms.gcm.GcmListenerService;
 import com.ssverma.iiitkota.Home;
 import com.ssverma.iiitkota.R;
@@ -22,14 +24,12 @@ public class GCMListener  extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
 
-        String   message = data.getString("message");
+        //Toast.makeText(getApplicationContext(),"in listener",Toast.LENGTH_LONG).show();
 
-        Log.d("azad", "From:" + from);
-        Log.d("azad", "Message: " + message);
+        String   message = data.getString("message");
 
         if (from.startsWith("/topics/")) {
             // message received from some topic.
-            Log.d("azad", "Message2");
         } else {
             // normal downstream message.
         }

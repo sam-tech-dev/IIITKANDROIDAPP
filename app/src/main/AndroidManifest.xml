@@ -17,17 +17,23 @@
         android:name="com.ssverma.iiitkota.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <uses-permission android:name="com.ssverma.iiitkota.permission.C2D_MESSAGE" />
 
     <application
+        android:name=".IIITK_Singleton"
         android:allowBackup="true"
         android:icon="@drawable/splash_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -57,8 +63,6 @@
             android:name=".gcm.registrationService"
             android:exported="false" />
 
-
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -69,8 +73,7 @@
         <activity
             android:name=".Home"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Faculty"
             android:label="@string/title_activity_faculty"
@@ -103,71 +106,128 @@
             android:name=".Program_DetailedView"
             android:label="" />
         <activity android:name=".Gallery_Detailed_View" />
-
-        <activity android:name=".Campus_life" 
-            android:label="Campus Life"/>
-        <activity android:name=".Events"
-            android:label="@string/title_activity_events"/>
-        <activity android:name=".EventsDetailedView"
-            android:label=""/>
+        <activity
+            android:name=".Campus_life"
+            android:label="Campus Life" />
+        <activity
+            android:name=".Events"
+            android:label="@string/title_activity_events" />
+        <activity
+            android:name=".EventsDetailedView"
+            android:label="" />
         <activity android:name=".Contact" />
-
         <activity android:name=".Administration" />
-        <activity android:name=".Administration_DetailedView"
-            android:label=""></activity>
+        <activity
+            android:name=".Administration_DetailedView"
+            android:label="" />
+        <activity
+            android:name=".Campus_life_DetialedView"
+            android:label=" " />
 
-        <activity android:name=".Campus_life_DetialedView"
-            android:label=" "/>
         <provider
-            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
             android:name=".sync_adapter.IIITK_ContentProvider"
-            android:syncable="true">
-        </provider>
+            android:authorities="com.ssverma.iiitkota.sync_adapter.IIITK_ContentProvider"
+            android:syncable="true" />
 
         <service android:name=".sync_adapter.AuthenticatorService">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"></action>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
-
-        <service android:name=".sync_adapter.SyncService"
+        <service
+            android:name=".sync_adapter.SyncService"
             android:exported="true"
             android:process=":sync">
-
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"></action>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
 
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter"/>
-
+                android:resource="@xml/syncadapter" />
         </service>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".AboutUs"
-            android:label="@string/title_activity_about_us"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Scholarship"
-            android:label=""/>
-        <activity android:name=".ScholarshipDetailedView"></activity>
+        <activity
+            android:name=".Scholarship"
+            android:label="" />
+        <activity android:name=".ScholarshipDetailedView" />
         <activity
             android:name=".SocialConnect"
             android:label="Social Connect" />
-        <activity android:name=".SocialViews"></activity>
+        <activity android:name=".SocialViews" />
+        <activity android:name=".Fest" />
+        <activity
+            android:name=".Fest_DetailedView"
+            android:label="" />
+        <activity
+            android:name=".Academic_Home"
+            android:label="Academic" />
+        <activity
+            android:name=".Academic_Calendar"
+            android:label="Academic Calendar" />
+        <activity
+            android:name=".Academic_Timetable"
+            android:label="Academic Timetable" />
+        <activity
+            android:name=".Academic_Resources"
+            android:label="Resources" />
+        <activity
+            android:name=".Academic_Research"
+            android:label="Research" />
+        <activity
+            android:name=".Academic_ResearchDetailedView"
+            android:label=" " />
+        <activity
+            android:name=".Academic_Courses"
+            android:label="Courses" />
+
+        <!-- Admission Module -->
+        <activity android:name=".admission.Admission_Home" />
+        <activity
+            android:name=".admission.AdmissionProcedure"
+            android:label="Admission Procedure" />
+        <activity
+            android:name=".admission.OfficeContacts"
+            android:label="Office Contacts" />
+        <activity
+            android:name=".admission.HostelAdmission"
+            android:label="Hostel Admission" />
+        <activity
+            android:name=".admission.FAQs"
+            android:label="FAQs" />
+        <activity
+            android:name=".admission.AdmissionStatistics"
+            android:label="Admission Statistics 2015-16" />
+        <activity
+            android:name=".admission.WriteQueries"
+            android:label="Write Your Queries" />
+        <activity android:name=".About_App"></activity>
+
+
+
+        <activity android:name=".Placement_module_detailed_view"></activity>
+        <activity android:name=".Placement"></activity>
+        <activity android:name=".Placement_Visiting_company_DetailedView"
+            android:label=""/>
     </application>
 
 </manifest>

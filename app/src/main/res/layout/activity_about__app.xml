@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/toolbar"></android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ssverma.iiitkota.AboutUs">
+
+        <!--cards holder-->
+        <LinearLayout
+            android:id="@+id/faculty_detailed_cards_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!--About App card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="2dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:id="@+id/about_app_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--App Logo and Name Layout-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/iiitk_logo_black"
+                            android:id="@+id/logo"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="-15dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Indian Institute of Information Technology, Kota"
+                            android:layout_toRightOf="@+id/logo"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorTextPrimary"
+                            android:layout_marginLeft="13dp"/>
+
+                    </RelativeLayout>
+
+                    <!--App Version Layout-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/about_version_icon"
+                            android:id="@+id/version_icon"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Version"
+                            android:textColor="@color/colorTextPrimary"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@+id/version_icon"
+                            android:id="@+id/version_title"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.0"
+                            android:textColor="@color/colorTextPrimary"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@+id/version_icon"
+                            android:layout_below="@+id/version_title"/>
+
+                    </RelativeLayout>
+
+
+                    <!--License Layout-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/license_layout">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/about_license_icon"
+                            android:id="@+id/license_icon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="-3dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Licenses"
+                            android:layout_toRightOf="@+id/license_icon"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorTextPrimary"
+                            android:layout_marginLeft="30dp"
+                            android:padding="5dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!--Developers Card-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                app:cardElevation="2dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:id="@+id/about_us_mission_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:padding="3dp"
+                        android:text="Developers"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"/>
+
+                    <!--SS Verma-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_one_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_one_name"
+                            android:text="SS Verma"
+                            android:layout_toRightOf="@+id/dev_one_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+
+                    </RelativeLayout>
+
+                    <!--Dev 2-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_two_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_two_name"
+                            android:text="Sattar Mohammad"
+                            android:layout_toRightOf="@+id/dev_two_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+
+                    </RelativeLayout>
+
+
+                    <!--Dev 3-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_three_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_three_name"
+                            android:text="Rajat Jain"
+                            android:layout_toRightOf="@+id/dev_three_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+
+                    <!--Dev 4-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_four_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_four_name"
+                            android:text="Rahul Chaudhary"
+                            android:layout_toRightOf="@+id/dev_four_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                    <!--Dev 5-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_five_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_five_name"
+                            android:text="Dixit Chauhan"
+                            android:layout_toRightOf="@+id/dev_five_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                    <!--Dev 6-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_margin="2dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/person_placeholder"
+                            app:civ_border_color="@android:color/white"
+                            android:id="@+id/dev_six_image"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dev_six_name"
+                            android:text="Abhishek Mimani"
+                            android:layout_toRightOf="@+id/dev_six_image"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:textColor="@color/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

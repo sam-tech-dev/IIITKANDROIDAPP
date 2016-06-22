@@ -1,13 +1,11 @@
 package com.ssverma.iiitkota;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,15 +24,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.utils.Consts;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Faculty extends AppCompatActivity{
 
@@ -45,7 +42,7 @@ public class Faculty extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    private int[] ken_burns_bg = {R.drawable.cs_bg_, R.drawable.material_bg_ , R.drawable.optimized_ec_bg};
     static int tab_position;
 
     @Override
@@ -53,17 +50,12 @@ public class Faculty extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty);
 
-        //Toast.makeText(this , "" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) , Toast.LENGTH_SHORT).show();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -80,7 +72,6 @@ public class Faculty extends AppCompatActivity{
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -96,19 +87,15 @@ public class Faculty extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_faculty, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -166,6 +153,7 @@ public class Faculty extends AppCompatActivity{
             swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
+            url = ServerContract.getFacultyPhpUrl();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
                 case 0:
@@ -183,8 +171,10 @@ public class Faculty extends AppCompatActivity{
             }
 
 
+
             return rootView;
         }
+
 
         @Override
         public void onRCVClick(View view, int position) {
@@ -200,20 +190,16 @@ public class Faculty extends AppCompatActivity{
             intent.putExtra("faculty_designation" , list.get(position).getFaculty_designation());
 
             intent.putExtra("tab_position" , Faculty.tab_position);
-            //ActivityOptionsCompat options = ActivityOptionsCompat.
-                    //makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.faculty_image), "profile");
 
-            startActivity(intent /*, options.toBundle()*/);
+            Pair<View, String> imagePair = Pair.create(view.findViewById(R.id.faculty_image), "tImage");
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(getActivity(), imagePair);
+
+            startActivity(intent , options.toBundle());
         }
 
         public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<FacultyWrapper>>{
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //progressDialog = ProgressDialog.show(getActivity(), "Please Wait",null, true, true);
-            }
 
             @Override
             protected ArrayList<FacultyWrapper>  doInBackground(String[]... params) {
@@ -223,9 +209,6 @@ public class Faculty extends AppCompatActivity{
             @Override
             protected void onPostExecute(ArrayList<FacultyWrapper> result) {
                 super.onPostExecute(result);
-                //progressDialog.dismiss();
-
-                //Toast.makeText(getActivity() , "" + result.get(0).getFaculty_name() , Toast.LENGTH_SHORT).show();
 
                 list = result;
 

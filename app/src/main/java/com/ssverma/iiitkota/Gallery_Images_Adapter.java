@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -27,6 +28,11 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
     private int album_number;
 
     private RCVClickListener listener;
+
+    private static final int MAX_WIDTH = 1366;
+    private static final int MAX_HEIGHT = 768;
+
+    int size = (int) Math.ceil(Math.sqrt(MAX_WIDTH * MAX_HEIGHT));
 
     Gallery_Images_Adapter(Context context , HashMap<Integer , ArrayList<Gallery_Images_Wrapper>> album_map , int album_number){
         this.context = context;
@@ -51,7 +57,23 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         //holder.image_name.setText(album_map.get(album_number).get(position).getImageLink());
-        Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + album_map.get(album_number).get(position).getImageLink()).resize(1000 , 1000).placeholder(R.drawable.gallery_album_placeholder).into(holder.image);
+        Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + album_map.get(album_number).get(position).getImageLink())
+                .resize(size , size)
+                .placeholder(R.drawable.gallery_album_placeholder)
+                .into(holder.image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(context).load(ServerContract.getGalleryImagesPath() + album_number + "/" + album_map.get(album_number).get(position).getImageLink())
+                                .placeholder(R.drawable.gallery_album_placeholder)
+                                .transform(new BitmapTransform(MAX_WIDTH , MAX_HEIGHT))
+                                .into(holder.image);
+                    }
+                });
 
     }
 
@@ -64,16 +86,14 @@ public class Gallery_Images_Adapter extends RecyclerView.Adapter<Gallery_Images_
 
         TextView image_name;
         ImageView image;
-        FrameLayout gallery_images_itemHolder;
+        LinearLayout gallery_images_itemHolder;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             //image_name = (TextView) itemView.findViewById(R.id.gallery_image_name);
             image = (ImageView) itemView.findViewById(R.id.gallery_image_thumbnail);
-
-            gallery_images_itemHolder = (FrameLayout) itemView.findViewById(R.id.gallery_images_holder);
-
+            gallery_images_itemHolder = (LinearLayout) itemView.findViewById(R.id.gallery_images_holder);
             gallery_images_itemHolder.setOnClickListener(this);
         }
 

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:id="@+id/courses_row_item_holder">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Course Name: "
+                android:id="@+id/course_name_title"
+                android:textSize="18dp"
+                android:layout_gravity="bottom"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_name"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/course_name_title"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:textColor="@color/colorTextSecondary"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_code_title"
+                android:layout_gravity="bottom"
+                android:text="Code:"
+                android:textSize="18dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/course_code"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@string/section_format"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/course_code_title"
+                android:textColor="@color/colorTextSecondary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/abbr_title"
+                android:text="Abbr."
+                android:layout_gravity="bottom"
+                android:textSize="18dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@+id/abbr"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/abbr"
+                android:layout_gravity="bottom"
+                android:fontFamily="@string/section_format"
+                android:textSize="14dp"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorTextSecondary"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/credit_title"
+                android:text="Credit: "
+                android:textSize="18dp"
+                android:textColor="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/credit"
+                android:fontFamily="@string/section_format"
+                android:textSize="14dp"
+                android:padding="5dp"
+                android:textColor="@color/colorTextSecondary"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ssverma.iiitkota.EventsDetailedView">
-    <!--Author-Dixit Chauhan      :03/06/2016-->
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 android:layout_gravity="top|left"
                 android:textSize="20dp"
                 android:textColor="@color/colorAccent"
-                android:fontFamily="cursive"
+                android:textStyle="bold"
                 android:id="@+id/subtitle"
                 android:padding="5dp"/>
 
