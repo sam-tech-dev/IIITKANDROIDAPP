@@ -13,19 +13,6 @@ public class ServerContract {
 
     private static String FACULTY_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
 
-    public static String getProgramImagesPath() {
-        return PROGRAM_IMAGES_PATH;
-    }
-
-    public static String getContactImagesPath() {
-        return CONTACT_IMAGES_PATH;
-    }
-
-    private static String CONTACT_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
-
-
-    private static String PROGRAM_IMAGES_PATH = "http://172.16.1.231/iiitk/assets/images/faculty/";
-
     public static String getGalleryImagesPath() {
         return GALLERY_IMAGES_PATH;
     }
@@ -97,7 +84,7 @@ public class ServerContract {
 
     private static String FEST_PHP_URL = SERVER_URL + "/fest.php";
 
-    private static String FEST_PATH="http://172.16.1.231/iiitk/android/assets/images/fest/";
+    private static String FEST_PATH = SERVER_URL + "/assets/images/fest/";
 
     public static String getFestImagesUrl() {
         return FEST_PATH;
@@ -109,29 +96,15 @@ public class ServerContract {
 
     private static String NEWS_PHP_URL = SERVER_URL + "/news.php";
 
-    public static String getNewsLatestPhpUrl() {
-        return NEWS_LATEST_PHP_URL;
-    }
-
-    private static String NEWS_LATEST_PHP_URL = SERVER_URL + "/today_news.php";
-
-    public static String getNewsUpcomingPhpUrl() {
-        return NEWS_UPCOMING_PHP_URL;
-    }
-
-    private static String NEWS_UPCOMING_PHP_URL = SERVER_URL + "/upcoming_news.php";
-
     public static String getNewsImagePath() {
         return NEWS_IMAGE_PATH;
     }
 
     private static String NEWS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/news/";
 
-
     public static String getEventsPhpUrl() {
         return EVENTS_PHP_URL;
     }
-
 
     private static String EVENTS_PHP_URL= SERVER_URL + "/events.php";
 
@@ -146,15 +119,13 @@ public class ServerContract {
 
     private static String CAMPUS_PHP_URL = SERVER_URL + "/campus_life.php";
 
-    private static String CAMPUS_PATH="http://172.16.1.231/iiitk/android/assets/images/campus/";
+    private static String CAMPUS_IMAGES_PATH =SERVER_URL + "/assets/images/campus/";
 
     public static String getCampusImagesUrl() {
-        return CAMPUS_PATH;
+        return CAMPUS_IMAGES_PATH;
     }
 
-
     private static String EVENTS_IMAGE_PATH = "http://172.16.1.231/iiitk/assets/images/events/";
-
 
     public static String getScholarshipPhpUrl() {
         return SCHOLARSHIP_PHP_URL;
@@ -166,8 +137,7 @@ public class ServerContract {
         return SCHOLARSHIP_IMAGE_PATH;
     }
 
-    private static String SCHOLARSHIP_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/scholarship/";
-
+    private static String SCHOLARSHIP_IMAGE_PATH = SERVER_URL + "/assets/images/scholarship/";
 
     public static String getProgramImagePath() {
         return PROGRAM_IMAGE_PATH;
@@ -198,7 +168,7 @@ public class ServerContract {
 
     public static String ACADEMIC_RESEARCH_PHP_URL = SERVER_URL + "/academic_research.php";
 
-    private static String ACADEMIC_RESEARCH_PROJECT_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/research/project/";
+    private static String ACADEMIC_RESEARCH_PROJECT_IMAGE_PATH = SERVER_URL + "/assets/images/research/project/";
 
     public static String getAcademicResearchPersonImagePath() {
         return ACADEMIC_RESEARCH_PERSON_IMAGE_PATH;
@@ -208,7 +178,7 @@ public class ServerContract {
         return ACADEMIC_RESEARCH_PROJECT_IMAGE_PATH;
     }
 
-    private static String ACADEMIC_RESEARCH_PERSON_IMAGE_PATH = "http://172.16.1.231/iiitk/android/assets/images/research/person/";
+    private static String ACADEMIC_RESEARCH_PERSON_IMAGE_PATH = SERVER_URL + "/assets/images/research/person/";
 
     public static String getAcademicCoursesPhpUrl() {
         return ACADEMIC_COURSES_PHP_URL;
@@ -223,13 +193,13 @@ public class ServerContract {
         return ACADEMIC_CALENDAR_URL;
     }
 
-    public static String ACADEMIC_CALENDAR_URL = SERVER_URL + "/iiitk/android/assets/documents/academic_calendar/";
+    public static String ACADEMIC_CALENDAR_URL = SERVER_URL + "/assets/documents/academic_calendar/";
 
     public static String getPlacementReport_URL() {
         return PLACEMENT_REPORT_URL;
     }
 
-    public static String PLACEMENT_REPORT_URL = SERVER_URL + "/iiitk/android/assets/documents/academic_calendar/";
+    public static String PLACEMENT_REPORT_URL = SERVER_URL + "/assets/documents/academic_calendar/";
 
     public static String getFaqUrl() {
         return FAQ_URL;
@@ -248,5 +218,11 @@ public class ServerContract {
     }
 
     public static String ADMISSION_QUERIES_URL = SERVER_URL + "/admission_queries.php";
+
+    public static String getAcademicTimetableDocs() {
+        return ACADEMIC_TIMETABLE_DOCS;
+    }
+
+    public static String ACADEMIC_TIMETABLE_DOCS = SERVER_URL + "/assets/documents/academic_timetable/";
 
 }

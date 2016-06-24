@@ -86,9 +86,6 @@ public class Programs extends AppCompatActivity {
             }
         });
 
-
-        //AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-
     }
 
 

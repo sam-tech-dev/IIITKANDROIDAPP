@@ -97,7 +97,7 @@ public class Home extends AppCompatActivity
         initViews();
 
         if (ServerConnection.isNetworkAvailable(this)) {
-            new ServerAsync_News(true).execute(ServerContract.getNewsPhpUrl(), "filter=prev");
+            new ServerAsync_News(true).execute(ServerContract.getNewsPhpUrl(), "filter=latest");
         } else {
             //offline mode
             new ServerAsync_News(false).execute();
@@ -145,6 +145,25 @@ public class Home extends AppCompatActivity
         adapter.setRCVClickListener(this);
         recyclerView.setAdapter(adapter);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position == 0)
+                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.INVISIBLE);
+                else
+                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -386,14 +405,13 @@ public class Home extends AppCompatActivity
             TextView news_title;
             TextView news_subtitle;
             TextView news_date;
-            RelativeLayout pager_holder;
 
             View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.home_viewpager_item, container, false);
 
             news_image = (ImageView) rootView.findViewById(R.id.home_viewpager_news_image);
             news_title = (TextView) rootView.findViewById(R.id.home_viewpager_news_title);
             news_subtitle = (TextView) rootView.findViewById(R.id.home_viewpager_news_subtitle);
-            news_date = (TextView) rootView.findViewById(R.id.home_viewpager_date);
+            //news_date = (TextView) rootView.findViewById(R.id.home_viewpager_date);
 
 
             if (isListSizeZero) {
@@ -401,7 +419,7 @@ public class Home extends AppCompatActivity
                 news_title.setTypeface(Typeface.DEFAULT_BOLD);
                 news_subtitle.setVisibility(View.INVISIBLE);
                 news_image.setVisibility(View.INVISIBLE);
-                rootView.findViewById(R.id.date_holder).setVisibility(View.INVISIBLE);
+                //rootView.findViewById(R.id.date_holder).setVisibility(View.INVISIBLE);
                 container.addView(rootView);
                 return rootView;
             }
@@ -411,16 +429,16 @@ public class Home extends AppCompatActivity
                 news_title.setTypeface(Typeface.DEFAULT_BOLD);
                 news_subtitle.setVisibility(View.INVISIBLE);
                 news_image.setVisibility(View.INVISIBLE);
-                rootView.findViewById(R.id.date_holder).setVisibility(View.INVISIBLE);
+                //rootView.findViewById(R.id.date_holder).setVisibility(View.INVISIBLE);
                 container.addView(rootView);
                 return rootView;
             }
 
+
             news_title.setText(latest_news_list.get(position - 1).getNews_tittle());
             news_subtitle.setText(latest_news_list.get(position - 1).getNews_subtitle());
-            news_date.setText(latest_news_list.get(position - 1).getNews_date());
 
-            Picasso.with(Home.this).load(ServerContract.getNewsImagePath() + "/" + latest_news_list.get(position - 1).getNews_imageLink()).placeholder(R.drawable.iiitk_logo_white).into(news_image);
+            Picasso.with(Home.this).load(ServerContract.getNewsImagePath() + "/" + latest_news_list.get(position - 1).getNews_imageLink()).into(news_image);
 
             container.addView(rootView);
 
@@ -430,11 +448,11 @@ public class Home extends AppCompatActivity
                 public void onClick(View v) {
                     //Toast.makeText(Home.this , "Clicked" + position , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Home.this, NewsFeed_DetialedView.class);
-                    intent.putExtra("title", latest_news_list.get(position).getNews_tittle());
-                    intent.putExtra("subtitle", latest_news_list.get(position).getNews_subtitle());
-                    intent.putExtra("date", latest_news_list.get(position).getNews_date());
-                    intent.putExtra("image_link", latest_news_list.get(position).getNews_imageLink());
-                    intent.putExtra("detail", latest_news_list.get(position).getNews_description());
+                    intent.putExtra("title", latest_news_list.get(position - 1).getNews_tittle());
+                    intent.putExtra("subtitle", latest_news_list.get(position - 1).getNews_subtitle());
+                    intent.putExtra("date", latest_news_list.get(position - 1).getNews_date());
+                    intent.putExtra("image_link", latest_news_list.get(position - 1).getNews_imageLink());
+                    intent.putExtra("detail", latest_news_list.get(position - 1).getNews_description());
 
                     Pair<View, String> imagePair = Pair.create((View) news_image, "tImage");
 
@@ -474,7 +492,7 @@ public class Home extends AppCompatActivity
             if (isOnline) {
                 return ServerConnection.obtainServerResponse(params[0], params[1]);
             } else {
-                latest_news_list = fetchDatabaseList_News(new String[]{Consts.News_Constants.NEWS_PREV});
+                latest_news_list = fetchDatabaseList_News(new String[]{Consts.News_Constants.NEWS_LATEST});
                 return null;
             }
 

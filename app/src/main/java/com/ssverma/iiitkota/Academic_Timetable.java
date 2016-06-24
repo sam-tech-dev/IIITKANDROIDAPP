@@ -77,7 +77,7 @@ public class Academic_Timetable extends AppCompatActivity implements RCVClickLis
     public void onRCVClick(View view, int position) {
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String url = "http://172.16.1.231/iiitk/android/assets/documents/academic_timetable/" + list.get(position).getLink();
+        String url = ServerContract.getAcademicTimetableDocs() + list.get(position).getLink();
         intent.setData(Uri.parse(url));
         startActivity(intent);
     }

@@ -76,7 +76,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                                    /*replace 'Faculty' by Module Name*/
     private void syncServerToLocal_Faculty() {
         new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl());
-        //new ServerAsync_Faculty().execute(ServerContract.getFacultyPhpUrl(), "dept=ECE");
     }
 
     private void syncServerToLocal_Events() {
@@ -86,8 +85,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
     //Add Meythod for program Module
     private void syncServerTOLocal_Program(){
-        new ServerAsync_Program().execute(ServerContract.getProgramsPhpUrl(),"program=UG");
-        new ServerAsync_Program().execute(ServerContract.getProgramsPhpUrl(),"program=PG");
+        new ServerAsync_Program().execute(ServerContract.getProgramsPhpUrl());
+        //new ServerAsync_Program().execute(ServerContract.getProgramsPhpUrl(),"program=PG");
     }
 
     private void syncServerToLocal_Scholarship() {
@@ -784,7 +783,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             @Override
             protected String doInBackground(String... params) {
-                return ServerConnection.obtainServerResponse(params[0] , params[1]);
+                return ServerConnection.obtainServerResponse(params[0]);
             }
 
             @Override
@@ -798,15 +797,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         private void syncDataToProgramLocal(ArrayList<ContentValues> list) {
 
-            String selectionClause = DatabaseContract.ProgramTable.PROGRAM_SERVER_ID + " = ?" + " AND "
-                    + DatabaseContract.ProgramTable.PROGRAM_Type + " = ?";
+            String selectionClause = DatabaseContract.ProgramTable.PROGRAM_SERVER_ID + " = ?";
             String[] selectionArgs = null;
 
             int newRowAdded = 0;
 
             for (ContentValues contentValues : list){
-                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ProgramTable.PROGRAM_SERVER_ID)
-                        , contentValues.getAsString(DatabaseContract.ProgramTable.PROGRAM_Type)};
+                selectionArgs = new String[]{contentValues.getAsString(DatabaseContract.ProgramTable.PROGRAM_SERVER_ID)};
 
                 int rowAffected = contentResolver.update(DatabaseContract.PROGRAM_CONTENT_URI , contentValues , selectionClause , selectionArgs);
 
@@ -850,9 +847,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-
-
-    //vc_module by rajat jain 09/06/16
 
     public class ServerAsync_VisitingCompany extends AsyncTask<String , Void , String> {
 
