@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_events__detailed_view);
 
         bindActivity();
@@ -60,13 +62,13 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         news_date.setText(getIntent().getExtras().getString("date"));
 
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).placeholder(R.drawable.events).into(faculty_image);
         String summary = getIntent().getExtras().getString("detail");
         String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:16px;}</style></head><body>" + "<p>" + summary + "</p>" + "</body></html>";
         news_desc.loadData(desc, "text/html", "utf-8");
         news_toolbar.setText(getIntent().getExtras().getString("tittle"));
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).placeholder(R.drawable.background_placeholder).into(image_bg);
 
     }
 

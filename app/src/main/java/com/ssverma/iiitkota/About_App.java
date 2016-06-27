@@ -3,6 +3,7 @@ package com.ssverma.iiitkota;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -60,5 +61,16 @@ public class About_App extends AppCompatActivity {
     private void displayLicenseDialogFragment() {
         LicenseDialogFragment dialog = LicenseDialogFragment.newInstance();
         dialog.show(getSupportFragmentManager(), "LicenseDialog");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

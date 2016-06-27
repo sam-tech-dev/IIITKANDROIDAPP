@@ -22,12 +22,12 @@
     <TextView
         android:id="@+id/nothingToShow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/background_dark"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:gravity="center"
         android:text="Nothing To Show :("
-        android:textColor="@android:color/white"
         android:visibility="invisible" />
 
 

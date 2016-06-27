@@ -18,8 +18,9 @@ public class Program_Adapter extends RecyclerView.Adapter<Program_Adapter.ViewHo
 
     private Context context;
     private ArrayList<ProgramWrapper> listProgram;
-
     private RCVClickListener listener;
+
+    private int[] programs_icons = {R.drawable.programs_cse_icon , R.drawable.programs_ece_icon};
 
     Program_Adapter(Context context, ArrayList<ProgramWrapper> listProgram) {
         this.context = context;
@@ -43,7 +44,8 @@ public class Program_Adapter extends RecyclerView.Adapter<Program_Adapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.program_name.setText(listProgram.get(position).getProgram_name());
         holder.program_desc.setText(listProgram.get(position).getProgram_desc());
-        Picasso.with(context).load(ServerContract.getProgramImagePath() + listProgram.get(position).getProgram_image()).into(holder.program_image);
+        //Picasso.with(context).load(ServerContract.getProgramImagePath() + listProgram.get(position).getProgram_image()).into(holder.program_image);
+        holder.program_image.setImageResource(programs_icons[position]);
     }
 
     @Override

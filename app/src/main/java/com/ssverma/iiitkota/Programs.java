@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -46,7 +50,7 @@ public class Programs extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.programs_ug, R.drawable.programs_pg };
+    private int[] ken_burns_bg = {R.drawable.programs_ug, R.drawable.programs_pg};
     static int tab_position;
 
     @Override
@@ -97,7 +101,7 @@ public class Programs extends AppCompatActivity {
             return true;
         }
 
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
         }
 
@@ -113,6 +117,7 @@ public class Programs extends AppCompatActivity {
         private ProgressBar progressBar;
 
         private ArrayList<ProgramWrapper> list;
+        private TextView nothingToShow;
 
 
         public PlaceholderFragment() {
@@ -135,7 +140,9 @@ public class Programs extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             progressBar = (ProgressBar) rootView.findViewById(R.id.program_ug_progress_bar);
 
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            nothingToShow = (TextView) rootView.findViewById(R.id.nothingToShow);
+
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
                     new ServerAsync().execute(new String[]{Consts.Program_Constants.UG_PROGRAMS});
                     break;
@@ -149,30 +156,48 @@ public class Programs extends AppCompatActivity {
         @Override
         public void onRCVClick(View view, int position) {
 
-            Intent intent = new Intent(getActivity() , Program_DetailedView.class);
-            intent.putExtra("Program_name" , list.get(position).getProgram_name());
-            intent.putExtra("Program_desc" , list.get(position).getProgram_desc());
-            intent.putExtra("Program_eligibility" , list.get(position).getProgram_eligibility());
-            intent.putExtra("Program_image" , list.get(position).getProgram_image());
-            intent.putExtra("Program_duration",list.get(position).getProgram_dur());
-            intent.putExtra("Program_seats",list.get(position).getProgram_seats());
-            intent.putExtra("Program_fee",list.get(position).getProgram_fee());
-            intent.putExtra("tab_position" , Programs.tab_position);
+            Intent intent = new Intent(getActivity(), Program_DetailedView.class);
+            intent.putExtra("Program_name", list.get(position).getProgram_name());
+            intent.putExtra("Program_desc", list.get(position).getProgram_desc());
+            intent.putExtra("Program_eligibility", list.get(position).getProgram_eligibility());
+            intent.putExtra("Program_image", list.get(position).getProgram_image());
+            intent.putExtra("Program_duration", list.get(position).getProgram_dur());
+            intent.putExtra("Program_seats", list.get(position).getProgram_seats());
+            intent.putExtra("Program_fee", list.get(position).getProgram_fee());
+            intent.putExtra("tab_position", Programs.tab_position);
+            intent.putExtra("position", position);
 
-            startActivity(intent);
+            Pair<View, String> imagePair = Pair.create(view.findViewById(R.id.program_image), "tImage");
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(getActivity(), imagePair);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
+
         }
 
-        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<ProgramWrapper> > {
+        public class ServerAsync extends AsyncTask<String[], Void, ArrayList<ProgramWrapper>> {
 
-            protected ArrayList<ProgramWrapper>  doInBackground(String[]... params) {
+            protected ArrayList<ProgramWrapper> doInBackground(String[]... params) {
                 return fetchDatabaseList_Program(params[0]);
             }
+
             protected void onPostExecute(ArrayList<ProgramWrapper> result) {
                 super.onPostExecute(result);
 
                 list = result;
 
-                adapter = new Program_Adapter(getActivity() , list);
+                if (list.size() == 0) {
+                    nothingToShow.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    return;
+                }
+
+                adapter = new Program_Adapter(getActivity(), list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
                 progressBar.setVisibility(View.GONE);
@@ -181,11 +206,11 @@ public class Programs extends AppCompatActivity {
             private ArrayList<ProgramWrapper> fetchDatabaseList_Program(String[] selectionArgs) {
                 ArrayList<ProgramWrapper> list = new ArrayList<>();
 
-                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.PROGRAM_CONTENT_URI ,
-                        null , DatabaseContract.ProgramTable.PROGRAM_Type + " = ?" ,
-                        selectionArgs , null);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.PROGRAM_CONTENT_URI,
+                        null, DatabaseContract.ProgramTable.PROGRAM_Type + " = ?",
+                        selectionArgs, null);
 
-                while (cursor.moveToNext()){
+                while (cursor.moveToNext()) {
                     ProgramWrapper program = new ProgramWrapper();
                     program.setProgram_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_SERVER_ID)));
                     program.setProgram_seats(cursor.getInt(cursor.getColumnIndex(DatabaseContract.ProgramTable.PROGRAM_SEAT)));
@@ -203,6 +228,7 @@ public class Programs extends AppCompatActivity {
             }
         }
     }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

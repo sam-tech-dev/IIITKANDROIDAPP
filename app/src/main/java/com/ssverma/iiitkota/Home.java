@@ -38,6 +38,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -86,8 +88,9 @@ public class Home extends AppCompatActivity
     private LocationManager locationManager;
     private Timer timer;
     private int page = 0;
+    private ArrayList<NewsWrapper> latest_news_list;
 
-    ArrayList<NewsWrapper> latest_news_list;
+    private int pageSwitchDuration = 3;  //seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +139,9 @@ public class Home extends AppCompatActivity
 
     private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.home_screen_viewpager);
+        viewPager.setClipToPadding(false);
+        viewPager.setPadding(0 , 0 , 30 , 0);
+        viewPager.setPageMargin(10);
         //setUpViewPager(viewPager);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
@@ -152,11 +158,12 @@ public class Home extends AppCompatActivity
                     findViewById(R.id.home_latest_from_campus_text).setVisibility(View.INVISIBLE);
                 else
                     findViewById(R.id.home_latest_from_campus_text).setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                page = position;
             }
 
             @Override
@@ -178,8 +185,13 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.home, menu);
+
+//        AnimToolbarSyncIcon obj = new AnimToolbarSyncIcon(this);
+//        obj.setRefreshItem(menu.findItem(R.id.sync));
+//        obj.runRefresh();
+//        obj.stopRefresh();
+
         return true;
     }
 
@@ -205,6 +217,7 @@ public class Home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -221,8 +234,6 @@ public class Home extends AppCompatActivity
             startActivity(new Intent(this, Gallery.class));
         } else if (id == R.id.nav_share) {
             shareApp();
-        } else if (id == R.id.nav_send) {
-            //
         } else if (id == R.id.nav_about) {
             startActivity(new Intent(this, About_App.class));
         } else if (id == R.id.nav_activities) {
@@ -454,16 +465,16 @@ public class Home extends AppCompatActivity
                     intent.putExtra("image_link", latest_news_list.get(position - 1).getNews_imageLink());
                     intent.putExtra("detail", latest_news_list.get(position - 1).getNews_description());
 
-                    Pair<View, String> imagePair = Pair.create((View) news_image, "tImage");
-
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(Home.this, imagePair);
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        startActivity(intent, options.toBundle());
-                    } else {
+//                    Pair<View, String> imagePair = Pair.create((View) news_image, "tImage");
+//
+//                    ActivityOptionsCompat options = ActivityOptionsCompat.
+//                            makeSceneTransitionAnimation(Home.this, imagePair);
+//
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                        startActivity(intent, options.toBundle());
+//                    } else {
                         startActivity(intent);
-                    }
+//                    }
 
 
                 }
@@ -508,7 +519,7 @@ public class Home extends AppCompatActivity
             }
 
             viewPager.setAdapter(new HomePagerAdapter(latest_news_list));
-            pageSwitcher(3); // three seconds delay
+            pageSwitcher(pageSwitchDuration); // three seconds delay
 
         }
 

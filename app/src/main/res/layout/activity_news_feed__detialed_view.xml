@@ -22,8 +22,8 @@
                 android:id="@+id/imageView_background_news_detailed"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/news_image_detailed_height"
-                android:scaleType="centerCrop"
-                android:src="@drawable/background"
+                android:scaleType="fitXY"
+                android:src="@drawable/background_placeholder"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9" />
 
@@ -148,7 +148,8 @@
                 android:layout_marginLeft="10dp"
                 android:text="News"
                 android:textColor="#ffffff"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:singleLine="true"/>
 
         </LinearLayout>
 
@@ -167,7 +168,9 @@
         app:layout_behavior="com.ssverma.iiitkota.AvatarImageBehavior"
         app:startHeight="2dp"
         app:startToolbarPosition="2dp"
-        app:startXPosition="2dp">
+        app:startXPosition="2dp"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1dp">
 
 
     </de.hdodenhof.circleimageview.CircleImageView>

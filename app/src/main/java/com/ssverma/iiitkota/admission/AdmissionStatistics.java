@@ -47,6 +47,9 @@ public class AdmissionStatistics extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        appBarLayout.setExpanded(false);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_as);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -74,7 +77,6 @@ public class AdmissionStatistics extends AppCompatActivity {
             fab.setVisibility(View.INVISIBLE);
             findViewById(R.id.terms_holder).setVisibility(View.INVISIBLE);
 
-            AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.app_bar);
             appBarLayout.setExpanded(false);
         }
 

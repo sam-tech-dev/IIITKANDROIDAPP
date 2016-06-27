@@ -12,6 +12,6 @@
         android:orderInCategory="100"
         android:icon="@drawable/home_sync"
         android:title="Sync"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 
 </menu>

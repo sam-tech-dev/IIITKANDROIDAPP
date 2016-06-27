@@ -12,7 +12,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:id="@+id/vc_row_item_holder"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
