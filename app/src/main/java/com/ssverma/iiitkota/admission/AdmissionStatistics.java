@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class AdmissionStatistics extends AppCompatActivity {
     private ArrayList<String> branch_list;
 
     private RelativeLayout no_internet_conn;
-
+    private LinearLayout terms_holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +57,18 @@ public class AdmissionStatistics extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         no_internet_conn = (RelativeLayout) findViewById(R.id.no_internet_connection_layout);
+        terms_holder = (LinearLayout) findViewById(R.id.terms_holder);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setImageResource(R.drawable.copyright_symbol);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "IIITK all rights reserved", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setImageResource(R.drawable.copyright_symbol);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "IIITK all rights reserved", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
         if (ServerConnection.isNetworkAvailable(this)){
@@ -74,9 +76,9 @@ public class AdmissionStatistics extends AppCompatActivity {
         }else {
             progressBar.setVisibility(View.GONE);
             no_internet_conn.setVisibility(View.VISIBLE);
-            fab.setVisibility(View.INVISIBLE);
+            //fab.setVisibility(View.INVISIBLE);
             findViewById(R.id.terms_holder).setVisibility(View.INVISIBLE);
-
+            terms_holder.setVisibility(View.INVISIBLE);
             appBarLayout.setExpanded(false);
         }
 
@@ -107,6 +109,7 @@ public class AdmissionStatistics extends AppCompatActivity {
             super.onPostExecute(response);
 
             progressBar.setVisibility(View.GONE);
+            terms_holder.setVisibility(View.VISIBLE);
 
             ArrayList<AdmissionStatisticsWrapper> rank_list = parseASJSON(response);
             HashMap<String , ArrayList<AdmissionStatisticsWrapper>> rank_map = createMap(rank_list);

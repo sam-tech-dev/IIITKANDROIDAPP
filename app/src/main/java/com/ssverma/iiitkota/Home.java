@@ -92,6 +92,7 @@ public class Home extends AppCompatActivity
 
     private int pageSwitchDuration = 3;  //seconds
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +122,17 @@ public class Home extends AppCompatActivity
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        //Drawer Header (IIITK Logo Holder)
+        View headerView = navigationView.getHeaderView(0);
+
+        LinearLayout drawer_logo_holder = (LinearLayout) headerView.findViewById(R.id.drawer_logo_holder);
+        drawer_logo_holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.iiitkota.ac.in"));
+                startActivity(browserIntent);
+            }
+        });
 
     }
 

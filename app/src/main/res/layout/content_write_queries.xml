@@ -61,7 +61,8 @@
                     android:id="@+id/wq_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email" />
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
                     android:hint="Query"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine"
+                    android:lines="4"/>
 
 
                 <Button

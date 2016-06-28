@@ -67,6 +67,8 @@ public class WriteQueries extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(contact) || TextUtils.isEmpty(location) || TextUtils.isEmpty(query)){
                     Toast.makeText(WriteQueries.this , "Fill all fields" , Toast.LENGTH_LONG).show();
+                }else if(!isValidName(name)) {
+                    Toast.makeText(WriteQueries.this , "Invalid Name" , Toast.LENGTH_LONG).show();
                 }else if (!isValidEmail(email)){
                     Toast.makeText(WriteQueries.this , "Invalid email address" , Toast.LENGTH_LONG).show();
                 }else if (!isValidMobileNo(contact)){
@@ -115,6 +117,10 @@ public class WriteQueries extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static boolean isValidName(String name) {
+        return name.matches( "[a-zA-Z]*" );
     }
 
 

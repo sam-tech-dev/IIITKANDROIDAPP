@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,36 +8,44 @@
     tools:context="com.ssverma.iiitkota.admission.AdmissionStatistics"
     tools:showIn="@layout/activity_admission_statistics">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/background_dark"
-        android:padding="1dp"
-        android:gravity="center"
-        android:id="@+id/terms_holder">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:indeterminate="true" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_as"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:text="For T&amp;c Contact : admissions@iiitkota.ac.in"/>
+            android:layout_below="@+id/progressbar"></android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/terms_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_view_as"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp"
+            android:visibility="invisible">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:id="@+id/progressbar"
-        android:layout_below="@+id/terms_holder"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="true"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info Contact : admissions@iiitkota.ac.in"
+                android:textColor="@android:color/white" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_view_as"
-        android:layout_below="@+id/progressbar"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

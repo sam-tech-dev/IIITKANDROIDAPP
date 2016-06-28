@@ -225,4 +225,16 @@ public class ServerContract {
 
     public static String ACADEMIC_TIMETABLE_DOCS = SERVER_URL + "/assets/documents/academic_timetable/";
 
+    public static String getAcademicFeeStructurePhpUrl() {
+        return ACADEMIC_FEE_STRUCTURE_PHP_URL;
+    }
+
+    public static String ACADEMIC_FEE_STRUCTURE_PHP_URL = SERVER_URL + "/academic_fee_structure.php";
+
+    public static String getAcademicFeeStructureDocs() {
+        return ACADEMIC_FEE_STRUCTURE_DOCS;
+    }
+
+    public static String ACADEMIC_FEE_STRUCTURE_DOCS = SERVER_URL + "/assets/documents/academic_fee_structure/";
+
 }

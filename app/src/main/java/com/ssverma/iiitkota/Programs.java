@@ -146,9 +146,9 @@ public class Programs extends AppCompatActivity {
                 case 0:
                     new ServerAsync().execute(new String[]{Consts.Program_Constants.UG_PROGRAMS});
                     break;
-                case 1:
-                    new ServerAsync().execute(new String[]{Consts.Program_Constants.PG_PROGRAMS});
-                    break;
+//                case 1:
+//                    new ServerAsync().execute(new String[]{Consts.Program_Constants.PG_PROGRAMS});
+//                    break;
             }
             return rootView;
         }
@@ -243,16 +243,16 @@ public class Programs extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 1;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "UG";
-                case 1:
-                    return "PG";
+                    return "UnderGraduate";
+//                case 1:
+//                    return "PG";
             }
             return null;
         }

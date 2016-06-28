@@ -53,7 +53,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Latest from Campus"
+                        android:text="Latest updates from Campus"
                         android:textColor="@android:color/white"
                         android:gravity="top|center_horizontal"
                         android:id="@+id/home_latest_from_campus_text"
