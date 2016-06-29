@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -92,6 +93,15 @@ public class Home extends AppCompatActivity
 
     private int pageSwitchDuration = 3;  //seconds
 
+    private Handler handler = new Handler();
+    private boolean doubleBackToExitPressedOnce = false;
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            doubleBackToExitPressedOnce = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +166,8 @@ public class Home extends AppCompatActivity
         viewPager.setPageMargin(10);
         //setUpViewPager(viewPager);
 
+        viewPager.setAdapter(new HomePagerAdapter(new ArrayList<NewsWrapper>()));
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_home);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -166,16 +178,17 @@ public class Home extends AppCompatActivity
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == 0)
-                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.INVISIBLE);
-                else
-                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.VISIBLE);
 
             }
 
             @Override
             public void onPageSelected(int position) {
                 page = position;
+
+                if (position == 0)
+                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.INVISIBLE);
+                else
+                    findViewById(R.id.home_latest_from_campus_text).setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -191,8 +204,22 @@ public class Home extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            performBackPressAction();
         }
+    }
+
+    private void performBackPressAction(){
+
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+        handler.postDelayed(runnable, 2000);
     }
 
     @Override
@@ -452,6 +479,7 @@ public class Home extends AppCompatActivity
                 news_title.setTypeface(Typeface.DEFAULT_BOLD);
                 news_subtitle.setVisibility(View.INVISIBLE);
                 news_image.setVisibility(View.INVISIBLE);
+                findViewById(R.id.home_latest_from_campus_text).setVisibility(View.INVISIBLE);
                 //rootView.findViewById(R.id.date_holder).setVisibility(View.INVISIBLE);
                 container.addView(rootView);
                 return rootView;
@@ -653,4 +681,11 @@ public class Home extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null){
+            handler.removeCallbacks(runnable);
+        }
+    }
 }

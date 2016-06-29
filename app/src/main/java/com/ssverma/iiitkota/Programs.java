@@ -250,7 +250,7 @@ public class Programs extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "UnderGraduate";
+                    return "UnderGraduate Program";
 //                case 1:
 //                    return "PG";
             }

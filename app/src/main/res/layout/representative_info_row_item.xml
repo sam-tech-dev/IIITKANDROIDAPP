@@ -69,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rep_email"
                 android:text="Email"
-                android:singleLine="true"
                 android:padding="5dp"
                 android:textColor="@color/colorTextSecondary"/>
 

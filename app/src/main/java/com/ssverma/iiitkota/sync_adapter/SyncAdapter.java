@@ -44,6 +44,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         contentResolver = context.getContentResolver();
     }
 
+//    public static void setOnSyncCompletionListener(SyncCompletionListener listener){
+//        SyncAdapter.listener = listener;
+//    }
+
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
@@ -65,6 +69,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 syncServerTOLocal_Placement();
 
                 IIITK_Singleton.getInstance().setPreferencesValue(true);
+
+//                if (listener != null){
+//                    listener.onSyncComplete();
+//                    //Toast.makeText(getContext() , "listener : " + listener , Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });
@@ -565,6 +574,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                         newRowAdded++;
                     }
                 }
+
+
+                //String deleteSelectionClause = contentValues.getAsString(DatabaseContract.NewsTable.NEWS_SERVER_ID) + "NOT IN" + "";
 
                 contentResolver.notifyChange(DatabaseContract.NEWS_CONTENT_URI, null);
             }

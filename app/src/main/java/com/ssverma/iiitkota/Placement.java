@@ -172,10 +172,11 @@ public class Placement extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.plt_row_item_holder:
-                    Intent intent1 = new Intent(Intent.ACTION_VIEW);
-                    String url = ServerContract.getPlacementReport_URL() + list_pm.get(position).getLink();
-                    intent1.setData(Uri.parse(url));
-                    startActivity(intent1);
+//                    Intent intent1 = new Intent(Intent.ACTION_VIEW);
+//                    String url = ServerContract.getPlacementReport_URL() + list_pm.get(position).getLink();
+//                    intent1.setData(Uri.parse(url));
+//                    startActivity(intent1);
+                    Toast.makeText(getActivity() , "Under Construction" , Toast.LENGTH_SHORT).show();
 
             }
         }
