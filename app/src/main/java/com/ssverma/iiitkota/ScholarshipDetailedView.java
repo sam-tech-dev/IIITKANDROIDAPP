@@ -1,24 +1,18 @@
 package com.ssverma.iiitkota;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.net.URI;
-import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -104,7 +98,7 @@ public class ScholarshipDetailedView extends AppCompatActivity implements AppBar
         setSupportActionBar(mToolbar);
         mTitle = (TextView) findViewById(R.id.scholarship_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.scholarship_name_data_holder_fd);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_gallery_detailed);
     }
 
     @Override

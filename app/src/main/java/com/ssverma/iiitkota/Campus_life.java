@@ -1,50 +1,24 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
-import com.ssverma.iiitkota.utils.Consts;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Campus_life  extends AppCompatActivity implements RCVClickListener {
 
-    private KenBurnsView kenBurnsView;
-    private int[] ken_burns_bg = {R.drawable.campus1, R.drawable.campus2, R.drawable.campus3};
+public class Campus_life extends AppCompatActivity implements RCVClickListener {
 
     private RecyclerView recyclerView;
     private Campus_life_adapter adapter;
@@ -61,8 +35,6 @@ public class Campus_life  extends AppCompatActivity implements RCVClickListener 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        kenBurnsView = (KenBurnsView) findViewById(R.id.image_Ken_Burns);
 
         recyclerView = (RecyclerView) findViewById(R.id.container);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -90,20 +62,20 @@ public class Campus_life  extends AppCompatActivity implements RCVClickListener 
     @Override
     public void onRCVClick(View view, int position) {
 
-        Intent intent = new Intent(this , Campus_life_DetialedView.class);
-        intent.putExtra("Title" , list.get(position).getCampus_tittle());
+        Intent intent = new Intent(this, Campus_life_DetialedView.class);
+        intent.putExtra("Title", list.get(position).getCampus_tittle());
 
-        intent.putExtra("image_link" , list.get(position).getCampus_imageLink());
+        intent.putExtra("image_link", list.get(position).getCampus_imageLink());
         intent.putExtra("Description", list.get(position).getCampus_description());
 
         startActivity(intent);
     }
 
 
-    public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<Campus_life_wrapper>> {
+    public class ServerAsync extends AsyncTask<String[], Void, ArrayList<Campus_life_wrapper>> {
 
         @Override
-        protected ArrayList<Campus_life_wrapper>  doInBackground(String[]... params) {
+        protected ArrayList<Campus_life_wrapper> doInBackground(String[]... params) {
             return fetchDatabaseList_Campus();
         }
 
@@ -128,7 +100,6 @@ public class Campus_life  extends AppCompatActivity implements RCVClickListener 
             Cursor cursor = Campus_life.this.getContentResolver().query(DatabaseContract.CAMPUS_CONTENT_URI,
                     null, null,//
                     null, null);
-
 
 
             while (cursor.moveToNext()) {

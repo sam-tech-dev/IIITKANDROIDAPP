@@ -14,15 +14,14 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Placement_Visiting_company_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener  {
+public class Placement_Visiting_company_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
 
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 200;
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
-
-    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
     private LinearLayout mTitleContainer;
@@ -45,7 +44,7 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
     private TextView vc_ctc;
     private TextView vc_industry;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.placements, R.drawable.placements};
 
 
     @Override
@@ -60,13 +59,13 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
         vc_name = (TextView) findViewById(R.id.vc_vc_detailed);
         vc_toolbar_fd = (TextView) findViewById(R.id.toolbar_vc);
         vc_details = (TextView) findViewById(R.id.vc_details);
-        vc_address=(TextView) findViewById(R.id.vc_address);
-        vc_ctc=(TextView) findViewById(R.id.vc_ctc);
-        vc_domain=(TextView)findViewById(R.id.vc_domain);
-        vc_email=(TextView)findViewById(R.id.vc_email);
-        vc_strength=(TextView)findViewById(R.id.vc_strength);
-        vc_turnover=(TextView)findViewById(R.id.vc_turnover);
-        vc_industry=(TextView)findViewById(R.id.vc_industry);
+        vc_address = (TextView) findViewById(R.id.vc_address);
+        vc_ctc = (TextView) findViewById(R.id.vc_ctc);
+        vc_domain = (TextView) findViewById(R.id.vc_domain);
+        vc_email = (TextView) findViewById(R.id.vc_email);
+        vc_strength = (TextView) findViewById(R.id.vc_strength);
+        vc_turnover = (TextView) findViewById(R.id.vc_turnover);
+        vc_industry = (TextView) findViewById(R.id.vc_industry);
 
 
         vc_image = (CircleImageView) findViewById(R.id.vc_image);
@@ -83,18 +82,16 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
         vc_industry.setText(getIntent().getExtras().getString("industry"));
 
 
-        //Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(vc_image);
-
-       vc_toolbar_fd.setText(getIntent().getExtras().getString("Name"));
+        vc_toolbar_fd.setText(getIntent().getExtras().getString("Name"));
         image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
     }
 
     private void bindActivity() {
-        mToolbar        = (Toolbar) findViewById(R.id.toolbar_vc_detailed);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_vc_detailed);
         setSupportActionBar(mToolbar);
-        mTitle          = (TextView) findViewById(R.id.toolbar_vc);
+        mTitle = (TextView) findViewById(R.id.toolbar_vc);
         mTitleContainer = (LinearLayout) findViewById(R.id.vc_data_holder);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_vc_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_vc_detailed);
     }
 
     @Override
@@ -109,7 +106,7 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
 
-            if(!mIsTheTitleVisible) {
+            if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
@@ -125,7 +122,7 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
 
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(mIsTheTitleContainerVisible) {
+            if (mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
@@ -139,7 +136,7 @@ public class Placement_Visiting_company_DetailedView extends AppCompatActivity i
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);

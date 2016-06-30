@@ -21,13 +21,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:text="Nothing To Show :("
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        android:background="@android:color/background_dark"
-        android:textColor="@android:color/white"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:gravity="center"
-        android:id="@+id/nothingToShow"/>
+        android:id="@+id/nothingToShow"
+        android:paddingTop="10dp"/>
 
 </RelativeLayout>

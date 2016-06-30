@@ -29,11 +29,11 @@ public class SocialConnectAdpter extends  RecyclerView.Adapter<SocialConnectAdpt
         socialList=new ArrayList<>();
         this.context = context;
 
-        Social fb=new Social("facebook","Facebook","facebook","https://www.facebook.com/HgSmiiitians/");
-        Social gp=new Social("googleplus","Google Plus","googleplus","https://plus.google.com/117122396406295766249");
-        Social lkd=new Social("linkedin","Linkedin","linkedin","https://www.linkedin.com/company/iiit-delhi");
+        Social fb=new Social("facebook","Facebook","facebook","https://www.facebook.com/IndianInstituteOfInformationTechnologyKota/");
+        Social gp=new Social("googleplus","Google Plus","googleplus","https://plus.google.com/111842801382204812865");
+        Social lkd=new Social("linkedin","Linkedin","linkedin","https://www.linkedin.com");
         Social tw=new Social("twitter","Twitter","twitter","https://mobile.twitter.com/iiitkota");
-        Social yt=new Social("youtube","Youtube","youtube","https://www.youtube.com/channel/UCEOTlGZG4nBLkbj31_1j1Ug");
+        Social yt=new Social("youtube","Youtube","youtube","https://www.youtube.com");
 
         socialList.add(fb);
         socialList.add(gp);

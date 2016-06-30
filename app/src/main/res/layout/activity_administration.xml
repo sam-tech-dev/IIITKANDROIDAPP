@@ -43,27 +43,15 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|snap"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
-
-            <!--
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
-
-             -->
-
 
             <com.flaviofaria.kenburnsview.KenBurnsView
                 android:id="@+id/image_Ken_Burns"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/faculty_cs_"/>
+                android:src="@drawable/administration_gc"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

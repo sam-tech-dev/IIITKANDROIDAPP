@@ -55,6 +55,7 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
         album_summary = getIntent().getExtras().getString("album_summary");
 
         getSupportActionBar().setTitle(album_name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +138,12 @@ public class Gallery_Images extends AppCompatActivity implements RCVClickListene
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        if (id == android.R.id.home){
+            finish();
         }
 
         if (id == R.id.album_info) {

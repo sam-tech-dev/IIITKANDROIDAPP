@@ -15,10 +15,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 6/6/2016.
- */
-public class Placement_rep_Adapter extends RecyclerView.Adapter<Placement_rep_Adapter.ViewHolder > {
+public class Placement_rep_Adapter extends RecyclerView.Adapter<Placement_rep_Adapter.ViewHolder> {
 
     private Context context;
     private ArrayList<PlacementWrapper> listPlace;
@@ -48,9 +45,7 @@ public class Placement_rep_Adapter extends RecyclerView.Adapter<Placement_rep_Ad
         holder.rep_mail.setText(listPlace.get(position).getMail());
         holder.rep_contact.setText(listPlace.get(position).getContact());
         holder.rep_position.setText(listPlace.get(position).getPosition());
-        Picasso.with(context).load(ServerContract.getProgramImagesPath() + listPlace.get(position).getImage()).into(holder.rep_image);
-        // Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagesPath() + getIntent().getExtras().getString("Program_image")).into(program_image);
-
+        Picasso.with(context).load(ServerContract.getProgramImagePath() + listPlace.get(position).getImage()).into(holder.rep_image);
     }
 
     @Override

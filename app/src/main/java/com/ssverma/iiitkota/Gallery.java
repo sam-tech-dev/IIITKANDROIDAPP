@@ -3,6 +3,7 @@ package com.ssverma.iiitkota;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -40,6 +42,7 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
     private LinearLayout loadingHolder;
 
     private boolean isGrid = true;
+    private RelativeLayout no_internet_conn;
 
     public static HashMap<Integer, ArrayList<Gallery_Images_Wrapper>> getAlbum_map() {
         return album_map;
@@ -60,6 +63,8 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         loadingHolder = (LinearLayout) findViewById(R.id.loading_holder);
+
+        no_internet_conn = (RelativeLayout) findViewById(R.id.no_internet_connection_layout);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +91,11 @@ public class Gallery extends AppCompatActivity implements RCVClickListener{
         }else {
             progressBar.setVisibility(View.GONE);
             loadingHolder.setVisibility(View.GONE);
+            no_internet_conn.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.INVISIBLE);
 
-            Toast.makeText(this , "No Internet Connection" , Toast.LENGTH_LONG).show();
+            AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.appbar_gallery_detailed);
+            appBarLayout.setExpanded(false);
         }
 
     }

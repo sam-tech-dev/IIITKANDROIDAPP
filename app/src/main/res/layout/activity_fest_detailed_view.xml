@@ -152,7 +152,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/clander1"
+        android:src="@drawable/calendar"
         android:layout_gravity="center_horizontal"
         app:finalYPosition="2dp"
         app:finalHeight="@dimen/image_final_width"

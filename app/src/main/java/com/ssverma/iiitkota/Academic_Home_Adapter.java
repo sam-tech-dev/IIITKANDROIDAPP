@@ -8,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/**
- * Author-Dixit Chauhan : 10/06/2016
- */
+
 public class Academic_Home_Adapter extends RecyclerView.Adapter<Academic_Home_Adapter.ViewHolder>{
     private String[] icon_names;
     private int[] icons;

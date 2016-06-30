@@ -10,12 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by IIITK on 5/27/2016.
- */
 public class Contact_Adapter extends RecyclerView.Adapter<Contact_Adapter.ViewHolder>{
 
-    //private String[] dummy;
     private Context context;
     private ArrayList<ContactsWrapper> listContact;
 
@@ -60,23 +56,17 @@ public class Contact_Adapter extends RecyclerView.Adapter<Contact_Adapter.ViewHo
         TextView contact_email;
         TextView contact_mobile_no;
         TextView contact_designation;
-       // Button call_button;
-      //  CircleImageView contact_image;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             itemHolder = (RelativeLayout) itemView.findViewById(R.id.contact_row_item_holder);
-            //itemHolder.setOnClickListener(this);
-
             contact_name = (TextView) itemView.findViewById(R.id.contact_name);
             contact_email = (TextView) itemView.findViewById(R.id.contact_email);
             contact_mobile_no = (TextView) itemView.findViewById(R.id.contact_mobile_no);
             contact_designation = (TextView) itemView.findViewById(R.id.contact_designation);
 
-        //    call_button = (Button) itemView.findViewById(R.id.buttonCall);
             itemHolder.setOnClickListener(this);
-           // contact_image = (CircleImageView) itemView.findViewById(R.id.contact_image);
         }
 
         @Override

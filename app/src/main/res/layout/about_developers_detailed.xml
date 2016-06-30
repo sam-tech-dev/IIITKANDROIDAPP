@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/dev_image_detailed_view"
+        android:transitionName="tImage"
+        android:src="@drawable/person_placeholder"
+        android:layout_gravity="center"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="2dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Name"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginTop="10dp"
+        android:id="@+id/dev_name_detailed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Role"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_dark"
+        android:id="@+id/dev_role_detailed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="IIITK - 2013"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_dark"/>
+
+</LinearLayout>

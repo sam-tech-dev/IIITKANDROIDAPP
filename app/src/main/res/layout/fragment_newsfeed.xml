@@ -5,36 +5,30 @@
     tools:context="com.ssverma.iiitkota.Faculty$PlaceholderFragment">
 
     <ProgressBar
+        android:id="@+id/news_progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:id="@+id/news_progress_bar"/>
+        android:indeterminate="true" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/news_swipe_refresh_layout"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/newsfeed_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_progress_bar">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/newsfeed_recycler_view"></android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/news_progress_bar"></android.support.v7.widget.RecyclerView>
 
 
     <TextView
+        android:id="@+id/nothingToShow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nothing To Show :("
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        android:background="@android:color/background_dark"
-        android:textColor="@android:color/white"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:gravity="center"
-        android:id="@+id/nothingToShow"/>
+        android:text="Nothing To Show :("
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

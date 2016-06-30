@@ -40,7 +40,7 @@ public class Academic_ResearchDetailedView extends AppCompatActivity implements 
     private TextView person_position;
     private TextView detail;
 
-    private int[] ken_burns_bg = {R.drawable.projects, R.drawable.research_paper };
+    private int[] ken_burns_bg = {R.drawable.academics_projects, R.drawable.academics_publications };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,9 +22,9 @@
         android:background="@color/colorPrimary"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom"
-        app:tabMode="fixed"
-        app:tabTextColor="#FFFFFF"
-        app:tabSelectedTextColor="#FFFFDD"
+        app:tabMode="scrollable"
+        app:tabTextColor="#FFFFDD"
+        app:tabSelectedTextColor="#FFFFFF"
         android:id="@+id/tabLayout"/>
 
     <android.support.design.widget.AppBarLayout

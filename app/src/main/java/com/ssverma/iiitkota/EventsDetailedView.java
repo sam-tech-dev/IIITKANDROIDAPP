@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -15,8 +16,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-//Author-Dixit Chauhan      :03/06/2016
 
 public class EventsDetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
@@ -40,12 +39,11 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
     private ImageView image_bg;
 
     private WebView news_desc;
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past, R.drawable.event_upcoming};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_events__detailed_view);
 
         bindActivity();
@@ -64,13 +62,13 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         news_date.setText(getIntent().getExtras().getString("date"));
 
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).placeholder(R.drawable.events).into(faculty_image);
         String summary = getIntent().getExtras().getString("detail");
         String desc = "<html><style type=\"text/css\">p{text-align:justify;font-size:16px;}</style></head><body>" + "<p>" + summary + "</p>" + "</body></html>";
         news_desc.loadData(desc, "text/html", "utf-8");
         news_toolbar.setText(getIntent().getExtras().getString("tittle"));
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).into(image_bg);
+        Picasso.with(getApplicationContext()).load(ServerContract.getEventsImagePath() + getIntent().getExtras().getString("faculty_image_link")).placeholder(R.drawable.background_placeholder).into(image_bg);
 
     }
 
@@ -79,7 +77,7 @@ public class EventsDetailedView extends AppCompatActivity implements AppBarLayou
         setSupportActionBar(mToolbar);
         mTitle = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_gallery_detailed);
     }
 
     @Override

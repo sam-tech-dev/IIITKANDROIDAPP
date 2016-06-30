@@ -32,10 +32,10 @@ class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapt
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.course_name.setText(list.get(position).getCourse_name());
+        holder.course_name.setText(list.get(position).getCourse_name() + "   ("+ list.get(position).getAbbr() + ")");
         holder.course_code.setText(list.get(position).getCode());
         holder.credit.setText(list.get(position).getCredit());
-        holder.abbr.setText(list.get(position).getAbbr());
+        //holder.abbr.setText( "( "+ list.get(position).getAbbr() + " )");
     }
 
     @Override
@@ -50,7 +50,7 @@ class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapt
         LinearLayout itemHolder;
         TextView course_name;
         TextView course_code;
-        TextView abbr;
+        //TextView abbr;
         TextView credit;
 
         public ViewHolder(View itemView) {
@@ -60,7 +60,7 @@ class Academic_CoursesAdapter extends RecyclerView.Adapter<Academic_CoursesAdapt
 
             course_name= (TextView) itemView.findViewById(R.id.course_name);
             course_code= (TextView) itemView.findViewById(R.id.course_code);
-            abbr = (TextView) itemView.findViewById(R.id.abbr);
+            //abbr = (TextView) itemView.findViewById(R.id.abbr);
             credit = (TextView) itemView.findViewById(R.id.credit);
 
         }

@@ -93,7 +93,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1.0"
+                            android:text="1.1"
                             android:textColor="@color/colorTextPrimary"
                             android:layout_marginLeft="30dp"
                             android:layout_toRightOf="@+id/version_icon"
@@ -168,7 +168,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_one">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -200,7 +201,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_two">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -233,7 +235,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_three">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -247,7 +250,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/dev_three_name"
-                            android:text="Rajat Jain"
+                            android:text="Dixit Chauhan"
                             android:layout_toRightOf="@+id/dev_three_image"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
@@ -265,7 +268,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_four">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -279,7 +283,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/dev_four_name"
-                            android:text="Rahul Chaudhary"
+                            android:text="Rajat Jain"
                             android:layout_toRightOf="@+id/dev_four_image"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
@@ -296,7 +300,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_five">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -310,7 +315,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/dev_five_name"
-                            android:text="Dixit Chauhan"
+                            android:text="Abhishek Mimani"
                             android:layout_toRightOf="@+id/dev_five_image"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
@@ -327,7 +332,8 @@
                         android:padding="5dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:layout_margin="2dp">
+                        android:layout_margin="2dp"
+                        android:id="@+id/dev_holder_six">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
@@ -341,7 +347,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/dev_six_name"
-                            android:text="Abhishek Mimani"
+                            android:text="Rahul Choudhary"
                             android:layout_toRightOf="@+id/dev_six_image"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"

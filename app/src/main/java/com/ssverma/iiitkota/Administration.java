@@ -1,6 +1,5 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +26,7 @@ import com.ssverma.iiitkota.utils.Consts;
 
 import java.util.ArrayList;
 
-public class Administration extends AppCompatActivity{
+public class Administration extends AppCompatActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -37,7 +35,7 @@ public class Administration extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    private int[] ken_burns_bg = {R.drawable.administration_gc, R.drawable.administration_ec, R.drawable.administration_adjunct};
     static int tab_position;
 
     @Override
@@ -45,16 +43,13 @@ public class Administration extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administration);
 
-        //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Administration");
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        getSupportActionBar().setTitle(null);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -86,39 +81,22 @@ public class Administration extends AppCompatActivity{
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
-        private RecyclerView.LayoutManager layoutManager;
         private Administration_Adapter adapter;
-
-        private String url;
-        private String urlParameters = null;
-
-        private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
         private ArrayList<AdministrationWrapper> list;
@@ -126,10 +104,6 @@ public class Administration extends AppCompatActivity{
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -142,18 +116,12 @@ public class Administration extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_faculty, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.faculty_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.faculty_cs_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.faculty_cs_progress_bar);
 
-            url = ServerContract.getAdministrationPhpUrl();
-
-            switch (getArguments().getInt(ARG_SECTION_NUMBER) -1){
+            switch (getArguments().getInt(ARG_SECTION_NUMBER) - 1) {
                 case 0:
                     new ServerAsync().execute(new String[]{Consts.Administration_Constants.GOVERNINGCOUNCIL});
                     break;
@@ -166,7 +134,6 @@ public class Administration extends AppCompatActivity{
             }
 
 
-
             return rootView;
         }
 
@@ -174,9 +141,9 @@ public class Administration extends AppCompatActivity{
         @Override
         public void onRCVClick(View view, int position) {
 
-             int temp = getArguments().getInt(ARG_SECTION_NUMBER);
+            int temp = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            if ((temp == 2||temp == 3)&&(position==0)) {
+            if ((temp == 2 || temp == 3) && (position == 0)) {
 
                 Intent intent = new Intent(getActivity(), Administration_DetailedView.class);
                 intent.putExtra("admin_id", list.get(position).getAdmin_id());
@@ -194,16 +161,16 @@ public class Administration extends AppCompatActivity{
             }
         }
 
-        public class ServerAsync extends AsyncTask<String[] , Void , ArrayList<AdministrationWrapper>>{
+        public class ServerAsync extends AsyncTask<String[], Void, ArrayList<AdministrationWrapper>> {
 
-            private ProgressDialog progressDialog;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
+
             @Override
-            protected ArrayList<AdministrationWrapper>  doInBackground(String[]... params) {
+            protected ArrayList<AdministrationWrapper> doInBackground(String[]... params) {
                 return fetchDatabaseList_Administration(params[0]);
             }
 
@@ -213,13 +180,10 @@ public class Administration extends AppCompatActivity{
                 super.onPostExecute(result);
 
 
-
                 list = result;
-                adapter = new Administration_Adapter(getActivity() , list);
+                adapter = new Administration_Adapter(getActivity(), list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
-
-                swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -227,11 +191,11 @@ public class Administration extends AppCompatActivity{
                 ArrayList<AdministrationWrapper> list = new ArrayList<>();
 
 
-                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.ADMINISTRATION_CONTENT_URI ,
-                        null , DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?" ,
-                        selectionArgs , null);
+                Cursor cursor = getActivity().getContentResolver().query(DatabaseContract.ADMINISTRATION_CONTENT_URI,
+                        null, DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + " = ?",
+                        selectionArgs, null);
 
-                while (cursor.moveToNext()){
+                while (cursor.moveToNext()) {
                     AdministrationWrapper administration = new AdministrationWrapper();
 
                     administration.setAdministration_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_SERVER_ID)));
@@ -240,10 +204,7 @@ public class Administration extends AppCompatActivity{
                     administration.setAdmin_category(cursor.getString(cursor.getColumnIndex(DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY)));
 
 
-
-
-
-                    System.out.print("\n\n\n\n\nCategory = "+DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY+"\n\n\n\n\n");
+                    System.out.print("\n\n\n\n\nCategory = " + DatabaseContract.AdministrationTable.ADMINISTRATION_CATEGORY + "\n\n\n\n\n");
                     list.add(administration);
 
                 }
@@ -261,8 +222,6 @@ public class Administration extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
 

@@ -14,10 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by IIITK on 5/31/2016.
- * Detailed view of Programs By Rajat Jain
- */
 public class Program_DetailedView extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
 
@@ -40,12 +36,14 @@ public class Program_DetailedView extends AppCompatActivity implements AppBarLay
     private ImageView image_bg;
     private TextView program_details;
     private TextView program_seats;
-    private TextView program_fee;
+    //private TextView program_fee;
     private TextView program_duration;
     private TextView program_eligibility;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee };
+    private int[] ken_burns_bg = {R.drawable.programs_ug, R.drawable.programs_pg };
+    private int[] programs_icons = {R.drawable.programs_cse_icon , R.drawable.programs_ece_icon};
 
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,7 @@ public class Program_DetailedView extends AppCompatActivity implements AppBarLay
         program_seats = (TextView) findViewById(R.id.fd_program_seat);
         program_duration = (TextView) findViewById(R.id.fd_duration);
         program_eligibility = (TextView) findViewById(R.id.fd_eligibility);
-        program_fee = (TextView) findViewById(R.id.fd_fee);
+        //program_fee = (TextView) findViewById(R.id.fd_fee);
 
         program_image = (CircleImageView) findViewById(R.id.program_detailed_program_image);
 
@@ -72,12 +70,14 @@ public class Program_DetailedView extends AppCompatActivity implements AppBarLay
         program_name_toolbar_fd = (TextView) findViewById(R.id.program_name_toolbar_fd);
         program_name.setText(getIntent().getExtras().getString("Program_name"));
         program_details.setText(getIntent().getExtras().getString("Program_desc"));
-        program_fee.setText("Rs. "+getIntent().getExtras().getInt("Program_fee"));
+        //program_fee.setText("Rs. "+getIntent().getExtras().getInt("Program_fee"));
         program_duration.setText(getIntent().getExtras().getInt("Program_duration")+" Years");
         program_eligibility.setText(getIntent().getExtras().getString("Program_eligibility"));
         program_seats.setText("Available Seat : "+getIntent().getExtras().getInt("Program_seats"));
 
-        Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagePath() + getIntent().getExtras().getString("Program_image")).into(program_image);
+        //Picasso.with(getApplicationContext()).load(ServerContract.getProgramImagePath() + getIntent().getExtras().getString("Program_image")).into(program_image);
+        position = getIntent().getExtras().getInt("position");
+        program_image.setImageResource(programs_icons[position]);
 
         program_name_toolbar_fd.setText(getIntent().getExtras().getString("Program_name"));
         image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);

@@ -39,7 +39,7 @@ public class  Faculty_DetailedView extends AppCompatActivity implements AppBarLa
     private TextView faculty_summary;
     private ImageView image_bg;
 
-    private int[] ken_burns_bg = {R.drawable.faculty_cs_, R.drawable.faculty_ee , R.drawable.faculty_electronics_engineering};
+    private int[] ken_burns_bg = {R.drawable.faculty_cse, R.drawable.faculty_ece};
 
 
     @Override
@@ -72,7 +72,6 @@ public class  Faculty_DetailedView extends AppCompatActivity implements AppBarLa
 
         Picasso.with(getApplicationContext()).load(ServerContract.getFacultyImagesPath() + getIntent().getExtras().getString("faculty_image_link")).into(faculty_image);
 
-        //Toast.makeText(getApplicationContext() , getIntent().getExtras().getString("faculty_image_link") + "" , Toast.LENGTH_SHORT).show();
         faculty_name_toolbar.setText(getIntent().getExtras().getString("faculty_name"));
         image_bg.setImageResource(ken_burns_bg[getIntent().getExtras().getInt("tab_position")]);
     }
@@ -82,7 +81,7 @@ public class  Faculty_DetailedView extends AppCompatActivity implements AppBarLa
         setSupportActionBar(mToolbar);
         mTitle          = (TextView) findViewById(R.id.faculty_name_toolbar_fd);
         mTitleContainer = (LinearLayout) findViewById(R.id.faculty_name_data_holder_fd);
-        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_faculty_detailed);
+        mAppBarLayout   = (AppBarLayout) findViewById(R.id.appbar_gallery_detailed);
     }
 
     @Override

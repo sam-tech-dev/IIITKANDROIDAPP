@@ -1,6 +1,5 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +37,7 @@ public class Academic_Research extends AppCompatActivity {
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.projects, R.drawable.research_paper };
+    private int[] ken_burns_bg = {R.drawable.academics_projects, R.drawable.academics_publications };
     static int tab_position;
 
     @Override
@@ -82,18 +81,11 @@ public class Academic_Research extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_faculty, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home){
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

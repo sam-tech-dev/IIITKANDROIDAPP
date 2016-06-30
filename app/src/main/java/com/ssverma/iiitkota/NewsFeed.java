@@ -1,6 +1,5 @@
 package com.ssverma.iiitkota;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -17,25 +16,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.ssverma.iiitkota.sync_adapter.DatabaseContract;
 import com.ssverma.iiitkota.utils.Consts;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,7 +41,7 @@ public class NewsFeed extends AppCompatActivity{
 
     private KenBurnsView kenBurnsView;
 
-    private int[] ken_burns_bg = {R.drawable.event_latest, R.drawable.event_past , R.drawable.event_upcoming };
+    private int[] ken_burns_bg = {R.drawable.news, R.drawable.news , R.drawable.news };
     static int tab_position;
 
     @Override
@@ -80,7 +71,6 @@ public class NewsFeed extends AppCompatActivity{
 
             @Override
             public void onPageSelected(int position) {
-                //Toast.makeText(getApplicationContext() , "Page : " + position , Toast.LENGTH_SHORT).show();
                 kenBurnsView.setImageResource(ken_burns_bg[position]);
                 tab_position = position;
             }
@@ -102,27 +92,19 @@ public class NewsFeed extends AppCompatActivity{
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends Fragment implements RCVClickListener {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView recyclerView;
         private News_Adapter adapter;
-
-        private SwipeRefreshLayout swipeRefreshLayout;
         private ProgressBar progressBar;
 
         private ArrayList<NewsWrapper> list;
@@ -132,10 +114,6 @@ public class NewsFeed extends AppCompatActivity{
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -151,8 +129,6 @@ public class NewsFeed extends AppCompatActivity{
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.newsfeed_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.news_swipe_refresh_layout);
             progressBar = (ProgressBar) rootView.findViewById(R.id.news_progress_bar);
 
             nothingToShow = (TextView) rootView.findViewById(R.id.nothingToShow);
@@ -221,8 +197,6 @@ public class NewsFeed extends AppCompatActivity{
                 adapter = new News_Adapter(getActivity() , list);
                 recyclerView.setAdapter(adapter);
                 adapter.setOnRCVClickListener(PlaceholderFragment.this);
-
-                swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -239,7 +213,6 @@ public class NewsFeed extends AppCompatActivity{
                     news.setNews_server_id(cursor.getInt(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_SERVER_ID)));
 
                     news.setNews_tittle(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_TITLE)));
-                   // news.setNews_date(cursor.getString(cursor.getColumnIndex(DatabaseContract.NewsTable.NEWS_DATE)));
 
                     Date date= null;
                     try {
@@ -274,8 +247,6 @@ public class NewsFeed extends AppCompatActivity{
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
         }
 

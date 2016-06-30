@@ -2,14 +2,19 @@ package com.ssverma.iiitkota.admission;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -21,6 +26,7 @@ import java.util.HashMap;
 import com.ssverma.iiitkota.R;
 import com.ssverma.iiitkota.ServerConnection;
 import com.ssverma.iiitkota.R;
+import com.ssverma.iiitkota.ServerContract;
 
 public class AdmissionStatistics extends AppCompatActivity {
 
@@ -30,7 +36,8 @@ public class AdmissionStatistics extends AppCompatActivity {
 
     private ArrayList<String> branch_list;
 
-    private static String SERVER_URL = "http://172.16.1.231/iiitk/android";
+    private RelativeLayout no_internet_conn;
+    private LinearLayout terms_holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,34 +46,54 @@ public class AdmissionStatistics extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //getSupportActionBar().setSubtitle("T&c visit : admissions@iiitkota.ac.in");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        appBarLayout.setExpanded(false);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_as);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setImageResource(R.drawable.copyright_symbol);
+        no_internet_conn = (RelativeLayout) findViewById(R.id.no_internet_connection_layout);
+        terms_holder = (LinearLayout) findViewById(R.id.terms_holder);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "IIITK all rights reserved", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setImageResource(R.drawable.copyright_symbol);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "IIITK all rights reserved", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
         if (ServerConnection.isNetworkAvailable(this)){
-            new ServerAsync().execute(SERVER_URL + "/admission_statistics.php");
+            new ServerAsync().execute(ServerContract.getAdmissionStatisticsUrl());
         }else {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(this , "No Internet Connection" , Toast.LENGTH_LONG).show();
+            no_internet_conn.setVisibility(View.VISIBLE);
+            //fab.setVisibility(View.INVISIBLE);
+            findViewById(R.id.terms_holder).setVisibility(View.INVISIBLE);
+            terms_holder.setVisibility(View.INVISIBLE);
+            appBarLayout.setExpanded(false);
         }
 
 
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -82,6 +109,7 @@ public class AdmissionStatistics extends AppCompatActivity {
             super.onPostExecute(response);
 
             progressBar.setVisibility(View.GONE);
+            terms_holder.setVisibility(View.VISIBLE);
 
             ArrayList<AdmissionStatisticsWrapper> rank_list = parseASJSON(response);
             HashMap<String , ArrayList<AdmissionStatisticsWrapper>> rank_map = createMap(rank_list);
